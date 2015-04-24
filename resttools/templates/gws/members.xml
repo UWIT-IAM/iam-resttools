@@ -1,0 +1,9 @@
+<gws class="gws">
+    <x class="group">
+        <x class="members">
+          {% for member in members %}
+            <x class="member" type="{{member.member_type}}">{{member.name}}</x>
+          {% endfor %}
+        </x>
+    </x>
+</gws>

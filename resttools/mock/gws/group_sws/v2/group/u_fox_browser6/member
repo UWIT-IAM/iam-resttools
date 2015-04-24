@@ -1,0 +1,18 @@
+<gws class="gws" version="2">
+   
+
+
+<group class="group">
+    <regid class="regid">a1681c3fcba3f54f759e6c9432004381</regid>
+    <name class="name">u_fox_browser6</name>
+
+  <members class="members">
+                            <member class="member" type="uwnetid" name="fox">fox</member>
+                            <member class="member" type="uwnetid" name="imf">imf</member>
+                            <member class="member" type="uwnetid" name="pass">pass</member>
+     </members>
+
+</group>
+
+</gws>
+

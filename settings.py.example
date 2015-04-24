@@ -1,0 +1,54 @@
+
+# local config for workday
+
+DEBUG = False
+
+RUN_MODE = 'Live'
+RUN_MODE = 'File'
+#
+
+RESTTOOLS_CA_BUNDLE = '/home/fox/certs/uwca.crt'
+
+GWS_CONF = {
+    'GWS_HOST':  'https://iam-ws.u.washington.edu:7443/',
+    'GWS_CERT_FILE':  '/home/fox/certs/x315.crt',
+    'GWS_KEY_FILE':  '/home/fox/certs/x315.key',
+    'GWS_CA_FILE':  '/home/fox/certs/uwca.crt',
+}
+
+              
+
+LOGGING = {
+    'version': 1,
+    'formatters': {
+        'plain': {
+            'format': '%(message)s'
+        },
+        'syslog': {
+            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
+        },
+    },
+    'handlers': {
+        'default': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'stream': 'ext://sys.stdout',
+            'formatter': 'plain',
+        },
+        'syslog': {
+            'class': 'logging.handlers.SysLogHandler',
+            'level': 'DEBUG',
+            'formatter': 'syslog',
+            'facility': 'LOG_LOCAL7'
+        }
+    },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['default'],
+        
+    },
+    'suds': {
+        'level': 'INFO',
+        'handlers': ['default']
+    },
+}

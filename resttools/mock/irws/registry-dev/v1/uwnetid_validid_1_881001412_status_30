@@ -1,0 +1,21 @@
+{
+  "uwnetid": [
+    {
+      "uwnetid": "fox",
+      "accid": "D9459CAE21D011D4ABD00004AC494FFE",
+      "validid": "6BB477326A7C11D5A4AE0004AC494FFE",
+      "uid": "4010",
+      "luid": "-2",
+      "disenfran": "0",
+      "netid_code": "10",
+      "netid_name": "Personal",
+      "status_code": "30",
+      "status_name": "Active UW NetID",
+      "logname": "mango:adduwnetid:liserver@cybele.u.washington.edu",
+      "created": "2000-05-04 08:32:19.962635",
+      "updated": "2005-03-16 08:57:14.763750"
+    }
+  ],
+  "totalcount": 1
+}
+

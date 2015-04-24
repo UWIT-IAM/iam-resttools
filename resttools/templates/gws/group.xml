@@ -1,0 +1,51 @@
+<gws class="gws">
+    <x class="group">
+        <x class="regid">{{group.uwregid}}</x>
+        <x class="title">{{group.title}}</x>
+        <x class="description">{{group.description or ''}}</x>
+
+        <x class="names">
+            <x class="name">{{group.name}}</x>
+        </x>
+
+        <x class="authnfactor">{{group.authnfactor}}</x>
+        <x class="classification">{{group.classification}}</x>
+        <x class="dependson">{{group.dependson or ''}}</x>
+        <x class="emailenabled">{{group.emailenabled}}</x>
+        <x class="publishemail">{{group.publishemail or ''}}</x>
+        <x class="contact">{{group.contact or ''}}</x>
+        <x class="reporttoorig">{{group.reporttoorig}}</x>
+
+        <x class="authorigs">{% for authorig in group.authorigs %}
+            <x class="authorig">{{authorig.name}}</x>{% endfor %}
+        </x>
+
+        <x class="admins">{% for admin in group.admins %}
+            <x class="admin" type="{{admin.user_type}}">{{admin.name}}</x>{% endfor %}
+        </x>
+
+        <x class="updaters">{% for updater in group.updaters %}
+            <x class="updater" type="{{updater.user_type}}">{{updater.name}}</x>{% endfor %}
+        </x>
+
+        <x class="creators">{% for creator in group.creators %}
+            <x class="creator" type="{{creator.user_type}}">{{creator.name}}</x>{% endfor %}
+        </x>
+
+        <x class="readers">{% for reader in group.readers %}
+            <x class="reader" type="{{reader.user_type}}">{{reader.name}}</x>{% endfor %}
+        </x>
+
+        <x class="viewers">{% for viewer in group.viewers %}
+            <x class="viewer" type="{{viewer.user_type}}">{{viewer.name}}</x>{% endfor %}
+        </x>
+
+        <x class="optins">{% for optin in group.optins %}
+            <x class="optin" type="{{optin.user_type}}">{{optin.name}}</x>{% endfor %}
+        </x>
+
+        <x class="optouts">{% for optout in group.optouts %}
+            <x class="optout" type="{{optout.user_type}}">{{optout.name}}</x>{% endfor %}
+        </x>
+    </x>
+</gws>
