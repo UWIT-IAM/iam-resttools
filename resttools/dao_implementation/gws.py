@@ -5,11 +5,6 @@ from resttools.mock.mock_http import MockHTTP
 from resttools.dao_implementation.live import get_con_pool, get_live_url
 from resttools.dao_implementation.mock import get_mockdata_url
 
-import settings
-
-# XXX - from production settings files
-GWS_MAX_POOL_SIZE = 5
-
 
 class File(object):
     """
@@ -18,8 +13,13 @@ class File(object):
 
     RESTTOOLS_GWS_DAO_CLASS = 'resttools.dao_implementation.gws.File'
     """
+    _max_pool_size = 5
+
     def __init__(self, conf):
         self._conf = conf
+        if 'MAX_POOL_SIZE' in conf:
+            self._max_pool_size = conf['MAX_POOL_SIZE']
+            print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
         return get_mockdata_url("gws", "", url, headers)
@@ -51,8 +51,13 @@ class Live(object):
     """
     This DAO provides real data.  It requires further configuration, (conf)
     """
+    _max_pool_size = 5
+
     def __init__(self, conf):
         self._conf = conf
+        if 'MAX_POOL_SIZE' in conf:
+            self._max_pool_size = conf['MAX_POOL_SIZE']
+            print 'set mxp = %d' % self._max_pool_size
 
     pool = None
 
@@ -61,7 +66,7 @@ class Live(object):
             Live.pool = self._get_pool()
 
         return get_live_url(Live.pool, 'GET',
-                            self._conf['GWS_HOST'],
+                            self._conf['HOST'],
                             url, headers=headers,
                             service_name='gws')
 
@@ -70,7 +75,7 @@ class Live(object):
             Live.pool = self._get_pool()
 
         return get_live_url(Live.pool, 'PUT',
-                            self._conf['GWS_HOST'],
+                            self._conf['HOST'],
                             url, headers=headers, body=body,
                             service_name='gws')
 
@@ -79,12 +84,12 @@ class Live(object):
             Live.pool = self._get_pool()
 
         return get_live_url(Live.pool, 'DELETE',
-                            self._conf['GWS_HOST'],
+                            self._conf['HOST'],
                             url, headers=headers,
                             service_name='gws')
 
     def _get_pool(self):
-        return get_con_pool(self._conf['GWS_HOST'],
-                            self._conf['GWS_KEY_FILE'],
-                            self._conf['GWS_CERT_FILE'],
-                            max_pool_size = GWS_MAX_POOL_SIZE)
+        return get_con_pool(self._conf['HOST'],
+                            self._conf['KEY_FILE'],
+                            self._conf['CERT_FILE'],
+                            max_pool_size = self._max_pool_size)

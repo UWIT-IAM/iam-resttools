@@ -12,13 +12,15 @@ from lxml import etree
 import re
 from jinja2 import Environment, PackageLoader
 
-import settings
+import logging
+logger = logging.getLogger(__name__)
 
 class GWS(object):
     """
     The GWS object has methods for getting group information.
     """
     def __init__(self, conf, actas=None):
+        self._service_name = 'gws'
         self._conf = conf
         self._j2env = Environment(loader=PackageLoader('resttools', 'templates/gws'))
         self._actas = actas

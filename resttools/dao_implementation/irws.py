@@ -10,16 +10,19 @@ from resttools.dao_implementation.mock import get_mockdata_url
 import logging
 logger = logging.getLogger(__name__)
 
-IRWS_MAX_POOL_SIZE = 10
-
 class File(object):
     """
     The File DAO implementation returns generally static content.  Use this
     DAO with this configuration:
 
     """
+    _max_pool_size = 5
+
     def __init__(self, conf):
         self._conf = conf
+        if 'MAX_POOL_SIZE' in conf:
+            self._max_pool_size = conf['MAX_POOL_SIZE']
+            print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
@@ -45,16 +48,22 @@ class Live(object):
     """
     This DAO provides real data.  It requires further configuration, (conf)
     """
+    _max_pool_size = 5
+
+    def __init__(self, conf):
+        self._conf = conf
+        if 'MAX_POOL_SIZE' in conf:
+            self._max_pool_size = conf['MAX_POOL_SIZE']
+            print 'set mxp = %d' % self._max_pool_size
+
     pool = None
 
     def getURL(self, url, headers):
         if Live.pool == None:
-            Live.pool = get_con_pool(get_con_pool(self._conf['IRWS_HOST'],
-                                     self._conf['IRWS_KEY_FILE'],
-                                     self._conf['IRWS_CERT_FILE'],
-                                     max_pool_size= IRWS_MAX_POOL_SIZE))
+            Live.pool = self._get_pool()
+
         return get_live_url(Live.pool, 'GET',
-                            self._conf['IRWS_HOST'],
+                            self._conf['HOST'],
                             url, headers=headers,
                             service_name='irws')
 
@@ -63,7 +72,12 @@ class Live(object):
             Live.pool = self._get_pool()
 
         return get_live_url(Live.pool, 'PUT',
-                            self._conf['IRWS_HOST'],
+                            self._conf['HOST'],
                             url, headers=headers, body=body,
                             service_name='irws')
 
+    def _get_pool(self):
+        return get_con_pool(self._conf['HOST'],
+                            self._conf['KEY_FILE'],
+                            self._conf['CERT_FILE'],
+                            max_pool_size = self._max_pool_size)

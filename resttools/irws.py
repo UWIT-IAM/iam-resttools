@@ -12,14 +12,9 @@ from urllib3.exceptions import ReadTimeoutError
 connectTimeout = 20.0
 readTimeout = 30.0
 
-# xml parser
-import xml.etree.cElementTree as ET
-from xml.sax.saxutils import escape
 
 # json classes
-import simplejson as json
-
-import ssl
+import json
 
 import datetime
 import dateutil.parser
@@ -32,27 +27,25 @@ import random
 import copy
 
 
-import settings
+from resttools.dao import IRWS_DAO
+from resttools.models.irws import UWNetId
+from resttools.models.irws import Subscription
+from resttools.models.irws import Person
+from resttools.models.irws import HeppsPerson
+from resttools.models.irws import Pac
 
-from dao import IRWS_DAO
-from models.irws import UWNetId
-from models.irws import Subscription
-from models.irws import Person
-from models.irws import HeppsPerson
-from models.irws import Pac
-
-from exceptions import DataFailureException
+from resttools.exceptions import DataFailureException
 
 import logging
 logger = logging.getLogger(__name__)
 
 class IRWS(object):
 
-    def __init__(self):
+    def __init__(self, conf):
 
-        self._service_name = settings.RESTTOOLS_IRWS_SERVICE_NAME
+        self._service_name = conf['SERVICE_NAME']
+        self._conf = conf
         self.new_ids = set([])
-
 
     def _get_code_from_error(self, message):
         try:
@@ -73,7 +66,7 @@ class IRWS(object):
         if status!=None:
             status_str = '&status=%d' % status
         source_str = ''
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
         if eid!=None and source!=None:
             url = "/%s/v1/uwnetid?validid=%d=%s%s" % (self._service_name, source, eid, status_str)
         elif regid!=None:
@@ -105,7 +98,7 @@ class IRWS(object):
         netid isn't found, nothing will be returned.  If there is an error
         communicating with the IRWS, a DataFailureException will be thrown.
         """
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
         url = None 
         if netid!=None:
             url = "/%s/v1/person?uwnetid=%s" % (self._service_name, netid.lower())
@@ -134,7 +127,7 @@ class IRWS(object):
         if not self.valid_uwnetid(netid):
             raise InvalidNetID(netid)
 
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
         url = "/%s/v1/name/uwnetid=%s" % (self._service_name, netid.lower())
         response = dao.getURL(url, {"Accept": "application/json"})
 
@@ -150,7 +143,7 @@ class IRWS(object):
         If the netid isn't found, throws IRWSNotFound.
         If there is an error communicating with the IRWS, throws IRWSConnectionError.
         """
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
 
         url = "/%s/v1/person/hepps/%s" % (self._service_name, eid)
         response = dao.getURL(url, {"Accept": "application/json"})
@@ -170,7 +163,7 @@ class IRWS(object):
         netid isn't found, nothing will be returned.  If there is an error
         communicating with the IRWS, a DataFailureException will be thrown.
         """
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
         url = "/%s/v1/subscription?uwnetid=%s&subscription=%d" % (self._service_name, netid.lower(), subscription)
         response = dao.getURL(url, {"Accept": "application/json"})
 
@@ -183,7 +176,7 @@ class IRWS(object):
         """
         Creates a PAC for the employee.  Returns the Pac.
         """
-        dao = IRWS_DAO()
+        dao = IRWS_DAO(self._conf)
         url = "/%s/v1/person/hepps/%s/pac" % (self._service_name, eid)
         response = dao.putURL(url, {"Accept": "application/json"}, '')
 

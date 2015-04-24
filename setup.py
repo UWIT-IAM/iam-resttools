@@ -1,7 +1,8 @@
 # from distutils.core import setup
 from setuptools import setup, find_packages
-setup(name='IamMessaging',
+setup(name='resttools',
       version='1.0',
-      description='UW-IT messaging library',
+      description='UW-IT REST library',
       packages=find_packages(),
+      include_package_data=True,
       )
