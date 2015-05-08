@@ -9,12 +9,12 @@ import time
 import socket
 from urlparse import urlparse
 from urllib3 import connection_from_url
-import settings
 
 
 def get_con_pool(host,
                  key_file=None,
                  cert_file=None,
+                 ca_file=None,
                  socket_timeout=15.0,
                  max_pool_size=3,
                  verify_https=True):
@@ -37,7 +37,7 @@ def get_con_pool(host,
         kwargs["ssl_version"] = ssl.PROTOCOL_TLSv1
         if verify_https:
             kwargs["cert_reqs"] = "CERT_REQUIRED"
-            kwargs["ca_certs"] = settings.RESTTOOLS_CA_BUNDLE
+            kwargs["ca_certs"] = ca_file
 
     return connection_from_url(host, **kwargs)
 
@@ -63,7 +63,7 @@ def get_live_url(con_pool,
     :param body:
         the POST, PUT body of the request
     """
-    timeout = getattr(settings, "RESTCLIENTS_TIMEOUT", con_pool.timeout)
+    timeout = con_pool.timeout
 
     start_time = time.time()
     print method

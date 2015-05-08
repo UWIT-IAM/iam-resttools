@@ -26,7 +26,7 @@ class File(object):
 
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
-        response = get_mockdata_url("irws", "", url, headers)
+        response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status==404:
             logger.debug('status 404')
             response.data = '{"error": {"code": "7000","message": "No record matched"}}'
@@ -35,7 +35,7 @@ class File(object):
     def putURL(self, url, headers, body):
         logger.debug('file irws put url: ' + url)
 
-        response = get_mockdata_url("irws", "", url, headers)
+        response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status==404:
             logger.debug('status 404')
             response.data = '{"error": {"code": "7000","message": "No record matched"}}'
@@ -80,4 +80,5 @@ class Live(object):
         return get_con_pool(self._conf['HOST'],
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
+                            self._conf['CA_FILE'],
                             max_pool_size = self._max_pool_size)

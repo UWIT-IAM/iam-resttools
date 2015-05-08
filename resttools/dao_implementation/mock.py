@@ -4,8 +4,7 @@ from os.path import abspath, dirname
 import re
 import json
 import time
-import socket
-import settings
+import string
 from resttools.mock.mock_http import MockHTTP
 
 """
@@ -18,13 +17,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def get_mockdata_url(service_name, implementation_name,
+def get_mockdata_url(service_name, conf,
                      url, headers):
     """
     :param service_name:
         possible "irws", "pws", "gws", etc.
-    :param implementation_name:
-        possible values: "file", etc.
     """
 
     file_path = None
@@ -33,24 +30,24 @@ def get_mockdata_url(service_name, implementation_name,
 
     dir_base = dirname(__file__)
     app_root = abspath(dir_base)
-    response = _load_resource_from_path(app_root, service_name, implementation_name, url, headers)
+    response = _load_resource_from_path(app_root, service_name, conf, url, headers)
     if response:
         return response
 
     # If no response has been found in any installed app, return a 404
-    logger.info("404 for url %s, path: %s" % (url, "resources/%s/%s/%s" %(service_name, implementation_name, convert_to_platform_safe(url))))
+    logger.info("404 for url %s, path: %s" % (url, "resources/%s/%s/%s" %(service_name, conf, convert_to_platform_safe(url))))
     response = MockHTTP()
     response.status = 404
     return response
 
-def _load_resource_from_path(app_root, service_name, implementation_name,
+def _load_resource_from_path(app_root, service_name, conf,
                                 url, headers):
 
     mock_root = app_root + '/../mock' 
-    std_root = mock_root + '/' + service_name + '/' + implementation_name
-    if hasattr(settings, 'RESTTOOLS_MOCK_ROOT'):
-        mock_root = settings.RESTTOOLS_MOCK_ROOT
-    root = mock_root + '/' + service_name + '/' + implementation_name
+    std_root = mock_root + '/' + service_name 
+    if 'MOCK_ROOT' in conf and conf['MOCK_ROOT'] is not None:
+        mock_root = conf['MOCK_ROOT']
+    root = mock_root + '/' + service_name 
 
     if url == "///":
         # Just a placeholder to put everything else in an else.
@@ -59,29 +56,39 @@ def _load_resource_from_path(app_root, service_name, implementation_name,
     else:
         try:
             file_path = convert_to_platform_safe(root + url)
-            print 'try: ' + file_path
+            logger.debug( 'try1: ' + file_path)
             if os.path.isdir(file_path):
                 file_path = file_path + '.resource'
             handle = open(file_path)
         except IOError:
-            try:
-                file_path = convert_to_platform_safe(std_root + url)
-                if os.path.isdir(file_path):
-                    file_path = file_path + '.resource'
-                handle = open(file_path)
-            except IOError:
-                return
+            if std_root is not mock_root:
+                try:
+                    file_path = convert_to_platform_safe(std_root + url)
+                    logger.debug( 'try2: ' + file_path)
+                    if os.path.isdir(file_path):
+                        file_path = file_path + '.resource'
+                    handle = open(file_path)
+                except IOError:
+                    return
 
         logger.debug("URL: %s; File: %s" % (url, file_path))
 
         response = MockHTTP()
         response.status = 200
-        response.data = handle.read()
+        data = handle.read()
+        cut = string.find(data,'MOCKDATA-MOCKDATA-MOCKDATA')
+        if cut>=0:
+            data = data[string.find(data, '\n', cut)+1:]
+        response.data = data
         response.headers = {"X-Data-Source": service_name + " file mock data", }
 
         try:
             headers = open(handle.name + '.http-headers')
-            file_values = json.loads(headers.read())
+            data = headers.read()
+            cut = string.find(data,'MOCKDATA-MOCKDATA-MOCKDATA')
+            if cut>=0:
+                data = data[string.find(data, '\n', cut)+1:]
+            file_values = json.loads(data)
 
             if "headers" in file_values:
                 response.headers = dict(response.headers.items() + file_values['headers'].items())
@@ -99,14 +106,12 @@ def _load_resource_from_path(app_root, service_name, implementation_name,
 
 
 
-def post_mockdata_url(service_name, implementation_name,
+def post_mockdata_url(service_name, conf,
                      url, headers, body,
                      dir_base = dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
-    :param implementation_name:
-        possible values: "file", etc.
     """
     #Currently this post method does not return a response body
     response = MockHTTP()
@@ -122,14 +127,12 @@ def post_mockdata_url(service_name, implementation_name,
     return response
 
 
-def put_mockdata_url(service_name, implementation_name,
+def put_mockdata_url(service_name, conf,
                      url, headers, body,
                      dir_base = dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
-    :param implementation_name:
-        possible values: "file", etc.
     """
     #Currently this put method does not return a response body
     response = MockHTTP()
@@ -142,14 +145,12 @@ def put_mockdata_url(service_name, implementation_name,
     return response
 
 
-def delete_mockdata_url(service_name, implementation_name,
+def delete_mockdata_url(service_name, conf,
                      url, headers,
                      dir_base = dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
-    :param implementation_name:
-        possible values: "file", etc.
     """
     #Http response code 204 No Content:
     #The server has fulfilled the request but does not need to return an entity-body

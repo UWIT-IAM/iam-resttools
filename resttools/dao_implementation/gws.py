@@ -22,7 +22,7 @@ class File(object):
             print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
-        return get_mockdata_url("gws", "", url, headers)
+        return get_mockdata_url("gws", self._conf, url, headers)
 
     def putURL(self, url, headers, body):
         response = MockHTTP()
@@ -92,4 +92,5 @@ class Live(object):
         return get_con_pool(self._conf['HOST'],
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
+                            self._conf['CA_FILE'],
                             max_pool_size = self._max_pool_size)
