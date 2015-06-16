@@ -14,7 +14,6 @@ fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
 app_resource_dirs = []
 
 import logging
-logger = logging.getLogger(__name__)
 
 
 def get_mockdata_url(service_name, conf,
@@ -35,7 +34,8 @@ def get_mockdata_url(service_name, conf,
         return response
 
     # If no response has been found in any installed app, return a 404
-    logger.info("404 for url %s, path: %s" % (url, "resources/%s/%s/%s" %(service_name, conf, convert_to_platform_safe(url))))
+    logger = logging.getLogger(__name__)
+    logger.debug("404 for url %s")
     response = MockHTTP()
     response.status = 404
     return response
@@ -43,6 +43,7 @@ def get_mockdata_url(service_name, conf,
 def _load_resource_from_path(app_root, service_name, conf,
                                 url, headers):
 
+    logger = logging.getLogger(__name__)
     mock_root = app_root + '/../mock' 
     std_root = mock_root + '/' + service_name 
     if 'MOCK_ROOT' in conf and conf['MOCK_ROOT'] is not None:

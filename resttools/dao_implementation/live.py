@@ -66,9 +66,6 @@ def get_live_url(con_pool,
     timeout = con_pool.timeout
 
     start_time = time.time()
-    print method
-    print url
-    print headers
     response = con_pool.urlopen(method, url, body=body, headers=headers, retries=retries, timeout=timeout)
     request_time = time.time() - start_time
     return response

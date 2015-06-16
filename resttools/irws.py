@@ -54,7 +54,7 @@ class IRWS(object):
            code = (-1)
         return code
 
-    def get_uwnetid(self, eid=None, regid=None, source=None, status=None, ret_array=False):
+    def get_uwnetid(self, eid=None, regid=None, netid=None, source=None, status=None, ret_array=False):
         """
         Returns an irws.UWNetid object for the given netid or regid.  If the
         netid isn't found, nothing will be returned.  If there is an error
@@ -65,12 +65,13 @@ class IRWS(object):
         status_str = ''
         if status!=None:
             status_str = '&status=%d' % status
-        source_str = ''
         dao = IRWS_DAO(self._conf)
         if eid!=None and source!=None:
             url = "/%s/v1/uwnetid?validid=%d=%s%s" % (self._service_name, source, eid, status_str)
         elif regid!=None:
             url = "/%s/v1/uwnetid?validid=regid=%s%s" % (self._service_name, regid, status_str)
+        elif netid!=None:
+            url = "/%s/v1/uwnetid?validid=uwnetid=%s%s" % (self._service_name, netid, status_str)
         else:
             return None
         response = dao.getURL(url, {"Accept": "application/json"})
@@ -199,6 +200,8 @@ class IRWS(object):
         person.fname = person_data['fname']
         person.lname = person_data['lname']
 
+        person.hepps_type = person_data['hepps_type']
+        person.hepps_status = person_data['hepps_status']
         person.category_code = person_data['category_code']
         person.category_name = person_data['category_name']
         if 'contact_email' in person_data:
