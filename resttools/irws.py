@@ -32,6 +32,7 @@ from resttools.models.irws import UWNetId
 from resttools.models.irws import Subscription
 from resttools.models.irws import Person
 from resttools.models.irws import HeppsPerson
+from resttools.models.irws import SdbPerson
 from resttools.models.irws import Pac
 
 from resttools.exceptions import DataFailureException
@@ -93,7 +94,7 @@ class IRWS(object):
         else:
             return self._uwnetid_from_json_obj(id_data[0])
 
-    def get_person(self, netid=None, regid=None):
+    def get_person(self, netid=None, regid=None, eid=None):
         """
         Returns an irws.Person object for the given netid or regid.  If the
         netid isn't found, nothing will be returned.  If there is an error
@@ -105,6 +106,8 @@ class IRWS(object):
             url = "/%s/v1/person?uwnetid=%s" % (self._service_name, netid.lower())
         elif regid!=None:
             url = "/%s/v1/person?validid=regid=%s" % (self._service_name, regid)
+        elif eid!=None:
+            url = "/%s/v1/person?validid=1=%s" % (self._service_name, eid)
         else:
             return None
         response = dao.getURL(url, {"Accept": "application/json"})
@@ -158,6 +161,27 @@ class IRWS(object):
         return  self._hepps_person_from_json(response.data)
         
 
+    def get_sdb_person(self, vid):
+        """
+        Returns an irws.SdbPerson object for the given eid.
+        If the person is not a student, returns None.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error communicating with the IRWS, throws IRWSConnectionError.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v1/person/sdb/%s" % (self._service_name, vid)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise IRWSConnectionError(url, response.status, response.data)
+
+        return  self._sdb_person_from_json(response.data)
+        
+
     def get_subscription(self, netid, subscription):
         """
         Returns an irws.Subscription object for the given netid.  If the
@@ -204,10 +228,40 @@ class IRWS(object):
         person.hepps_status = person_data['hepps_status']
         person.category_code = person_data['category_code']
         person.category_name = person_data['category_name']
+        person.source_code = person_data['source_code']
+        person.source_name = person_data['source_name']
+        person.status_code = person_data['status_code']
+        person.status_name = person_data['status_name']
         if 'contact_email' in person_data:
             person.contact_email = person_data['contact_email']
         if 'org_supervisor' in person_data:
             person.org_supervisor = person_data['org_supervisor']
+
+        if 'pac' in person_data: person.pac = person_data['pac']
+
+        if 'wp_publish' in person_data: person.wp_publish = person_data['wp_publish']
+        else: person.wp_publish = 'Y'
+        return person
+
+    def _sdb_person_from_json(self, data):
+        """
+        Internal method, for creating the SdbPerson object.
+        """
+        person_data = json.loads(data)['person'][0]
+        person = SdbPerson()
+        person.validid = person_data['validid']
+        person.regid = person_data['regid']
+        person.studentid = person_data['studentid']
+
+        person.fname = person_data['fname']
+        person.lname = person_data['lname']
+
+        person.category_code = person_data['category_code']
+        person.category_name = person_data['category_name']
+        person.source_code = person_data['source_code']
+        person.source_name = person_data['source_name']
+        person.status_code = person_data['status_code']
+        person.status_name = person_data['status_name']
 
         if 'pac' in person_data: person.pac = person_data['pac']
 

@@ -116,6 +116,38 @@ class HeppsPerson():
         return self.regid == other.regid
 
 
+# IRWS Sdb Person
+class SdbPerson():
+    validid = ''
+    regid = ''
+    studentid = ''
+
+    fname = ''
+    lname = ''
+    category_code = ''
+    category_name = ''
+
+    college = ''
+    department = ''
+
+    source_code = ''
+    source_name = ''
+    # status: 1=active, 3=former
+    status_code = ''
+    status_name = ''
+    pac = ''
+
+    wp_publish = 'Y'
+
+    in_feed = ''
+    created = ''
+    updated = ''
+
+    def __eq__(self, other):
+        if other==None: 
+            return False
+        return self.regid == other.regid
+
 
 # IRWS UWNetId
 class UWNetId():
