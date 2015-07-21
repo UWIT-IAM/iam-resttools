@@ -48,6 +48,7 @@ class HeppsPerson():
     validid = ''
     regid = ''
     studentid = ''
+    birthdate = ''
 
     fname = ''
     lname = ''
@@ -121,6 +122,7 @@ class SdbPerson():
     validid = ''
     regid = ''
     studentid = ''
+    birthdate = ''
 
     fname = ''
     lname = ''

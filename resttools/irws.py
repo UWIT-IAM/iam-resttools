@@ -220,6 +220,7 @@ class IRWS(object):
         person.validid = person_data['validid']
         person.regid = person_data['regid']
         if 'studentid' in person_data: person.studentid = person_data['studentid']
+        if 'birthdate' in person_data: person.birthdate = person_data['birthdate']
 
         person.fname = person_data['fname']
         person.lname = person_data['lname']
@@ -252,6 +253,7 @@ class IRWS(object):
         person.validid = person_data['validid']
         person.regid = person_data['regid']
         person.studentid = person_data['studentid']
+        if 'birthdate' in person_data: person.birthdate = person_data['birthdate']
 
         person.fname = person_data['fname']
         person.lname = person_data['lname']
