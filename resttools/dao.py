@@ -3,6 +3,8 @@
 from resttools.mock.mock_http import MockHTTP
 from resttools.dao_implementation.irws import File as IRWSFile
 from resttools.dao_implementation.irws import Live as IRWSLive
+from resttools.dao_implementation.nws import File as NWSFile
+from resttools.dao_implementation.nws import Live as NWSLive
 from resttools.dao_implementation.gws import File as GWSFile
 from resttools.dao_implementation.gws import Live as GWSLive
 
@@ -49,6 +51,20 @@ class IRWS_DAO(DAO_BASE):
         if self._run_mode=='Live':
             return IRWSLive(self._conf)
         return IRWSFile(self._conf)
+
+
+class NWS_DAO(DAO_BASE):
+    def getURL(self, url, headers):
+        return self._getURL('nws', url, headers)
+
+    def postURL(self, url, headers, body):
+        return self._postURL('nws', url, headers, body)
+
+    def _getDAO(self):
+        if self._run_mode=='Live':
+            return NWSLive(self._conf)
+        return NWSFile(self._conf)
+
 
 
 

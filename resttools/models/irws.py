@@ -210,3 +210,10 @@ class Pac():
                 }
 
 
+# IRWS QnA
+class QnA():
+    uwnetid = ''
+    ordinal = ''
+    question = ''
+    answer = ''
+    

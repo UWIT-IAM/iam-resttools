@@ -1,0 +1,38 @@
+qna search results for user1q
+no sms nor email
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "qna": [
+    {
+      "uwnetid": "user1q",
+      "ordinal": "1",
+      "question": "What is your favorite color?",
+      "answer": "84d6,c4181c91416e17f5d9f000395c9aa182013a5ccf",
+      "logname": "registry-dev1:insqna:curl/tracy@viking.cac.washington.edu",
+      "created": "2015-07-20 12:00:49.600293",
+      "updated": "2015-07-20 12:00:49.600293"
+    },
+    {
+      "uwnetid": "user1q",
+      "ordinal": "2",
+      "question": "Who was your grandmother's daughter's favorite child?",
+      "answer": "84d6,c4181c91416e17f5d9f000395c9aa182013a5ccf",
+      "logname": "registry-dev1:insqna:curl/tracy@viking.cac.washington.edu",
+      "created": "2015-07-20 12:00:49.600293",
+      "updated": "2015-07-20 12:00:49.600293"
+    },
+    {
+      "uwnetid": "user1q",
+      "ordinal": "3",
+      "question": "What is your quest?",
+      "answer": "1bcf,a8c4f6d88732d7abb3e494a6c07f16ca6d505d36",
+      "logname": "registry-dev1:insqna:curl/tracy@viking.cac.washington.edu",
+      "created": "2015-07-20 12:14:28.784394",
+      "updated": "2015-07-20 12:14:28.784394"
+    }
+  ],
+  "totalcount": 3
+}
+
+

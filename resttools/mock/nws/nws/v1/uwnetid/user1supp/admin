@@ -1,0 +1,18 @@
+
+NWS record for user user1supp (mock user only)
+
+MOCKDATA-MOCKDATA-MOCKDATA
+<admin>
+  <uwNetID>user1supp</uwNetID>
+  <adminList>
+    <uwNetID>
+      <name>user1s</name>
+      <role>administrator</role>
+    </uwNetID>
+    <uwNetID>
+      <name>fox</name>
+      <role>administrator</role>
+    </uwNetID>
+  </adminList>
+  <timeStamp>Wed, 22 Jul 2015 10:57:02 -0700</timeStamp>
+</admin>

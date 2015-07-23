@@ -34,6 +34,8 @@ from resttools.models.irws import Person
 from resttools.models.irws import HeppsPerson
 from resttools.models.irws import SdbPerson
 from resttools.models.irws import Pac
+from resttools.models.irws import Name
+from resttools.models.irws import QnA
 
 from resttools.exceptions import DataFailureException
 
@@ -128,8 +130,6 @@ class IRWS(object):
         netid isn't found, nothing will be returned.  If there is an error
         communicating with the IRWS, a DataFailureException will be thrown.
         """
-        if not self.valid_uwnetid(netid):
-            raise InvalidNetID(netid)
 
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/name/uwnetid=%s" % (self._service_name, netid.lower())
@@ -211,6 +211,23 @@ class IRWS(object):
         return self._pac_from_json(response.data)
 
 
+    def get_qna(self, netid):
+        """
+        Returns a list irws.QnA for the given netid.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v1/qna?uwnetid=%s" % (self._service_name, netid)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise IRWSConnectionError(url, response.status, response.data)
+
+        return  self._qna_from_json(response.data)
+        
     def _hepps_person_from_json(self, data):
         """
         Internal method, for creating the HeppsPerson object.
@@ -303,5 +320,32 @@ class IRWS(object):
         pac.expiration = pac_data['expiration']
         return pac
 
+    def _name_from_json(self, data):
+        nd = json.loads(data)['name'][0]
+        name = Name()
+        name.validid = nd['validid']
+        if 'formal_cname' in nd: name.formal_cname = nd['formal_cname']
+        if 'formal_fname' in nd: name.formal_fname = nd['formal_fname']
+        if 'formal_sname' in nd: name.formal_lname = nd['formal_sname']
+        if 'formal_privacy' in nd: name.formal_privacy = nd['formal_privacy']
+        if 'display_cname' in nd: name.display_cname = nd['display_cname']
+        if 'display_fname' in nd: name.display_fname = nd['display_fname']
+        if 'display_mname' in nd: name.display_mname = nd['display_mname']
+        if 'display_sname' in nd: name.display_lname = nd['display_sname']
+        if 'display_privacy' in nd: name.display_privacy = nd['display_privacy']
+        return name
+
+
+    def _qna_from_json(self, data):
+        q_list = json.loads(data)['qna']
+        ret = []
+        for q in q_list:
+            qna = QnA()
+            qna.uwnetid = q['uwnetid']
+            qna.ordinal = q['ordinal']
+            qna.question = q['question']
+            qna.answer = q['answer']
+            ret.append(qna)
+        return ret
 
 
