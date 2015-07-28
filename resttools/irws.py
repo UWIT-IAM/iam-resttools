@@ -2,22 +2,14 @@
 #
 
 # connection pooling http client
-import urllib3
-from urllib3.connectionpool import HTTPSConnectionPool
-from urllib3.exceptions import MaxRetryError
-from urllib3.exceptions import SSLError
-from urllib3.exceptions import ReadTimeoutError
-
-# timeouts
-connectTimeout = 20.0
-readTimeout = 30.0
-
+# import urllib3
+# from urllib3.connectionpool import HTTPSConnectionPool
+# from urllib3.exceptions import MaxRetryError
+# from urllib3.exceptions import SSLError
+# from urllib3.exceptions import ReadTimeoutError
 
 # json classes
 import json
-
-import datetime
-import dateutil.parser
 
 import os
 import string
@@ -25,7 +17,6 @@ import time
 import re
 import random
 import copy
-
 
 from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId

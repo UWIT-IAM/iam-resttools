@@ -3,9 +3,11 @@ This is the interface for interacting with the UW NetID Web Service.
 """
 
 from resttools.dao import NWS_DAO
-from resttools.models.nws import UWNetIdAdmin
+from resttools.models.nws import UWNetIdAdmin, UWNetIdPwInfo
 from urllib import urlencode
-from lxml import etree
+
+import json
+
 import re
 
 import logging
@@ -14,7 +16,7 @@ logger = logging.getLogger(__name__)
 class NWS(object):
 
     def __init__(self, conf, actas=None):
-        self._service_name = 'nws'
+        self._service_name = conf['SERVICE_NAME']
         self._conf = conf
 
 
@@ -24,26 +26,45 @@ class NWS(object):
         """
 
         dao = NWS_DAO(self._conf)
-        url = "/nws/v1/uwnetid/%s/admin" % netid
-        response = dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        url = "/%s/v1/uwnetid/%s/admin" % (self._service_name, netid)
+        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return self._admins_from_xml(response.data)
+        return self._admins_from_json(response.data)
 
 
+    def get_netid_pwinfo(self, netid):
+        """
+        Returns NetidPwINfo object for the netid
+        """
 
-    def _admins_from_xml(self, data):
-        e_adms= etree.fromstring(data).find('adminList')
-        e_adm_list = e_adms.findall('uwNetID')
+        dao = NWS_DAO(self._conf)
+        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
+        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._pwinfo_from_json(response.data)
+
+
+    def _admins_from_json(self, data):
+        adminobj = json.loads(data)
         admins = []
-        for admin in e_adm_list:
-            name = admin.find('name').text
-            role = admin.find('role').text
+        for admin in adminobj['adminList']:
+            name = admin['name']
+            role = admin['role']
             admins.append(UWNetIdAdmin(name=name, role=role))
         return admins
+
+    def _pwinfo_from_json(self, data):
+        infoobj = json.loads(data)
+        if 'minimumLength' in infoobj:
+            return UWNetIdPwInfo(min_len=infoobj['minimumLength'], last_change=infoobj['lastChange'])
+        else:
+            return None
 
 
     def _headers(self, headers):

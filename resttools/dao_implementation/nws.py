@@ -81,4 +81,4 @@ class Live(object):
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            max_pool_size = self._max_pool_size)
+                            max_pool_size = self._max_pool_size, verify_https=False)
