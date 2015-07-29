@@ -22,7 +22,6 @@ class File(object):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
-            print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
         logger.debug('file nws get url: ' + url)
@@ -54,7 +53,6 @@ class Live(object):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
-            print 'set mxp = %d' % self._max_pool_size
 
     pool = None
 

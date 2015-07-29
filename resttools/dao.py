@@ -7,6 +7,8 @@ from resttools.dao_implementation.nws import File as NWSFile
 from resttools.dao_implementation.nws import Live as NWSLive
 from resttools.dao_implementation.gws import File as GWSFile
 from resttools.dao_implementation.gws import Live as GWSLive
+from resttools.dao_implementation.ntfyws import File as NTFYWSFile
+from resttools.dao_implementation.ntfyws import Live as NTFYWSLive
 
 class DAO_BASE(object):
              
@@ -82,4 +84,14 @@ class GWS_DAO(DAO_BASE):
         if self._run_mode=='Live':
             return GWSLive(self._conf)
         return GWSFile(self._conf)
+
+
+class NTFYWS_DAO(DAO_BASE):
+    def postURL(self, url, headers, body):
+        return self._postURL('ntfyws', url, headers, body)
+
+    def _getDAO(self):
+        if self._run_mode=='Live':
+            return NTFYWSLive(self._conf)
+        return NTFYWSFile(self._conf)
 

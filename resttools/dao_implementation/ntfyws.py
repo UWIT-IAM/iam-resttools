@@ -1,5 +1,5 @@
 """
-Contains IRWS DAO implementations.
+Contains Notify WS  DAO implementations.
 """
 
 from resttools.mock.mock_http import MockHTTP
@@ -23,23 +23,10 @@ class File(object):
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
 
-    def getURL(self, url, headers):
-        logger.debug('file irws get url: ' + url)
-        response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status==404:
-            logger.debug('status 404')
-            response.data = '{"error": {"code": "7000","message": "No record matched"}}'
-        return response
+    def postURL(self, url, headers, body):
+        logger.debug('file ntfyws post url: ' + url)
 
-    def putURL(self, url, headers, body):
-        logger.debug('file irws put url: ' + url)
-
-        response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status==404:
-            logger.debug('status 404')
-            response.data = '{"error": {"code": "7000","message": "No record matched"}}'
-        
-        return response
+        return 200
 
 
 
@@ -56,27 +43,18 @@ class Live(object):
 
     pool = None
 
-    def getURL(self, url, headers):
-        if Live.pool == None:
-            Live.pool = self._get_pool()
-
-        return get_live_url(Live.pool, 'GET',
-                            self._conf['HOST'],
-                            url, headers=headers,
-                            service_name='irws')
-
-    def putURL(self, url, headers, body):
+    def postURL(self, url, headers, body):
         if Live.pool is None:
             Live.pool = self._get_pool()
 
-        return get_live_url(Live.pool, 'PUT',
+        return get_live_url(Live.pool, 'POST',
                             self._conf['HOST'],
                             url, headers=headers, body=body,
-                            service_name='irws')
+                            service_name=self._conf['SERVICE_NAME'])
 
     def _get_pool(self):
         return get_con_pool(self._conf['HOST'],
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            max_pool_size = self._max_pool_size)
+                            max_pool_size = self._max_pool_size, verify_https=False)

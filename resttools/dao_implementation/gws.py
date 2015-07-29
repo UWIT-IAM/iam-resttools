@@ -19,7 +19,6 @@ class File(object):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
-            print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
         return get_mockdata_url("gws", self._conf, url, headers)
@@ -57,7 +56,6 @@ class Live(object):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
-            print 'set mxp = %d' % self._max_pool_size
 
     pool = None
 

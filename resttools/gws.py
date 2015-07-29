@@ -122,8 +122,6 @@ class GWS(object):
         """
         body = self._xml_from_group(group)
 
-        print 'body: [%s]' % body
-
         dao = GWS_DAO(self._conf)
         url = "/group_sws/v2/group/%s" % group.name
         response = dao.putURL(url,
