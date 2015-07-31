@@ -19,6 +19,7 @@ class File(object):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
+            print 'set mxp = %d' % self._max_pool_size
 
     def getURL(self, url, headers):
         return get_mockdata_url("gws", self._conf, url, headers)
@@ -51,11 +52,14 @@ class Live(object):
     This DAO provides real data.  It requires further configuration, (conf)
     """
     _max_pool_size = 5
+    _socket_timeout = 20.0
 
     def __init__(self, conf):
         self._conf = conf
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
+        if 'SOCKET_TIMEOUT' in conf:
+            self._socket_timeout = conf['SOCKET_TIMEOUT']
 
     pool = None
 
@@ -91,4 +95,5 @@ class Live(object):
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
+                            socket_timeout = self._socket_timeout,
                             max_pool_size = self._max_pool_size)
