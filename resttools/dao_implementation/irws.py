@@ -75,8 +75,12 @@ class Live(object):
                             service_name='irws')
 
     def _get_pool(self):
+        vfy = True
+        if 'VERIFY_HOST' in self._conf:
+            vfy = self._conf['VERIFY_HOST'] 
         return get_con_pool(self._conf['HOST'],
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            max_pool_size = self._max_pool_size)
+                            max_pool_size = self._max_pool_size,
+                            verify_https=vfy)

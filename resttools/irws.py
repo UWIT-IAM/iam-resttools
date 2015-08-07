@@ -247,6 +247,7 @@ class IRWS(object):
             person.org_supervisor = person_data['org_supervisor']
 
         if 'pac' in person_data: person.pac = person_data['pac']
+        if 'in_feed' in person_data: person.in_feed = person_data['in_feed']
 
         if 'wp_publish' in person_data: person.wp_publish = person_data['wp_publish']
         else: person.wp_publish = 'Y'
@@ -274,6 +275,7 @@ class IRWS(object):
         person.status_name = person_data['status_name']
 
         if 'pac' in person_data: person.pac = person_data['pac']
+        if 'in_feed' in person_data: person.in_feed = person_data['in_feed']
 
         if 'wp_publish' in person_data: person.wp_publish = person_data['wp_publish']
         else: person.wp_publish = 'Y'
