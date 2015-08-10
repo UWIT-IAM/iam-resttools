@@ -14,11 +14,7 @@ class DAO_BASE(object):
              
     def __init__(self, conf):
         self._conf = conf
-        if 'RUN_MODE' in conf:
-            self._run_mode = conf['RUN_MODE']
-        else:
-            import settings
-            self._run_mode = settings.RUN_MODE
+        self._run_mode = conf['RUN_MODE']
 
     def _getURL(self, service, url, headers):
         dao = self._getDAO()

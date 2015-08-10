@@ -22,7 +22,7 @@ from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
 from resttools.models.irws import Subscription
 from resttools.models.irws import Person
-from resttools.models.irws import HeppsPerson
+from resttools.models.irws import UWhrPerson
 from resttools.models.irws import SdbPerson
 from resttools.models.irws import Pac
 from resttools.models.irws import Name
@@ -131,16 +131,16 @@ class IRWS(object):
 
         return self._name_from_json(response.data)
 
-    def get_hepps_person(self, eid):
+    def get_uwhr_person(self, eid, source='uwhr'):
         """
-        Returns an irws.HeppsPerson object for the given eid.
+        Returns an irws.UWhrPerson object for the given eid.
         If the person is not an employee, returns None.
         If the netid isn't found, throws IRWSNotFound.
         If there is an error communicating with the IRWS, throws DataFailureException.
         """
         dao = IRWS_DAO(self._conf)
 
-        url = "/%s/v1/person/hepps/%s" % (self._service_name, eid)
+        url = "/%s/v1/person/%s/%s" % (self._service_name, source, eid)
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -149,7 +149,7 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return  self._hepps_person_from_json(response.data)
+        return  self._uwhr_person_from_json(response.data)
         
 
     def get_sdb_person(self, vid):
@@ -188,12 +188,12 @@ class IRWS(object):
 
         return self._subscription_from_json(response.data)
 
-    def put_pac(self, eid):
+    def put_pac(self, eid, source='uwhr'):
         """
         Creates a PAC for the employee.  Returns the Pac.
         """
         dao = IRWS_DAO(self._conf)
-        url = "/%s/v1/person/hepps/%s/pac" % (self._service_name, eid)
+        url = "/%s/v1/person/%s/%s/pac" % (self._service_name, source, eid)
         response = dao.putURL(url, {"Accept": "application/json"}, '')
 
         if response.status != 200:
@@ -219,12 +219,12 @@ class IRWS(object):
 
         return  self._qna_from_json(response.data)
         
-    def _hepps_person_from_json(self, data):
+    def _uwhr_person_from_json(self, data):
         """
-        Internal method, for creating the HeppsPerson object.
+        Internal method, for creating the UWhrPerson object.
         """
         person_data = json.loads(data)['person'][0]
-        person = HeppsPerson()
+        person = UWhrPerson()
         person.validid = person_data['validid']
         person.regid = person_data['regid']
         if 'studentid' in person_data: person.studentid = person_data['studentid']
@@ -233,8 +233,11 @@ class IRWS(object):
         person.fname = person_data['fname']
         person.lname = person_data['lname']
 
-        person.hepps_type = person_data['hepps_type']
-        person.hepps_status = person_data['hepps_status']
+        # data may be old hepps record
+        if 'hepps_type' in person_data: person.emp_ecs_code = person_data['hepps_type']
+        if 'emp_ecs_code' in person_data: person.emp_ecs_code = person_data['emp_ecs_code']
+        if 'hepps_status' in person_data: person.emp_status_code = person_data['hepps_status']
+        if 'emp_status_code' in person_data: person.emp_status_code = person_data['emp_status_code']
         person.category_code = person_data['category_code']
         person.category_name = person_data['category_name']
         person.source_code = person_data['source_code']

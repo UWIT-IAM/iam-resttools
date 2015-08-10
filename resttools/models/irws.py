@@ -43,8 +43,8 @@ class Person():
 
 
 
-# IRWS Hepps Person
-class HeppsPerson():
+# IRWS UWhr Person
+class UWhrPerson():
     validid = ''
     regid = ''
     studentid = ''
@@ -59,8 +59,7 @@ class HeppsPerson():
 
     wp_name = ''
     wp_department = ''
-    wp_email = ''
-    wp_email_2 = ''
+    wp_email = []
     wp_phone = ''
     wp_title = ''
     wp_address = ''
@@ -73,8 +72,8 @@ class HeppsPerson():
     mailstop = ''
     unit = ''
 
-    hepps_type = ''
-    hepps_status = ''
+    emp_ecs_code = ''
+    emp_status_code = ''
 
     budget = ''
     faccode = ''
@@ -90,26 +89,6 @@ class HeppsPerson():
     created = ''
     updated = ''
 
-    def json_data(self):
-        return {'uwnetid': self.uwnetid,
-                'uwregid': self.uwregid,
-                'first_name': self.first_name,
-                'surname': self.surname,
-                'full_name': self.full_name,
-                'whitepages_publish': self.whitepages_publish,
-                'email1': self.email1,
-                'email2': self.email2,
-                'phone1': self.phone1,
-                'phone2': self.phone2,
-                'title1': self.title1,
-                'title2': self.title2,
-                'voicemail': self.voicemail,
-                'fax': self.fax,
-                'touchdial': self.touchdial,
-                'address1': self.address1,
-                'address2': self.address2,
-                'mailstop': self.mailstop,
-                }
 
     def __eq__(self, other):
         if other==None: 
