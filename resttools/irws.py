@@ -136,7 +136,7 @@ class IRWS(object):
         Returns an irws.HeppsPerson object for the given eid.
         If the person is not an employee, returns None.
         If the netid isn't found, throws IRWSNotFound.
-        If there is an error communicating with the IRWS, throws IRWSConnectionError.
+        If there is an error communicating with the IRWS, throws DataFailureException.
         """
         dao = IRWS_DAO(self._conf)
 
@@ -147,7 +147,7 @@ class IRWS(object):
             return None
 
         if response.status != 200:
-            raise IRWSConnectionError(url, response.status, response.data)
+            raise DataFailureException(url, response.status, response.data)
 
         return  self._hepps_person_from_json(response.data)
         
@@ -157,7 +157,7 @@ class IRWS(object):
         Returns an irws.SdbPerson object for the given eid.
         If the person is not a student, returns None.
         If the netid isn't found, throws IRWSNotFound.
-        If there is an error communicating with the IRWS, throws IRWSConnectionError.
+        If there is an error communicating with the IRWS, throws DataFailureException.
         """
         dao = IRWS_DAO(self._conf)
 
@@ -168,7 +168,7 @@ class IRWS(object):
             return None
 
         if response.status != 200:
-            raise IRWSConnectionError(url, response.status, response.data)
+            raise DataFailureException(url, response.status, response.data)
 
         return  self._sdb_person_from_json(response.data)
         
@@ -215,7 +215,7 @@ class IRWS(object):
             return None
 
         if response.status != 200:
-            raise IRWSConnectionError(url, response.status, response.data)
+            raise DataFailureException(url, response.status, response.data)
 
         return  self._qna_from_json(response.data)
         
