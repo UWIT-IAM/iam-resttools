@@ -13,6 +13,13 @@ import re
 import logging
 logger = logging.getLogger(__name__)
 
+# note.  Some messages from nws set pw
+# 409, "That's not a good password because you used that password in the not too distant past."
+# 409, "That's not a good password because it is your username."
+# 409, "That's not a good password because it does not contain enough different character classes (uppercase, lowercase, digits, punctuation)."
+# 409, "That's not a good password because it needs more complex capitalization."
+#
+
 class NWS(object):
 
     def __init__(self, conf, actas=None):
@@ -49,6 +56,21 @@ class NWS(object):
 
         return self._pwinfo_from_json(response.data)
 
+    def set_netid_pw(self, netid, password):
+        """
+        Sets password for netid
+        """
+
+        dao = NWS_DAO(self._conf)
+        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
+        data = {'action':'Set', 'newPassword': password, 'uwNetID': netid}
+        response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
+
+        if response.status >= 500:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._setpw_from_json(response.data)
+
 
     def _admins_from_json(self, data):
         adminobj = json.loads(data)
@@ -66,6 +88,10 @@ class NWS(object):
         else:
             return None
 
+    def _setpw_from_json(self, data):
+        obj = json.loads(data)
+        return (obj['result'], obj['message'])
+ 
 
     def _headers(self, headers):
         # could auto-add headers here

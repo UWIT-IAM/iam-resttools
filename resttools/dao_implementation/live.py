@@ -10,6 +10,11 @@ import socket
 from urlparse import urlparse
 from urllib3 import connection_from_url
 
+import urllib3
+
+# temporary during testing
+urllib3.disable_warnings()
+logging.captureWarnings(True)
 
 def get_con_pool(host,
                  key_file=None,

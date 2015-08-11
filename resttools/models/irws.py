@@ -31,6 +31,28 @@ class Name():
     def __eq__(self, other):
         return self.uwregid == other.uwregid
 
+    
+# IRWS Profile (only recover part for now)
+class Profile():
+    validid = ''
+    recover_email = None
+    recover_email_date = None
+    recover_sms = None
+    recover_sms_date = None
+    recover_block_code = None
+
+    def json_data(self):
+        prof = {}
+        if self.recover_email != None: prof['recover_email'] = self.recover_email
+        if self.recover_email_date != None: prof['recover_email_date'] = self.recover_email_date
+        if self.recover_sms != None: prof['recover_sms'] = self.recover_sms
+        if self.recover_sms_date != None: prof['recover_sms_date'] = self.recover_sms_date
+        if self.recover_block_code != None: prof['recover_block_code'] = self.recover_block_code
+        return {'profile':[prof]}
+
+    def __eq__(self, other):
+        return self.uwregid == other.uwregid
+
 # IRWS Person 
 class Person():
     regid = ''
@@ -196,3 +218,4 @@ class QnA():
     question = ''
     answer = ''
     
+

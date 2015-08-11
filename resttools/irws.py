@@ -22,6 +22,7 @@ from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
 from resttools.models.irws import Subscription
 from resttools.models.irws import Person
+from resttools.models.irws import Profile
 from resttools.models.irws import UWhrPerson
 from resttools.models.irws import SdbPerson
 from resttools.models.irws import Pac
@@ -115,6 +116,47 @@ class IRWS(object):
 
         return self._person_from_json(response.data)
 
+    def get_pw_recover_info(self, netid):
+        """
+        Returns an irws.Profile object containing password recovery fields
+        for the given netid or regid.  If the
+        netid isn't found, nothing will be returned.  If there is an error
+        communicating with the IRWS, a DataFailureException will be thrown.
+        """
+        dao = IRWS_DAO(self._conf)
+        url = "/%s/v1/profile?uwnetid=%s" % (self._service_name, netid.lower())
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            err = self._get_code_from_error(response.data)
+            if err==7000:
+                return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        print response.data
+        return self._pw_recover_from_json(response.data)
+
+    def put_pw_recover_info(self, netid, profile):
+        """
+        Updates recover info in netid's profile 
+        """
+        dao = IRWS_DAO(self._conf)
+        url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid)
+        dstr = json.dumps(profile.json_data())
+        print url
+        print dstr
+        response = dao.putURL(url, {"Content-type": "application/json"}, dstr)
+
+        print response.status
+        print response.data
+        return None
+    
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._pac_from_json(response.data)
     def get_name_by_netid(self, netid):
         """
         Returns a resttools.irws.Name object for the given netid.  If the
@@ -293,6 +335,17 @@ class IRWS(object):
         person.fname = idj['fname']
         person.identifiers = copy.deepcopy(idj['identifiers'])
         return person
+
+    def _pw_recover_from_json(self, data):
+        info = json.loads(data)['profile'][0]
+        ret = Profile()
+        ret.validid = info['validid']
+        if 'recover_email' in info: ret.recover_email = info['recover_email']
+        if 'recover_email_date' in info: ret.recover_email_date = info['recover_email_date']
+        if 'recover_sms' in info: ret.recover_sms = info['recover_sms']
+        if 'recover_sms_date' in info: ret.recover_sms_date = info['recover_sms_date']
+        if 'recover_block_code' in info: ret.recover_block_code = info['recover_block_code']
+        return ret
 
     def _uwnetid_from_json_obj(self, id_data):
         uwnetid = UWNetId()
