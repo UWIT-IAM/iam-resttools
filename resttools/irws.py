@@ -157,7 +157,7 @@ class IRWS(object):
         profile = Profile()
         profile.recover_email = email
         profile.recover_email_date = edate
-        return put_pw_recover_info(netid, profile)
+        return self.put_pw_recover_info(netid, profile)
 
     def put_pw_recover_sms(self, netid, sms, sdate):
         """
@@ -166,7 +166,7 @@ class IRWS(object):
         profile = Profile()
         profile.recover_sms = sms
         profile.recover_sms_date = sdate
-        return put_pw_recover_info(netid, profile)
+        return self.put_pw_recover_info(netid, profile)
 
     def get_name_by_netid(self, netid):
         """
