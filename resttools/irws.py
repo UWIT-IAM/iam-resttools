@@ -135,7 +135,6 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        print response.data
         return self._pw_recover_from_json(response.data)
 
     def put_pw_recover_info(self, netid, profile):
@@ -144,13 +143,30 @@ class IRWS(object):
         """
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid)
-        dstr = json.dumps(profile.json_data())
-        response = dao.putURL(url, {"Content-type": "application/json"}, dstr)
+        response = dao.putURL(url, {"Content-type": "application/json"}, json.dumps(profile.json_data()))
 
         if response.status >=500:
             raise DataFailureException(url, response.status, response.data)
 
         return response.status
+
+    def put_pw_recover_email(self, netid, email, edate):
+        """
+        Updates recover email info in netid's profile 
+        """
+        profile = Profile()
+        profile.recover_email = email
+        profile.recover_email_date = edate
+        return put_pw_recover_info(netid, profile)
+
+    def put_pw_recover_sms(self, netid, sms, sdate):
+        """
+        Updates recover sms info in netid's profile 
+        """
+        profile = Profile()
+        profile.recover_sms = sms
+        profile.recover_sms_date = sdate
+        return put_pw_recover_info(netid, profile)
 
     def get_name_by_netid(self, netid):
         """
