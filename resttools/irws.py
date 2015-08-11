@@ -145,18 +145,13 @@ class IRWS(object):
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid)
         dstr = json.dumps(profile.json_data())
-        print url
-        print dstr
         response = dao.putURL(url, {"Content-type": "application/json"}, dstr)
 
-        print response.status
-        print response.data
-        return None
-    
-        if response.status != 200:
+        if response.status >=500:
             raise DataFailureException(url, response.status, response.data)
 
-        return self._pac_from_json(response.data)
+        return response.status
+
     def get_name_by_netid(self, netid):
         """
         Returns a resttools.irws.Name object for the given netid.  If the
