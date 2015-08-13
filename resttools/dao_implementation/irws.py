@@ -17,6 +17,7 @@ class File(object):
 
     """
     _max_pool_size = 5
+    _cache_db = {}
 
     def __init__(self, conf):
         self._conf = conf
@@ -25,6 +26,12 @@ class File(object):
 
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
+        if url in File._cache_db:
+            print'usng cache'
+            response = MockHTTP
+            response.data = File._cache_db[url]
+            response.status = 200
+            return response
         response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status==404:
             logger.debug('status 404')
@@ -33,11 +40,16 @@ class File(object):
 
     def putURL(self, url, headers, body):
         logger.debug('file irws put url: ' + url)
+        print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status==404:
-            logger.debug('status 404')
-            response.data = '{"error": {"code": "7000","message": "No record matched"}}'
+            # try set in cache
+            File._cache_db[url] = body
+            print('not found for put - cache')
+            logger.debug('not found for put - cache')
+            response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
+            response.status = 200
         
         return response
 

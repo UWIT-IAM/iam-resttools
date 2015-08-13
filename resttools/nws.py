@@ -25,6 +25,9 @@ class NWS(object):
     def __init__(self, conf, actas=None):
         self._service_name = conf['SERVICE_NAME']
         self._conf = conf
+        self._pw_action = 'Set'
+        if 'PASSWORD_ACTION' in conf:
+            self._pw_action = conf['PASSWORD_ACTION']
 
 
     def get_netid_admins(self, netid):
@@ -56,14 +59,14 @@ class NWS(object):
 
         return self._pwinfo_from_json(response.data)
 
-    def set_netid_pw(self, netid, password):
+    def set_netid_pw(self, netid, password, auth):
         """
         Sets password for netid
         """
 
         dao = NWS_DAO(self._conf)
         url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
-        data = {'action':'Set', 'newPassword': password, 'uwNetID': netid}
+        data = {'action': self._pw_action, 'newPassword': password, 'uwNetID': netid, 'authMethod': auth}
         response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
 
         if response.status >= 500:

@@ -44,7 +44,7 @@ class NTFYWS(object):
         }}
         
         url = "/%s/v1/dispatch" % (self._service_name)
-        response = dao.postURL(url, {"Content-Type": "application/json"}, json.dumps(data))
+        status = dao.postURL(url, {"Content-Type": "application/json"}, json.dumps(data))
 
-        return response.status
+        return status
 

@@ -124,7 +124,7 @@ class IRWS(object):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         dao = IRWS_DAO(self._conf)
-        url = "/%s/v1/profile?uwnetid=%s" % (self._service_name, netid.lower())
+        url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid.lower())
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -350,7 +350,7 @@ class IRWS(object):
     def _pw_recover_from_json(self, data):
         info = json.loads(data)['profile'][0]
         ret = Profile()
-        ret.validid = info['validid']
+        if 'validid' in info: ret.validid = info['validid']
         if 'recover_email' in info: ret.recover_email = info['recover_email']
         if 'recover_email_date' in info: ret.recover_email_date = info['recover_email_date']
         if 'recover_sms' in info: ret.recover_sms = info['recover_sms']
