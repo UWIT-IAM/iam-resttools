@@ -26,7 +26,12 @@ class File(object):
     def postURL(self, url, headers, body):
         logger.debug('file ntfyws post url: ' + url)
 
-        return 200
+        response = get_mockdata_url("ntfyws", self._conf, url, headers)
+        if response.status==404:
+            logger.debug('status 404')
+            response.data = '{"error": {"code": "7000","message": "No record matched"}}'
+        return response
+
 
 
 
