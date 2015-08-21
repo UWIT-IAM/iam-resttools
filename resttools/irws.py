@@ -272,6 +272,31 @@ class IRWS(object):
 
         return  self._qna_from_json(response.data)
         
+    def get_verify_qna(self, netid, answers):
+        """
+        Verifies that all answers are present and that all are correct.
+        answers: dict ('ordinal': 'answer')
+        """
+        dao = IRWS_DAO(self._conf)
+        q_list = self.get_qna(netid)
+        for q in q_list:
+            if q.ordinal not in answers:
+                logging.debug('q %s, no answer' % q.ordinal)
+                return False
+            ans = re.sub(r'\W+', '', answers[q.ordinal])
+            url = "/%s/v1/qna/%s/%s/check?ans=%s" % (self._service_name, q.ordinal, netid, ans)
+            print url
+            response = dao.getURL(url, {"Accept": "application/json"})
+            if response.status == 404:
+                logging.debug('q %s, wrong answer' % q.ordinal)
+                return False
+            if response.status != 200:
+                logging.debug('q %s, error return: %d' % (q.ordinal, response.status))
+                return False
+            logging.debug('q %s, correct answer' % q.ordinal)
+        return True
+           
+        
     def _uwhr_person_from_json(self, data):
         """
         Internal method, for creating the UWhrPerson object.
@@ -404,7 +429,7 @@ class IRWS(object):
             qna.uwnetid = q['uwnetid']
             qna.ordinal = q['ordinal']
             qna.question = q['question']
-            qna.answer = q['answer']
+            # qna.answer = q['answer']
             ret.append(qna)
         return ret
 
