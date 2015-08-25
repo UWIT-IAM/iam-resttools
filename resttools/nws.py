@@ -4,6 +4,8 @@ This is the interface for interacting with the UW NetID Web Service.
 
 from resttools.dao import NWS_DAO
 from resttools.models.nws import UWNetIdAdmin, UWNetIdPwInfo
+from resttools.exceptions import DataFailureException
+
 from urllib import urlencode
 
 import json
