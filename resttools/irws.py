@@ -254,6 +254,17 @@ class IRWS(object):
 
         return self._pac_from_json(response.data)
 
+    def verify_sdb_pac(self, sid, pac):
+        """
+        Verifies a permanent student PAC. Returns 200 (verified) or 400 (failed)
+        """
+        dao = IRWS_DAO(self._conf)
+        url = "/%s/v1/person/sdb/%s/?pac=%s" % (self._service_name, sid, pac)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status==200 or response.status==400 or response.status==404:
+            return response.status
+        raise DataFailureException(url, response.status, response.data)
 
     def get_qna(self, netid):
         """
