@@ -73,9 +73,11 @@ class NWS(object):
 
         if response.status >= 500:
             raise DataFailureException(url, response.status, response.data)
-
-        return self._setpw_from_json(response.data)
-
+        obj = json.loads(response.data)
+        if 'result' not in obj:
+            # probably a mock data issue
+            return (500, "Unable to set password.")
+        return (obj['result'], obj['message'])
 
     def _admins_from_json(self, data):
         adminobj = json.loads(data)
@@ -92,11 +94,6 @@ class NWS(object):
             return UWNetIdPwInfo(min_len=infoobj['minimumLength'], last_change=infoobj['lastChange'])
         else:
             return None
-
-    def _setpw_from_json(self, data):
-        obj = json.loads(data)
-        return (obj['result'], obj['message'])
- 
 
     def _headers(self, headers):
         # could auto-add headers here
