@@ -7,7 +7,7 @@ before_script:
   - pip install coverage
   - pip install pep8
 script:
-  - pep8 --max-line-length=120
+  - pep8 --max-line-length=120 resttools
   - nosetests --with-coverage --cover-package=resttools 
 after_script:
   - coverage report

@@ -36,6 +36,7 @@ class Group():
     dependson = ''
     publishemail = ''
     reporttoorig = ''
+
     def __init__(self, *args, **kwargs):
         self.admins = []
         self.creators = []
@@ -51,12 +52,12 @@ class Group():
     def has_regid(self):
         return self.uwregid is not None and len(self.uwregid) == 32
 
+
 class CourseGroup(Group):
     SPRING = "spring"
     SUMMER = "summer"
     AUTUMN = "autumn"
     WINTER = "winter"
-
 
     QUARTERNAME_CHOICES = (
         (SPRING, "Spring"),
@@ -110,6 +111,7 @@ class GroupUser():
     def __str__(self):
         return "{name: %s, user_type: %s}" % (
             self.name, self.user_type)
+
 
 class GroupMember():
     UWNETID_TYPE = "uwnetid"

@@ -1,7 +1,7 @@
 from base64 import b64encode, b64decode
 from datetime import datetime
 
-    
+
 # IRWS Name
 class Name():
     validid = ''
@@ -14,7 +14,6 @@ class Name():
     display_mname = ''
     display_lname = ''
     display_privacy = ''
-
 
     def json_data(self):
         return {"formal_cname": self.formal_cname,
@@ -31,7 +30,7 @@ class Name():
     def __eq__(self, other):
         return self.uwregid == other.uwregid
 
-    
+
 # IRWS Profile (only recover part for now)
 class Profile():
     validid = ''
@@ -43,17 +42,23 @@ class Profile():
 
     def json_data(self):
         prof = {}
-        if self.recover_email != None: prof['recover_email'] = self.recover_email
-        if self.recover_email_date != None: prof['recover_email_date'] = self.recover_email_date
-        if self.recover_sms != None: prof['recover_sms'] = self.recover_sms
-        if self.recover_sms_date != None: prof['recover_sms_date'] = self.recover_sms_date
-        if self.recover_block_code != None: prof['recover_block_code'] = self.recover_block_code
-        return {'profile':[prof]}
+        if self.recover_email is not None:
+            prof['recover_email'] = self.recover_email
+        if self.recover_email_date is not None:
+            prof['recover_email_date'] = self.recover_email_date
+        if self.recover_sms is not None:
+            prof['recover_sms'] = self.recover_sms
+        if self.recover_sms_date is not None:
+            prof['recover_sms_date'] = self.recover_sms_date
+        if self.recover_block_code is not None:
+            prof['recover_block_code'] = self.recover_block_code
+        return {'profile': [prof]}
 
     def __eq__(self, other):
         return self.uwregid == other.uwregid
 
-# IRWS Person 
+
+# IRWS Person
 class Person():
     regid = ''
     lname = ''
@@ -62,7 +67,6 @@ class Person():
 
     # def __init__(self, *args, **kwargs):
     #     self.identifiers = {}
-
 
 
 # IRWS UWhr Person
@@ -111,9 +115,8 @@ class UWhrPerson():
     created = ''
     updated = ''
 
-
     def __eq__(self, other):
-        if other==None: 
+        if other is None:
             return False
         return self.regid == other.regid
 
@@ -147,7 +150,7 @@ class SdbPerson():
     updated = ''
 
     def __eq__(self, other):
-        if other==None: 
+        if other is None:
             return False
         return self.regid == other.regid
 
@@ -168,16 +171,14 @@ class UWNetId():
     created = ''
     updated = ''
 
-
     def json_data(self):
         return {"",
                 }
 
     def __eq__(self, other):
-        if other==None: 
+        if other is None:
             return False
         return self.uwnetid == other.uwnetid
-
 
 
 # IRWS Subscription
@@ -192,7 +193,6 @@ class Subscription():
     created = ''
     updated = ''
 
-
     def json_data(self):
         return {"",
                 }
@@ -205,7 +205,7 @@ class Subscription():
 class Pac():
     pac = ''
     expiration = ''
- 
+
     def json_data(self):
         return {"",
                 }
@@ -217,5 +217,3 @@ class QnA():
     ordinal = ''
     question = ''
     answer = ''
-    
-

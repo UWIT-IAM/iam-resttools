@@ -7,61 +7,76 @@ class PhoneNumberRequired(Exception):
     """Exception for missing phone number."""
     pass
 
+
 class InvalidPhoneNumber(Exception):
     """Exception for invalid phone numbers."""
     pass
+
 
 class InvalidNetID(Exception):
     """Exception for invalid netid."""
     pass
 
+
 class InvalidRegID(Exception):
     """Exception for invalid regid."""
     pass
+
 
 class InvalidEmployeeID(Exception):
     """Exception for invalid employee id."""
     pass
 
+
 class InvalidUUID(Exception):
     """Exception for invalid UUID."""
     pass
+
 
 class InvalidSectionID(Exception):
     """Exception for invalid section id."""
     pass
 
+
 class InvalidSectionURL(Exception):
     """Exception for invalid section url."""
     pass
+
 
 class InvalidGroupID(Exception):
     """Exception for invalid group id."""
     pass
 
+
 class InvalidIdCardPhotoSize(Exception):
     """Exception for invalid photo size."""
     pass
+
 
 class InvalidEndpointProtocol(Exception):
     """Exception for invalid endpoint protocol."""
     pass
 
+
 class InvalidCanvasIndependentStudyCourse(Exception):
     """Exception for invalid Canvas course."""
     pass
+
 
 class InvalidCanvasSection(Exception):
     """Exception for invalid Canvas section."""
     pass
 
+
 class InvalidGradebookID:
     """Exception for invalid gradebook id."""
     pass
 
+
 class InvalidIRWSName(Exception):
     """Exception for invalid IRWS name."""
     pass
+
 
 class DataFailureException(Exception):
     """
