@@ -1,0 +1,56 @@
+
+<gws class="gws" version="2">
+   
+
+
+ <groupreferences class="groupreferences">
+
+  
+    <groupreference class="groupreference">
+      <regid class="regid">1e632e35929a43e1bd923ed049fc9b1b</regid>
+      <title class="title">new sub6</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/u_fox_unittest_sub6">u_fox_unittest_sub6</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">09e7861885d546b4bde6e00df413f690</regid>
+      <title class="title">sub group of unittest - 7</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/u_fox_unittest_sub7">u_fox_unittest_sub7</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">77951f4f5c6645a6b41e9f87a1f2e8d0</regid>
+      <title class="title">b6-test214</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/u_fox_unittest_test214">u_fox_unittest_test214</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">c6bb58d7725f457cb314b3722fb5b6a7</regid>
+      <title class="title">sub11 from sub1 from unittest</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/u_fox_unittest_sub1_sub11">u_fox_unittest_sub1_sub11</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">a1681c3fcba3f54f759e6c9432004381</regid>
+      <title class="title">Test group 6g</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/u_fox_unittest">u_fox_unittest</name>
+    </groupreference>
+
+    
+  </groupreferences>
+
+
+</gws>

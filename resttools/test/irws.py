@@ -3,8 +3,10 @@ import logging
 from nose.tools import *
 
 from resttools.irws import IRWS
-import resttools.test.test_settings as settings
 
+import resttools.test.test_settings as settings
+import logging.config
+logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
 

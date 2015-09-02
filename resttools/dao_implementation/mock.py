@@ -5,15 +5,15 @@ import re
 import json
 import time
 import string
+import logging
 from resttools.mock.mock_http import MockHTTP
 
 """
 A centralized the mock data access
 """
+
 fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
 app_resource_dirs = []
-
-import logging
 
 
 def get_mockdata_url(service_name, conf,
@@ -94,8 +94,8 @@ def _load_resource_from_path(app_root, service_name, conf, url, headers):
             if "headers" in file_values:
                 response.headers = dict(response.headers.items() + file_values['headers'].items())
 
-                if 'status' in file_values:
-                    response.status = file_values['status']
+            if 'status' in file_values:
+                response.status = file_values['status']
 
             else:
                 response.headers = dict(response.headers.items() + file_values.items())
@@ -111,7 +111,7 @@ def post_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(_
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
     """
-    #Currently this post method does not return a response body
+    # Currently this post method does not return a response body
     response = MockHTTP()
     if body is not None:
         if "dispatch" in url:
@@ -130,7 +130,7 @@ def put_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(__
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
     """
-    #Currently this put method does not return a response body
+    # Currently this put method does not return a response body
     response = MockHTTP()
     if body is not None:
         response.status = 204
@@ -146,8 +146,8 @@ def delete_mockdata_url(service_name, conf, url, headers, dir_base=dirname(__fil
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
     """
-    #Http response code 204 No Content:
-    #The server has fulfilled the request but does not need to return an entity-body
+    # Http response code 204 No Content:
+    # The server has fulfilled the request but does not need to return an entity-body
     response = MockHTTP()
     response.status = 204
 

@@ -1,10 +1,10 @@
-
 # config for tests
+
+import os
 
 DEBUG = False
 
 RUN_MODE = 'File'
-import os
 MOCK_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/test_data'
 
 #

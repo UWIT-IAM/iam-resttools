@@ -1,0 +1,207 @@
+<gws class="gws" version="2">
+
+   <searchparams class="searchparams"
+    member="javerage"
+   />
+
+ <groupreferences class="groupreferences">
+
+    <groupreference class="groupreference">
+      <regid class="regid">09879BF9FF2B636B485E20C95886BE9B</regid>
+      <title class="title">Access and Use Agreement for Institutional Information</title>
+      <description class="description">People who have accepted the Access and Use Agreement for Institutional Information
+version=2.0;</description>
+      <name class="name" href="/group_sws/v2/group/u_agreement_idaa">u_agreement_idaa</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">783b786fea534b158389d24332d2f817</regid>
+      <title class="title">u_astra_testrole_approver</title>
+      <description class="description">ASTRA Approver TestRole</description>
+      <name class="name" href="/group_sws/v2/group/u_astra_testrole_approver">u_astra_testrole_approver</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">bce4a1ecaa7e43f59b1b2703c17419e9</regid>
+      <title class="title">u_astra_testrole_generic</title>
+      <description class="description">ASTRA Generic TestRole - Update name change</description>
+      <name class="name" href="/group_sws/v2/group/u_astra_testrole_generic">u_astra_testrole_generic</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">bea84ca7cbce4eac828c2c32ed8a074d</regid>
+      <title class="title">u_astratst_testrole_approver</title>
+      <description class="description">ASTRA Approver TestRole</description>
+      <name class="name" href="/group_sws/v2/group/u_astratst_testrole_approver">u_astratst_testrole_approver</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">a50a3310dc0f40c4a005d01275ad06a6</regid>
+      <title class="title">u_astratst_testrole_generic</title>
+      <description class="description">ASTRA Generic TestRole - Update name change</description>
+      <name class="name" href="/group_sws/v2/group/u_astratst_testrole_generic">u_astratst_testrole_generic</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">bb0c16958c5b43a4add235c4a6b7aa1d</regid>
+      <title class="title">u_astratst_testrole_generic_hourly</title>
+      <description class="description">ASTRA Generic TestRole - Hourly update</description>
+      <name class="name" href="/group_sws/v2/group/u_astratst_testrole_generic_hourly">u_astratst_testrole_generic_hourly</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">a1c63dca571fc93a7b4b13c06be0e2ea</regid>
+      <title class="title">Test Accounts</title>
+      <description class="description">Test Accounts</description>
+      <name class="name" href="/group_sws/v2/group/u_ccpilot_testaccounts">u_ccpilot_testaccounts</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">a50b0bdf1adb4904bce86cdd8959efe3</regid>
+      <title class="title">Google Group</title>
+      <description class="description">Google Group</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_google">u_glee23_google</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">ec13387467ef4ba1a3d5d486a4149c26</regid>
+      <title class="title">Member Group</title>
+      <description class="description">Member Group</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_member">u_glee23_member</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">2c7afb8fa68f4873b12ef37d20aa098e</regid>
+      <title class="title">No Restrictions</title>
+      <description class="description">No Restrictions</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_norestrictions">u_glee23_norestrictions</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">ebe97d37cbd3456d91b6528f9ee33af9</regid>
+      <title class="title">Subgroup</title>
+      <description class="description">Subgroup</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_subgroup">u_glee23_subgroup</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">b311cb2b03664ba79a9bb478e06ebc12</regid>
+      <title class="title">Confidential Group</title>
+      <description class="description">Confidential Group</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_test_confidential">u_glee23_test_confidential</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">3dccadc54b15466ca03384a762b6c396</regid>
+      <title class="title">Restricted Test Group</title>
+      <description class="description">Restricted Test Group</description>
+      <name class="name" href="/group_sws/v2/group/u_glee23_test_restricted">u_glee23_test_restricted</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">cfa587804ee9436887828f6e0791471d</regid>
+      <title class="title">u_nebula_wwwuudev</title>
+      <description class="description">u_nebula_wwwuudev</description>
+      <name class="name" href="/group_sws/v2/group/u_nebula_wwwuudev">u_nebula_wwwuudev</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">7fb4a5d7eaca476790c69caefb04505b</regid>
+      <title class="title">MyPlan Server Users (Category 87)</title>
+      <description class="description">MyPlan Server Users (Category 87)</description>
+      <name class="name" href="/group_sws/v2/group/u_subman_c-myplan">u_subman_c-myplan</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">6D261678EA39491453424328E4666A39</regid>
+      <title class="title">Shuksan subscription 81</title>
+      <description class="description">Shuksan subscription 81</description>
+      <name class="name" href="/group_sws/v2/group/u_subman_eres">u_subman_eres</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">40442595174B5EBF53167252B5CBCC34</regid>
+      <title class="title">Shuksan subscription 80</title>
+      <description class="description">Shuksan subscription 80</description>
+      <name class="name" href="/group_sws/v2/group/u_subman_ezproxy">u_subman_ezproxy</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">3768C3BFFE4C13875088787F886F62EE</regid>
+      <title class="title">ILLiad Users (Subscription 85)</title>
+      <description class="description">Authorization for InterLibrary-Loan Service</description>
+      <name class="name" href="/group_sws/v2/group/u_subman_illusers">u_subman_illusers</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">fb03786446ef4510a8480cc080f57603</regid>
+      <title class="title">NetIDs that have active Central File Service (UDrive) Subscriptions</title>
+      <description class="description">This group is automagically maintained from subscription 34.</description>
+      <name class="name" href="/group_sws/v2/group/u_subman_s-udrive">u_subman_s-udrive</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">6e08f1b55d494de38ff246511be0cd15</regid>
+      <title class="title">ACA Quality Assurance</title>
+      <description class="description">ACA QA Team</description>
+      <name class="name" href="/group_sws/v2/group/u_tbohn_acaqa">u_tbohn_acaqa</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">61d4b2ffcd9d42bc87779be8737133dc</regid>
+      <title class="title">UW Today / Mailchimp</title>
+      <description class="description">Group to load in netids into Mailchimp for UW Today</description>
+      <name class="name" href="/group_sws/v2/group/u_uweb_uwtoday">u_uweb_uwtoday</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">2364284941D949959DE70C672B616084</regid>
+      <title class="title">UW Employees</title>
+      <description class="description">UW NetIDs with eduperson affiliation of 'employee'</description>
+      <name class="name" href="/group_sws/v2/group/uw_employee">uw_employee</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">956ad2f5bd7844ae862016b2999e9e06</regid>
+      <title class="title">UW Members</title>
+      <description class="description">UW NetIDs with eduperson affiliation of 'member'</description>
+      <name class="name" href="/group_sws/v2/group/uw_member">uw_member</name>
+    </groupreference>
+
+
+    <groupreference class="groupreference">
+      <regid class="regid">FB7B6298B70C1071A7D42F637A1166A3</regid>
+      <title class="title">UW Staff</title>
+      <description class="description">UW NetIDs with eduperson affiliation of 'staff'</description>
+      <name class="name" href="/group_sws/v2/group/uw_staff">uw_staff</name>
+    </groupreference>
+
+
+
+ </groupreferences>
+
+
+</gws>
+

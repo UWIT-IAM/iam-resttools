@@ -1,0 +1,1801 @@
+<gws class="gws" version="2">
+   
+
+
+ <groupreferences class="groupreferences">
+
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182072220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118b">course_2015spr-phys118b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183432220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ce">course_2015spr-phys123ce</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183072220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bn">course_2015spr-phys122bn</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183262220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ar">course_2015spr-phys123ar</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183362220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123bn">course_2015spr-phys123bn</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183442220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cf">course_2015spr-phys123cf</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182372220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ai">course_2015spr-phys121ai</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395206942220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ai">course_2015spr-phys123ai</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183292220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123au">course_2015spr-phys123au</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183922220157spaf2b3</regid>
+      <title class="title">COMTEMP ATOMIC PHYS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys421a">course_2015spr-phys421a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182342220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121af">course_2015spr-phys121af</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208552220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bt">course_2015spr-phys122bt</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182202220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119e">course_2015spr-phys119e</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182212220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119f">course_2015spr-phys119f</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182242220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119i">course_2015spr-phys119i</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183222220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123an">course_2015spr-phys123an</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182032220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117j">course_2015spr-phys117j</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181872220157spaf2b3</regid>
+      <title class="title">GROUP INQUIRY III</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys106a">course_2015spr-phys106a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182152220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118j">course_2015spr-phys118j</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182252220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119j">course_2015spr-phys119j</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182492220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121aw">course_2015spr-phys121aw</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182112220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118f">course_2015spr-phys118f</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182692220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bt">course_2015spr-phys121bt</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182722220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bw">course_2015spr-phys121bw</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182972220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122au">course_2015spr-phys122au</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182792220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ce">course_2015spr-phys121ce</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183592220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216aa">course_2015spr-phys216aa</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183302220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123av">course_2015spr-phys123av</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183622220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216ad">course_2015spr-phys216ad</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395184032220157spaf2b3</regid>
+      <title class="title">CONTEMPORARY PHYSIC</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys511a">course_2015spr-phys511a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183572220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cv">course_2015spr-phys123cv</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183632220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216ae">course_2015spr-phys216ae</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183712220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys321ab">course_2015spr-phys321ab</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183462220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ch">course_2015spr-phys123ch</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182282220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121a">course_2015spr-phys121a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182462220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121at">course_2015spr-phys121at</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182312220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ac">course_2015spr-phys121ac</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182632220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bn">course_2015spr-phys121bn</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183142220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123aa">course_2015spr-phys123aa</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183692220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys321a">course_2015spr-phys321a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183722220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys321ac">course_2015spr-phys321ac</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182802220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121cf">course_2015spr-phys121cf</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183472220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ci">course_2015spr-phys123ci</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183402220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cb">course_2015spr-phys123cb</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182922220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ap">course_2015spr-phys122ap</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182262220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119k">course_2015spr-phys119k</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181952220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117b">course_2015spr-phys117b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182472220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121au">course_2015spr-phys121au</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182642220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bo">course_2015spr-phys121bo</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183582220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216a">course_2015spr-phys216a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182102220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118e">course_2015spr-phys118e</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182442220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ar">course_2015spr-phys121ar</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183602220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216ab">course_2015spr-phys216ab</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182132220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118h">course_2015spr-phys118h</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182222220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119g">course_2015spr-phys119g</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181912220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys115b">course_2015spr-phys115b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182172220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119b">course_2015spr-phys119b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182432220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121aq">course_2015spr-phys121aq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182662220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bq">course_2015spr-phys121bq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183052220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bg">course_2015spr-phys122bg</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183232220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ao">course_2015spr-phys123ao</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182612220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bj">course_2015spr-phys121bj</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183102220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bq">course_2015spr-phys122bq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182992220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ba">course_2015spr-phys122ba</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181972220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117d">course_2015spr-phys117d</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183212220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123am">course_2015spr-phys123am</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182712220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bv">course_2015spr-phys121bv</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182302220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ab">course_2015spr-phys121ab</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182362220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ah">course_2015spr-phys121ah</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182902220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122an">course_2015spr-phys122an</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182952220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122as">course_2015spr-phys122as</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183392220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ca">course_2015spr-phys123ca</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183132220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123a">course_2015spr-phys123a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183422220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cd">course_2015spr-phys123cd</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183022220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bd">course_2015spr-phys122bd</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183542220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cs">course_2015spr-phys123cs</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181982220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117e">course_2015spr-phys117e</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182912220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ao">course_2015spr-phys122ao</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182562220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121be">course_2015spr-phys121be</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183512220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cp">course_2015spr-phys123cp</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182412220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ao">course_2015spr-phys121ao</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181992220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117f">course_2015spr-phys117f</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182192220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119d">course_2015spr-phys119d</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395184042220157spaf2b3</regid>
+      <title class="title">ELECTRMAG &amp; RELTVTY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys515a">course_2015spr-phys515a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395184052220157spaf2b3</regid>
+      <title class="title">QUANTUM MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys519a">course_2015spr-phys519a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182042220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117k">course_2015spr-phys117k</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183252220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123aq">course_2015spr-phys123aq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183082220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bo">course_2015spr-phys122bo</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181962220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117c">course_2015spr-phys117c</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395209352220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bh">course_2015spr-phys122bh</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183312220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123b">course_2015spr-phys123b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183372220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123bo">course_2015spr-phys123bo</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183492220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cn">course_2015spr-phys123cn</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183152220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ab">course_2015spr-phys123ab</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208572220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ah">course_2015spr-phys122ah</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182232220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119h">course_2015spr-phys119h</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182622220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bm">course_2015spr-phys121bm</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182542220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bc">course_2015spr-phys121bc</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183502220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123co">course_2015spr-phys123co</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183482220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cm">course_2015spr-phys123cm</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183562220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cu">course_2015spr-phys123cu</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182742220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121c">course_2015spr-phys121c</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183122220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bs">course_2015spr-phys122bs</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183042220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bf">course_2015spr-phys122bf</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182092220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118d">course_2015spr-phys118d</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183092220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bp">course_2015spr-phys122bp</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182002220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117g">course_2015spr-phys117g</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183172220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ad">course_2015spr-phys123ad</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182382220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121aj">course_2015spr-phys121aj</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183192220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123af">course_2015spr-phys123af</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181922220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys116a">course_2015spr-phys116a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182062220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118a">course_2015spr-phys118a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182782220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121cd">course_2015spr-phys121cd</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181892220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys114b">course_2015spr-phys114b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182862220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ae">course_2015spr-phys122ae</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182122220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118g">course_2015spr-phys118g</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182392220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121am">course_2015spr-phys121am</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182292220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121aa">course_2015spr-phys121aa</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182652220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bp">course_2015spr-phys121bp</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182982220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122b">course_2015spr-phys122b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183182220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ae">course_2015spr-phys123ae</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208592220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119m">course_2015spr-phys119m</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182272220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119l">course_2015spr-phys119l</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182012220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117h">course_2015spr-phys117h</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182512220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121b">course_2015spr-phys121b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182702220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bu">course_2015spr-phys121bu</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182532220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bb">course_2015spr-phys121bb</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183902220157spaf2b3</regid>
+      <title class="title">INQUIRY FOR TEACHER</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys410a">course_2015spr-phys410a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183912220157spaf2b3</regid>
+      <title class="title">LEAD TEACHER INQUIR</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys413a">course_2015spr-phys413a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183282220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123at">course_2015spr-phys123at</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183032220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122be">course_2015spr-phys122be</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183992220157spaf2b3</regid>
+      <title class="title">TEACHING PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys501a">course_2015spr-phys501a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182752220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ca">course_2015spr-phys121ca</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182822220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122aa">course_2015spr-phys122aa</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182352220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ag">course_2015spr-phys121ag</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182812220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122a">course_2015spr-phys122a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208542220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ak">course_2015spr-phys121ak</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181942220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117a">course_2015spr-phys117a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182182220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119c">course_2015spr-phys119c</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182422220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ap">course_2015spr-phys121ap</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182482220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121av">course_2015spr-phys121av</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183352220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123bm">course_2015spr-phys123bm</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182502220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ax">course_2015spr-phys121ax</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182552220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bd">course_2015spr-phys121bd</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182572220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bf">course_2015spr-phys121bf</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182602220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bi">course_2015spr-phys121bi</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208532220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bk">course_2015spr-phys121bk</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182682220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bs">course_2015spr-phys121bs</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182732220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bx">course_2015spr-phys121bx</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182842220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ac">course_2015spr-phys122ac</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183012220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bc">course_2015spr-phys122bc</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183332220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123bb">course_2015spr-phys123bb</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183342220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123bc">course_2015spr-phys123bc</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182332220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ae">course_2015spr-phys121ae</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183532220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cr">course_2015spr-phys123cr</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183272220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123as">course_2015spr-phys123as</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182762220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121cb">course_2015spr-phys121cb</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183322220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ba">course_2015spr-phys123ba</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183242220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ap">course_2015spr-phys123ap</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183452220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cg">course_2015spr-phys123cg</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183522220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cq">course_2015spr-phys123cq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182672220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121br">course_2015spr-phys121br</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182772220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121cc">course_2015spr-phys121cc</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183162220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ac">course_2015spr-phys123ac</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182052220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117l">course_2015spr-phys117l</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181932220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys116b">course_2015spr-phys116b</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182082220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118c">course_2015spr-phys118c</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182162220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys119a">course_2015spr-phys119a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182322220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ad">course_2015spr-phys121ad</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182452220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121as">course_2015spr-phys121as</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182582220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bg">course_2015spr-phys121bg</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182522220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121ba">course_2015spr-phys121ba</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182832220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ab">course_2015spr-phys122ab</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182852220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ad">course_2015spr-phys122ad</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182882220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ag">course_2015spr-phys122ag</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182942220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122ar">course_2015spr-phys122ar</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182142220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118i">course_2015spr-phys118i</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183112220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122br">course_2015spr-phys122br</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181902220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys115a">course_2015spr-phys115a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395184172220157spaf2b3</regid>
+      <title class="title">SMNR HGH ENRGY PHYS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys581a">course_2015spr-phys581a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182872220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122af">course_2015spr-phys122af</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183552220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ct">course_2015spr-phys123ct</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182962220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122at">course_2015spr-phys122at</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395181882220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys114a">course_2015spr-phys114a</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182022220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys117i">course_2015spr-phys117i</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395208562220157spaf2b3</regid>
+      <title class="title">GENERAL PHYSICS LAB</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys118k">course_2015spr-phys118k</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182892220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122am">course_2015spr-phys122am</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183062220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bm">course_2015spr-phys122bm</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182932220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122aq">course_2015spr-phys122aq</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183002220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys122bb">course_2015spr-phys122bb</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182402220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121an">course_2015spr-phys121an</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183702220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys321aa">course_2015spr-phys321aa</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395206932220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ah">course_2015spr-phys123ah</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183412220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123cc">course_2015spr-phys123cc</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183612220157spaf2b3</regid>
+      <title class="title">SCIENCE AND SOCIETY</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys216ac">course_2015spr-phys216ac</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183382220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123c">course_2015spr-phys123c</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183732220157spaf2b3</regid>
+      <title class="title">ELECTROMAGNETISM</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys321ad">course_2015spr-phys321ad</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395182592220157spaf2b3</regid>
+      <title class="title">MECHANICS</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys121bh">course_2015spr-phys121bh</name>
+    </groupreference>
+
+    
+  
+    <groupreference class="groupreference">
+      <regid class="regid">93a4290c81395183202220157spaf2b3</regid>
+      <title class="title">WAVES</title>
+      <description class="description"></description>
+      <name class="name" href="/group_sws/v2/group/course_2015spr-phys123ag">course_2015spr-phys123ag</name>
+    </groupreference>
+
+    
+  </groupreferences>
+
+
+</gws>

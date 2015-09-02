@@ -1,0 +1,15 @@
+admins li9st for id=joeuser
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "uwNetID" : "joeuser",
+  "adminList" : [
+    {
+      "name" : "fox",
+      "role" : "administrator",
+      "role" : "owner"
+    }
+  ],
+  "timeStamp" : "Tue, 25 Aug 2015 13:47:57 -0700"
+}
+
