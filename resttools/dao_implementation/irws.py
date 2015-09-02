@@ -10,6 +10,7 @@ from resttools.dao_implementation.mock import get_mockdata_url
 import logging
 logger = logging.getLogger(__name__)
 
+
 class File(object):
     """
     The File DAO implementation returns generally static content.  Use this
@@ -33,7 +34,7 @@ class File(object):
             response.status = 200
             return response
         response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status==404:
+        if response.status == 404:
             logger.debug('status 404')
             response.data = '{"error": {"code": "7000","message": "No record matched"}}'
         return response
@@ -43,16 +44,15 @@ class File(object):
         print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status==404:
+        if response.status == 404:
             # try set in cache
             File._cache_db[url] = body
             print('not found for put - cache')
             logger.debug('not found for put - cache')
             response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
             response.status = 200
-        
-        return response
 
+        return response
 
 
 class Live(object):
@@ -69,7 +69,7 @@ class Live(object):
     pool = None
 
     def getURL(self, url, headers):
-        if Live.pool == None:
+        if Live.pool is None:
             Live.pool = self._get_pool()
 
         return get_live_url(Live.pool, 'GET',
@@ -89,10 +89,10 @@ class Live(object):
     def _get_pool(self):
         vfy = True
         if 'VERIFY_HOST' in self._conf:
-            vfy = self._conf['VERIFY_HOST'] 
+            vfy = self._conf['VERIFY_HOST']
         return get_con_pool(self._conf['HOST'],
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            max_pool_size = self._max_pool_size,
+                            max_pool_size=self._max_pool_size,
                             verify_https=vfy)

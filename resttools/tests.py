@@ -1,6 +1,6 @@
 # various nose tests
 
-from  nose.tools import *
+from nose.tools import *
 
 import resttools.test.test_settings as settings
 

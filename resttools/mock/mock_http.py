@@ -29,4 +29,3 @@ class MockHTTP(object):
                     return self.headers[header]
 
         return default
-

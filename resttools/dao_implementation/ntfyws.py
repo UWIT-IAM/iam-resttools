@@ -10,6 +10,7 @@ from resttools.dao_implementation.mock import get_mockdata_url
 import logging
 logger = logging.getLogger(__name__)
 
+
 class File(object):
     """
     The File DAO implementation returns generally static content.  Use this
@@ -27,12 +28,10 @@ class File(object):
         logger.debug('file ntfyws post url: ' + url)
 
         response = get_mockdata_url("ntfyws", self._conf, url, headers)
-        if response.status==404:
+        if response.status == 404:
             logger.debug('status 404')
             response.data = '{"error": {"code": "7000","message": "No record matched"}}'
         return response
-
-
 
 
 class Live(object):
@@ -62,4 +61,4 @@ class Live(object):
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            max_pool_size = self._max_pool_size, verify_https=False)
+                            max_pool_size=self._max_pool_size, verify_https=False)

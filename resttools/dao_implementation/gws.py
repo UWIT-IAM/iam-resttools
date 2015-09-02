@@ -94,5 +94,5 @@ class Live(object):
                             self._conf['KEY_FILE'],
                             self._conf['CERT_FILE'],
                             self._conf['CA_FILE'],
-                            socket_timeout = self._socket_timeout,
-                            max_pool_size = self._max_pool_size)
+                            socket_timeout=self._socket_timeout,
+                            max_pool_size=self._max_pool_size)

@@ -7,6 +7,7 @@ import resttools.test.test_settings as settings
 
 logger = logging.getLogger(__name__)
 
+
 class IRWS_Test():
 
     def __init__(self):
@@ -44,23 +45,23 @@ class IRWS_Test():
         uwhr = self.irws.get_uwhr_person('123456789', source='hepps')
         eq_(uwhr.lname, 'STUDENT')
         eq_(uwhr.category_code, '4')
-    
+
     def test_get_sdb_person(self):
         sdb = self.irws.get_sdb_person('000083856')
         eq_(sdb.lname, 'STUDENT')
         eq_(sdb.category_code, '1')
-    
+
     def test_get_qna(self):
         qna = self.irws.get_qna('user1q')
         eq_(len(qna), 3)
         eq_(qna[0].ordinal, '1')
         eq_(qna[1].ordinal, '2')
         eq_(qna[2].ordinal, '3')
-    
+
     def test_verify_qna(self):
-        correct = {'1':'skyblue', '2':'mememe', '3':'begood'}
+        correct = {'1': 'skyblue', '2': 'mememe', '3': 'begood'}
         st = self.irws.get_verify_qna('user1q', correct)
         eq_(st, True)
-        incorrect = {'1':'skyblue', '2':'NOTmememe', '3':'begood'}
+        incorrect = {'1': 'skyblue', '2': 'NOTmememe', '3': 'begood'}
         st = self.irws.get_verify_qna('user1q', incorrect)
         eq_(st, False)

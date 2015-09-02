@@ -20,14 +20,14 @@ IRWS_CONF = {
     'MAX_POOL_SIZE': 5,
     'VERIFY_HOST': False,
 }
-              
+
 NWS_CONF = {
     'HOST':  'https://uwnetid.washington.edu',
     'SERVICE_NAME': 'newver/nws',
     'MAX_POOL_SIZE': 5,
     'PASSWORD_ACTION': 'Test',
 }
-              
+
 NTFYWS_CONF = {
     'HOST':  'https://notify-dev.s.uw.edu',
     # 'HOST':  'https://notify.uw.edu',
@@ -42,8 +42,6 @@ for conf in (GWS_CONF, IRWS_CONF, NWS_CONF):
         conf['RUN_MODE'] = RUN_MODE
     if 'MOCK_ROOT' not in conf:
         conf['MOCK_ROOT'] = MOCK_ROOT
-
-
 
 LOGGING = {
     'version': 1,
@@ -69,7 +67,6 @@ LOGGING = {
     'root': {
         'level': 'DEBUG',
         'handlers': ['default'],
-        
     },
     'suds': {
         'level': 'INFO',

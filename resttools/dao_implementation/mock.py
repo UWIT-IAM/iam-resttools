@@ -40,15 +40,15 @@ def get_mockdata_url(service_name, conf,
     response.status = 404
     return response
 
-def _load_resource_from_path(app_root, service_name, conf,
-                                url, headers):
+
+def _load_resource_from_path(app_root, service_name, conf, url, headers):
 
     logger = logging.getLogger(__name__)
-    mock_root = app_root + '/../mock' 
-    std_root = mock_root + '/' + service_name 
+    mock_root = app_root + '/../mock'
+    std_root = mock_root + '/' + service_name
     if 'MOCK_ROOT' in conf and conf['MOCK_ROOT'] is not None:
         mock_root = conf['MOCK_ROOT']
-    root = mock_root + '/' + service_name 
+    root = mock_root + '/' + service_name
 
     if url == "///":
         # Just a placeholder to put everything else in an else.
@@ -57,7 +57,7 @@ def _load_resource_from_path(app_root, service_name, conf,
     else:
         try:
             file_path = convert_to_platform_safe(root + url)
-            logger.debug( 'try1: ' + file_path)
+            logger.debug('try1: ' + file_path)
             if os.path.isdir(file_path):
                 file_path = file_path + '.resource'
             handle = open(file_path)
@@ -65,7 +65,7 @@ def _load_resource_from_path(app_root, service_name, conf,
             if std_root is not mock_root:
                 try:
                     file_path = convert_to_platform_safe(std_root + url)
-                    logger.debug( 'try2: ' + file_path)
+                    logger.debug('try2: ' + file_path)
                     if os.path.isdir(file_path):
                         file_path = file_path + '.resource'
                     handle = open(file_path)
@@ -77,8 +77,8 @@ def _load_resource_from_path(app_root, service_name, conf,
         response = MockHTTP()
         response.status = 200
         data = handle.read()
-        cut = string.find(data,'MOCKDATA-MOCKDATA-MOCKDATA')
-        if cut>=0:
+        cut = string.find(data, 'MOCKDATA-MOCKDATA-MOCKDATA')
+        if cut >= 0:
             data = data[string.find(data, '\n', cut)+1:]
         response.data = data
         response.headers = {"X-Data-Source": service_name + " file mock data", }
@@ -86,8 +86,8 @@ def _load_resource_from_path(app_root, service_name, conf,
         try:
             headers = open(handle.name + '.http-headers')
             data = headers.read()
-            cut = string.find(data,'MOCKDATA-MOCKDATA-MOCKDATA')
-            if cut>=0:
+            cut = string.find(data, 'MOCKDATA-MOCKDATA-MOCKDATA')
+            if cut >= 0:
                 data = data[string.find(data, '\n', cut)+1:]
             file_values = json.loads(data)
 
@@ -106,10 +106,7 @@ def _load_resource_from_path(app_root, service_name, conf,
         return response
 
 
-
-def post_mockdata_url(service_name, conf,
-                     url, headers, body,
-                     dir_base = dirname(__file__)):
+def post_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
@@ -128,9 +125,7 @@ def post_mockdata_url(service_name, conf,
     return response
 
 
-def put_mockdata_url(service_name, conf,
-                     url, headers, body,
-                     dir_base = dirname(__file__)):
+def put_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
@@ -146,9 +141,7 @@ def put_mockdata_url(service_name, conf,
     return response
 
 
-def delete_mockdata_url(service_name, conf,
-                     url, headers,
-                     dir_base = dirname(__file__)):
+def delete_mockdata_url(service_name, conf, url, headers, dir_base=dirname(__file__)):
     """
     :param service_name:
         possible "sws", "pws", "book", "hfs", etc.
@@ -160,9 +153,10 @@ def delete_mockdata_url(service_name, conf,
 
     return response
 
+
 def convert_to_platform_safe(dir_file_name):
     """
     :param dir_file_name: a string to be processed
     :return: a string with all the reserved characters replaced
     """
-    return  re.sub('[\?|<>=:*,;+&"@]', '_', dir_file_name)
+    return re.sub('[\?|<>=:*,;+&"@]', '_', dir_file_name)

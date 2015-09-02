@@ -16,6 +16,7 @@ import urllib3
 urllib3.disable_warnings()
 logging.captureWarnings(True)
 
+
 def get_con_pool(host,
                  key_file=None,
                  cert_file=None,
