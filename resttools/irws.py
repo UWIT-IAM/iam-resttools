@@ -1,15 +1,5 @@
-# workday interfaces and tools - library
+# IRWS service interface
 #
-
-# connection pooling http client
-# import urllib3
-# from urllib3.connectionpool import HTTPSConnectionPool
-# from urllib3.exceptions import MaxRetryError
-# from urllib3.exceptions import SSLError
-# from urllib3.exceptions import ReadTimeoutError
-
-# json classes
-import json
 
 import os
 import string
@@ -17,6 +7,8 @@ import time
 import re
 import random
 import copy
+
+import json
 
 from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
@@ -34,6 +26,7 @@ from resttools.exceptions import DataFailureException
 import logging
 logger = logging.getLogger(__name__)
 
+
 class IRWS(object):
 
     def __init__(self, conf):
@@ -44,9 +37,9 @@ class IRWS(object):
 
     def _get_code_from_error(self, message):
         try:
-           code = int(json.loads(message)['error']['code'])
+            code = int(json.loads(message)['error']['code'])
         except:
-           code = (-1)
+            code = (-1)
         return code
 
     def get_uwnetid(self, eid=None, regid=None, netid=None, source=None, status=None, ret_array=False):
@@ -58,14 +51,14 @@ class IRWS(object):
         """
 
         status_str = ''
-        if status!=None:
+        if status is not None:
             status_str = '&status=%d' % status
         dao = IRWS_DAO(self._conf)
-        if eid!=None and source!=None:
+        if eid is not None and source is not None:
             url = "/%s/v1/uwnetid?validid=%d=%s%s" % (self._service_name, source, eid, status_str)
-        elif regid!=None:
+        elif regid is not None:
             url = "/%s/v1/uwnetid?validid=regid=%s%s" % (self._service_name, regid, status_str)
-        elif netid!=None:
+        elif netid is not None:
             url = "/%s/v1/uwnetid?validid=uwnetid=%s%s" % (self._service_name, netid, status_str)
         else:
             return None
@@ -73,7 +66,7 @@ class IRWS(object):
 
         if response.status == 404:
             err = self._get_code_from_error(response.data)
-            if err==7000:
+            if err == 7000:
                 return None
 
         if response.status != 200:
@@ -82,8 +75,8 @@ class IRWS(object):
         id_data = json.loads(response.data)['uwnetid']
         if ret_array:
             ret = []
-            for n in range(0,len(id_data)):
-               ret.append(self._uwnetid_from_json_obj(id_data[n]))
+            for n in range(0, len(id_data)):
+                ret.append(self._uwnetid_from_json_obj(id_data[n]))
             return ret
         else:
             return self._uwnetid_from_json_obj(id_data[0])
@@ -95,12 +88,12 @@ class IRWS(object):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         dao = IRWS_DAO(self._conf)
-        url = None 
-        if netid!=None:
+        url = None
+        if netid is not None:
             url = "/%s/v1/person?uwnetid=%s" % (self._service_name, netid.lower())
-        elif regid!=None:
+        elif regid is not None:
             url = "/%s/v1/person?validid=regid=%s" % (self._service_name, regid)
-        elif eid!=None:
+        elif eid is not None:
             url = "/%s/v1/person?validid=1=%s" % (self._service_name, eid)
         else:
             return None
@@ -108,7 +101,7 @@ class IRWS(object):
 
         if response.status == 404:
             err = self._get_code_from_error(response.data)
-            if err==7000:
+            if err == 7000:
                 return None
 
         if response.status != 200:
@@ -124,12 +117,13 @@ class IRWS(object):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         dao = IRWS_DAO(self._conf)
-        url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid.lower())
+        url = "/%s/v1/profile/validid=uwnetid=%s" % \
+            (self._service_name, netid.lower())
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             err = self._get_code_from_error(response.data)
-            if err==7000:
+            if err == 7000:
                 return None
 
         if response.status != 200:
@@ -139,20 +133,20 @@ class IRWS(object):
 
     def put_pw_recover_info(self, netid, profile):
         """
-        Updates recover info in netid's profile 
+        Updates recover info in netid's profile
         """
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/profile/validid=uwnetid=%s" % (self._service_name, netid)
         response = dao.putURL(url, {"Content-type": "application/json"}, json.dumps(profile.json_data()))
 
-        if response.status >=500:
+        if response.status >= 500:
             raise DataFailureException(url, response.status, response.data)
 
         return response.status
 
     def put_pw_recover_email(self, netid, email, edate):
         """
-        Updates recover email info in netid's profile 
+        Updates recover email info in netid's profile
         """
         profile = Profile()
         profile.recover_email = email
@@ -161,7 +155,7 @@ class IRWS(object):
 
     def put_pw_recover_sms(self, netid, sms, sdate):
         """
-        Updates recover sms info in netid's profile 
+        Updates recover sms info in netid's profile
         """
         profile = Profile()
         profile.recover_sms = sms
@@ -189,7 +183,7 @@ class IRWS(object):
         Returns an irws.UWhrPerson object for the given eid.
         If the person is not an employee, returns None.
         If the netid isn't found, throws IRWSNotFound.
-        If there is an error communicating with the IRWS, throws DataFailureException.
+        If there is an error contacting IRWS, throws DataFailureException.
         """
         dao = IRWS_DAO(self._conf)
 
@@ -202,15 +196,14 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return  self._uwhr_person_from_json(response.data)
-        
+        return self._uwhr_person_from_json(response.data)
 
     def get_sdb_person(self, vid):
         """
         Returns an irws.SdbPerson object for the given eid.
         If the person is not a student, returns None.
         If the netid isn't found, throws IRWSNotFound.
-        If there is an error communicating with the IRWS, throws DataFailureException.
+        If there is an error contacting IRWS, throws DataFailureException.
         """
         dao = IRWS_DAO(self._conf)
 
@@ -223,8 +216,7 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return  self._sdb_person_from_json(response.data)
-        
+        return self._sdb_person_from_json(response.data)
 
     def get_subscription(self, netid, subscription):
         """
@@ -256,13 +248,13 @@ class IRWS(object):
 
     def verify_sdb_pac(self, sid, pac):
         """
-        Verifies a permanent student PAC. Returns 200 (verified) or 400 (failed)
+        Verifies a permanent student PAC. Returns 200 (ok) or 400 (no)
         """
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/person/sdb/%s/?pac=%s" % (self._service_name, sid, pac)
         response = dao.getURL(url, {"Accept": "application/json"})
 
-        if response.status==200 or response.status==400 or response.status==404:
+        if (response.status == 200 or response.status == 400 or response.status == 404):
             return response.status
         raise DataFailureException(url, response.status, response.data)
 
@@ -281,8 +273,8 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return  self._qna_from_json(response.data)
-        
+        return self._qna_from_json(response.data)
+
     def get_verify_qna(self, netid, answers):
         """
         Verifies that all answers are present and that all are correct.
@@ -296,7 +288,6 @@ class IRWS(object):
                 return False
             ans = re.sub(r'\W+', '', answers[q.ordinal])
             url = "/%s/v1/qna/%s/%s/check?ans=%s" % (self._service_name, q.ordinal, netid, ans)
-            print url
             response = dao.getURL(url, {"Accept": "application/json"})
             if response.status == 404:
                 logging.debug('q %s, wrong answer' % q.ordinal)
@@ -306,8 +297,7 @@ class IRWS(object):
                 return False
             logging.debug('q %s, correct answer' % q.ordinal)
         return True
-           
-        
+
     def _uwhr_person_from_json(self, data):
         """
         Internal method, for creating the UWhrPerson object.
@@ -316,17 +306,23 @@ class IRWS(object):
         person = UWhrPerson()
         person.validid = person_data['validid']
         person.regid = person_data['regid']
-        if 'studentid' in person_data: person.studentid = person_data['studentid']
-        if 'birthdate' in person_data: person.birthdate = person_data['birthdate']
+        if 'studentid' in person_data:
+            person.studentid = person_data['studentid']
+        if 'birthdate' in person_data:
+            person.birthdate = person_data['birthdate']
 
         person.fname = person_data['fname']
         person.lname = person_data['lname']
 
         # data may be old hepps record
-        if 'hepps_type' in person_data: person.emp_ecs_code = person_data['hepps_type']
-        if 'emp_ecs_code' in person_data: person.emp_ecs_code = person_data['emp_ecs_code']
-        if 'hepps_status' in person_data: person.emp_status_code = person_data['hepps_status']
-        if 'emp_status_code' in person_data: person.emp_status_code = person_data['emp_status_code']
+        if 'hepps_type' in person_data:
+            person.emp_ecs_code = person_data['hepps_type']
+        if 'emp_ecs_code' in person_data:
+            person.emp_ecs_code = person_data['emp_ecs_code']
+        if 'hepps_status' in person_data:
+            person.emp_status_code = person_data['hepps_status']
+        if 'emp_status_code' in person_data:
+            person.emp_status_code = person_data['emp_status_code']
         person.category_code = person_data['category_code']
         person.category_name = person_data['category_name']
         person.source_code = person_data['source_code']
@@ -338,11 +334,15 @@ class IRWS(object):
         if 'org_supervisor' in person_data:
             person.org_supervisor = person_data['org_supervisor']
 
-        if 'pac' in person_data: person.pac = person_data['pac']
-        if 'in_feed' in person_data: person.in_feed = person_data['in_feed']
+        if 'pac' in person_data:
+            person.pac = person_data['pac']
+        if 'in_feed' in person_data:
+            person.in_feed = person_data['in_feed']
 
-        if 'wp_publish' in person_data: person.wp_publish = person_data['wp_publish']
-        else: person.wp_publish = 'Y'
+        if 'wp_publish' in person_data:
+            person.wp_publish = person_data['wp_publish']
+        else:
+            person.wp_publish = 'Y'
         return person
 
     def _sdb_person_from_json(self, data):
@@ -354,7 +354,8 @@ class IRWS(object):
         person.validid = person_data['validid']
         person.regid = person_data['regid']
         person.studentid = person_data['studentid']
-        if 'birthdate' in person_data: person.birthdate = person_data['birthdate']
+        if 'birthdate' in person_data:
+            person.birthdate = person_data['birthdate']
 
         person.fname = person_data['fname']
         person.lname = person_data['lname']
@@ -366,11 +367,15 @@ class IRWS(object):
         person.status_code = person_data['status_code']
         person.status_name = person_data['status_name']
 
-        if 'pac' in person_data: person.pac = person_data['pac']
-        if 'in_feed' in person_data: person.in_feed = person_data['in_feed']
+        if 'pac' in person_data:
+            person.pac = person_data['pac']
+        if 'in_feed' in person_data:
+            person.in_feed = person_data['in_feed']
 
-        if 'wp_publish' in person_data: person.wp_publish = person_data['wp_publish']
-        else: person.wp_publish = 'Y'
+        if 'wp_publish' in person_data:
+            person.wp_publish = person_data['wp_publish']
+        else:
+            person.wp_publish = 'Y'
         return person
 
     def _person_from_json(self, data):
@@ -386,12 +391,18 @@ class IRWS(object):
     def _pw_recover_from_json(self, data):
         info = json.loads(data)['profile'][0]
         ret = Profile()
-        if 'validid' in info: ret.validid = info['validid']
-        if 'recover_email' in info: ret.recover_email = info['recover_email']
-        if 'recover_email_date' in info: ret.recover_email_date = info['recover_email_date']
-        if 'recover_sms' in info: ret.recover_sms = info['recover_sms']
-        if 'recover_sms_date' in info: ret.recover_sms_date = info['recover_sms_date']
-        if 'recover_block_code' in info: ret.recover_block_code = info['recover_block_code']
+        if 'validid' in info:
+            ret.validid = info['validid']
+        if 'recover_email' in info:
+            ret.recover_email = info['recover_email']
+        if 'recover_email_date' in info:
+            ret.recover_email_date = info['recover_email_date']
+        if 'recover_sms' in info:
+            ret.recover_sms = info['recover_sms']
+        if 'recover_sms_date' in info:
+            ret.recover_sms_date = info['recover_sms_date']
+        if 'recover_block_code' in info:
+            ret.recover_block_code = info['recover_block_code']
         return ret
 
     def _uwnetid_from_json_obj(self, id_data):
@@ -420,17 +431,25 @@ class IRWS(object):
         nd = json.loads(data)['name'][0]
         name = Name()
         name.validid = nd['validid']
-        if 'formal_cname' in nd: name.formal_cname = nd['formal_cname']
-        if 'formal_fname' in nd: name.formal_fname = nd['formal_fname']
-        if 'formal_sname' in nd: name.formal_lname = nd['formal_sname']
-        if 'formal_privacy' in nd: name.formal_privacy = nd['formal_privacy']
-        if 'display_cname' in nd: name.display_cname = nd['display_cname']
-        if 'display_fname' in nd: name.display_fname = nd['display_fname']
-        if 'display_mname' in nd: name.display_mname = nd['display_mname']
-        if 'display_sname' in nd: name.display_lname = nd['display_sname']
-        if 'display_privacy' in nd: name.display_privacy = nd['display_privacy']
+        if 'formal_cname' in nd:
+            name.formal_cname = nd['formal_cname']
+        if 'formal_fname' in nd:
+            name.formal_fname = nd['formal_fname']
+        if 'formal_sname' in nd:
+            name.formal_lname = nd['formal_sname']
+        if 'formal_privacy' in nd:
+            name.formal_privacy = nd['formal_privacy']
+        if 'display_cname' in nd:
+            name.display_cname = nd['display_cname']
+        if 'display_fname' in nd:
+            name.display_fname = nd['display_fname']
+        if 'display_mname' in nd:
+            name.display_mname = nd['display_mname']
+        if 'display_sname' in nd:
+            name.display_lname = nd['display_sname']
+        if 'display_privacy' in nd:
+            name.display_privacy = nd['display_privacy']
         return name
-
 
     def _qna_from_json(self, data):
         q_list = json.loads(data)['qna']
@@ -443,5 +462,3 @@ class IRWS(object):
             # qna.answer = q['answer']
             ret.append(qna)
         return ret
-
-

@@ -1,0 +1,35 @@
+{
+  "uwnetid": [
+    {
+      "uwnetid": "lucy123wf",
+      "accid": "Dxxxxxxxxxxxxxxxxxxxxx04AC494FFE",
+      "validid": "Dxxxxxxxxxxxxxxxxxxxxx04AC494FFE",
+      "uid": "2024",
+      "luid": "-2",
+      "disenfran": "0",
+      "netid_code": "10",
+      "netid_name": "Personal",
+      "status_code": "30",
+      "status_name": "Active UW NetID",
+      "created": "2000-05-04 08:32:19.962635",
+      "updated": "2005-03-16 08:57:14.763750"
+    },
+    {
+      "uwnetid": "junk4",
+      "accid": "3xxxxxxxxxxxxxxxxxxxxxB65961EF1A",
+      "validid": "Dxxxxxxxxxxxxxxxxxxxxx04AC494FFE",
+      "uid": "-2",
+      "luid": "-2",
+      "account": "waslucy123wf",
+      "disenfran": "0",
+      "netid_code": "12",
+      "netid_name": "Personal",
+      "status_code": "30",
+      "status_name": "Active UW NetID",
+      "logname": "shuksan-dev:upduwnetid:mu/root@raspdev01.cac.washington.edu",
+      "created": "2010-05-25 10:19:54.340242",
+      "updated": "2010-05-25 10:53:52.701218"
+    }
+  ],
+  "totalcount": 2
+}

@@ -10,8 +10,9 @@ from resttools.dao_implementation.gws import Live as GWSLive
 from resttools.dao_implementation.ntfyws import File as NTFYWSFile
 from resttools.dao_implementation.ntfyws import Live as NTFYWSLive
 
+
 class DAO_BASE(object):
-             
+
     def __init__(self, conf):
         self._conf = conf
         self._run_mode = conf['RUN_MODE']
@@ -37,7 +38,6 @@ class DAO_BASE(object):
         return response
 
 
-
 class IRWS_DAO(DAO_BASE):
     def getURL(self, url, headers):
         return self._getURL('irws', url, headers)
@@ -46,7 +46,7 @@ class IRWS_DAO(DAO_BASE):
         return self._putURL('irws', url, headers, body)
 
     def _getDAO(self):
-        if self._run_mode=='Live':
+        if self._run_mode == 'Live':
             return IRWSLive(self._conf)
         return IRWSFile(self._conf)
 
@@ -59,11 +59,9 @@ class NWS_DAO(DAO_BASE):
         return self._postURL('nws', url, headers, body)
 
     def _getDAO(self):
-        if self._run_mode=='Live':
+        if self._run_mode == 'Live':
             return NWSLive(self._conf)
         return NWSFile(self._conf)
-
-
 
 
 class GWS_DAO(DAO_BASE):
@@ -77,7 +75,7 @@ class GWS_DAO(DAO_BASE):
         return self._deleteURL('gws', url, headers, body)
 
     def _getDAO(self):
-        if self._run_mode=='Live':
+        if self._run_mode == 'Live':
             return GWSLive(self._conf)
         return GWSFile(self._conf)
 
@@ -87,7 +85,6 @@ class NTFYWS_DAO(DAO_BASE):
         return self._postURL('ntfyws', url, headers, body)
 
     def _getDAO(self):
-        if self._run_mode=='Live':
+        if self._run_mode == 'Live':
             return NTFYWSLive(self._conf)
         return NTFYWSFile(self._conf)
-

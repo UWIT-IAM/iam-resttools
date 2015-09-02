@@ -1,0 +1,29 @@
+{
+  "person": [
+    {
+      "validid": "123456789",
+      "regid": "9136CCB8F66711D5BE060004AC494FFE",
+      "lname": "STUDENT",
+      "fname": "JAMES AVERAGE",
+      "category_code": "4",
+      "category_name": "Staff",
+      "college": "99",
+      "department": ".TEST",
+      "home_department": "C&C TEST BUDGET",
+      "unit": "000",
+      "hepps_type": "E",
+      "hepps_status": "A",
+      "budget": "000001",
+      "source_code": "1",
+      "source_name": "UW Faculty/Staff",
+      "status_code": "1",
+      "status_name": "Current",
+      "in_feed": "2",
+      "logname": "db2uas update",
+      "created": "2001-09-25 09:40:16.882834",
+      "updated": "2001-12-21 15:07:55.921089"
+    }
+  ],
+  "totalcount": 1
+}
+

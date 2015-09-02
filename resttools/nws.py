@@ -18,9 +18,11 @@ logger = logging.getLogger(__name__)
 # note.  Some messages from nws set pw
 # 409, "That's not a good password because you used that password in the not too distant past."
 # 409, "That's not a good password because it is your username."
-# 409, "That's not a good password because it does not contain enough different character classes (uppercase, lowercase, digits, punctuation)."
+# 409, "That's not a good password because it does not contain enough different character classes
+#       (uppercase, lowercase, digits, punctuation)."
 # 409, "That's not a good password because it needs more complex capitalization."
 #
+
 
 class NWS(object):
 
@@ -30,7 +32,6 @@ class NWS(object):
         self._pw_action = 'Set'
         if 'PASSWORD_ACTION' in conf:
             self._pw_action = conf['PASSWORD_ACTION']
-
 
     def get_netid_admins(self, netid):
         """
@@ -45,7 +46,6 @@ class NWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._admins_from_json(response.data)
-
 
     def get_netid_pwinfo(self, netid):
         """
@@ -101,7 +101,7 @@ class NWS(object):
 
     def _add_header(self, headers, header, value):
         if not headers:
-            return { header: value }
+            return {header: value}
 
         headers[header] = value
         return headers

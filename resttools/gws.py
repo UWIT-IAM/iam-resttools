@@ -15,6 +15,7 @@ from jinja2 import Environment, PackageLoader
 import logging
 logger = logging.getLogger(__name__)
 
+
 class GWS(object):
     """
     The GWS object has methods for getting group information.
@@ -22,7 +23,8 @@ class GWS(object):
     def __init__(self, conf, actas=None):
         self._service_name = 'gws'
         self._conf = conf
-        self._j2env = Environment(loader=PackageLoader('resttools', 'templates/gws'))
+        self._j2env = Environment(loader=PackageLoader('resttools',
+                                                       'templates/gws'))
         self._actas = actas
 
     QTRS = {'win': 'winter', 'spr': 'spring', 'sum': 'summer', 'aut': 'autumn'}
@@ -49,7 +51,7 @@ class GWS(object):
                 Values are 'one' to limit results to one level of stem name
                 and 'all' to return all groups.
         """
-        kwargs = dict((k.lower(), v.lower()) for k,v in kwargs.iteritems())
+        kwargs = dict((k.lower(), v.lower()) for k, v in kwargs.iteritems())
         if 'type' in kwargs and (kwargs['type'] != 'direct' and
                                  kwargs['type'] != 'effective'):
             del(kwargs['type'])
@@ -262,10 +264,9 @@ class GWS(object):
             group.sln = gr.find('course_sln').text
 
             group.instructors = []
-            instructors = gr.find('course_instructors').findall('course_instructor')
+            instructors = (gr.find('course_instructors').findall('course_instructor'))
             for instructor in instructors:
-                group.instructors.append(GroupMember(name=instructor.text,
-                                                     member_type="uwnetid"))
+                group.instructors.append(GroupMember(name=instructor.text, member_type="uwnetid"))
         else:
             group = Group()
 
@@ -288,7 +289,7 @@ class GWS(object):
 
         for user in gr.find('admins').findall('admin'):
             group.admins.append(GroupUser(user.text,
-                                            user_type=user.get('type')))
+                                          user_type=user.get('type')))
 
         for user in gr.find('updaters').findall('updater'):
             group.updaters.append(GroupUser(name=user.text,
@@ -304,7 +305,7 @@ class GWS(object):
 
         for user in gr.find('optins').findall('optin'):
             group.optins.append(GroupUser(name=user.text,
-                                           user_type=user.get("type")))
+                                          user_type=user.get("type")))
 
         for user in gr.find('optouts').findall('optout'):
             group.optouts.append(GroupUser(name=user.text,
@@ -322,7 +323,7 @@ class GWS(object):
         return template.render({"group": group})
 
     def _members_from_xml(self, data):
-        e_mbrs= etree.fromstring(data).find('group').find('members')
+        e_mbrs = etree.fromstring(data).find('group').find('members')
         e_mbr_list = e_mbrs.findall('member')
 
         members = []
@@ -362,7 +363,7 @@ class GWS(object):
 
     def _add_header(self, headers, header, value):
         if not headers:
-            return { header: value }
+            return {header: value}
 
         headers[header] = value
         return headers
