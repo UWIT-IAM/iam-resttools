@@ -1,5 +1,7 @@
 # iam-resttools
 
-These are REST clients for some UW services.  Similar to uw-restclients, but without the need for Django.
+These are REST clients for several services at UW.
+
+Including IRWS, NWS (netid service, GWS, ... 
 
 
