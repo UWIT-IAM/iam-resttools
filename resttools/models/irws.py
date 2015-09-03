@@ -155,6 +155,33 @@ class SdbPerson():
         return self.regid == other.regid
 
 
+# IRWS Supplemental Person
+class SupplementalPerson():
+    validid = ''
+    regid = ''
+
+    lname = ''
+    category_code = ''
+    category_name = ''
+    comment_code = ''
+    comment_name = ''
+    sponsor_id = ''
+    college = ''
+    source_code = ''
+    source_name = ''
+    status_code = ''
+    status_name = ''
+    in_feed = ''
+
+    created = ''
+    updated = ''
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return self.regid == other.regid
+
+
 # IRWS UWNetId
 class UWNetId():
     uwnetid = ''
@@ -179,6 +206,23 @@ class UWNetId():
         if other is None:
             return False
         return self.uwnetid == other.uwnetid
+
+
+# IRWS Regid
+class Regid():
+    regid = ''
+    entity_code = ''
+    entity_name = ''
+    status_code = ''
+    status_name = ''
+
+    created = ''
+    updated = ''
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        return self.regid == other.regid
 
 
 # IRWS Subscription

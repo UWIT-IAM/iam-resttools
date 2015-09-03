@@ -12,11 +12,13 @@ import json
 
 from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
+from resttools.models.irws import Regid
 from resttools.models.irws import Subscription
 from resttools.models.irws import Person
 from resttools.models.irws import Profile
 from resttools.models.irws import UWhrPerson
 from resttools.models.irws import SdbPerson
+from resttools.models.irws import SupplementalPerson
 from resttools.models.irws import Pac
 from resttools.models.irws import Name
 from resttools.models.irws import QnA
@@ -108,6 +110,32 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._person_from_json(response.data)
+
+    def get_regid(self, netid=None, regid=None):
+        """
+        Returns an irws.Regid object for the given netid or regid.  If the
+        netid isn't found, nothing will be returned.  If there is an error
+        communicating with the IRWS, a DataFailureException will be thrown.
+        """
+        dao = IRWS_DAO(self._conf)
+        url = None
+        if netid is not None:
+            url = "/%s/v1/regid?uwnetid=%s" % (self._service_name, netid.lower())
+        elif regid is not None:
+            url = "/%s/v1/regid?validid=regid=%s" % (self._service_name, regid)
+        else:
+            return None
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            err = self._get_code_from_error(response.data)
+            if err == 7000:
+                return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._regid_from_json(response.data)
 
     def get_pw_recover_info(self, netid):
         """
@@ -217,6 +245,25 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._sdb_person_from_json(response.data)
+
+    def get_supplemental_person(self, id):
+        """
+        Returns an irws.SupplementalPerson object for the given id.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error contacting IRWS, throws DataFailureException.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v1/person/supplemental/%s" % (self._service_name, id)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._supplemental_person_from_json(response.data)
 
     def get_subscription(self, netid, subscription):
         """
@@ -378,6 +425,34 @@ class IRWS(object):
             person.wp_publish = 'Y'
         return person
 
+    def _supplemental_person_from_json(self, data):
+        """
+        Internal method, for creating the SupplementalPerson object.
+        """
+        person_data = json.loads(data)['person'][0]
+        person = SupplementalPerson()
+        person.validid = person_data['validid']
+        person.regid = person_data['regid']
+        person.lname = person_data['lname']
+
+        person.category_code = person_data['category_code']
+        person.category_name = person_data['category_name']
+        person.source_code = person_data['source_code']
+        person.source_name = person_data['source_name']
+        person.status_code = person_data['status_code']
+        person.status_name = person_data['status_name']
+        if 'comment_code' in person_data:
+            person.comment_code = person_data['comment_code']
+        if 'comment_name' in person_data:
+            person.comment_name = person_data['comment_name']
+        if 'college' in person_data:
+            person.college = person_data['college']
+
+        if 'in_feed' in person_data:
+            person.in_feed = person_data['in_feed']
+
+        return person
+
     def _person_from_json(self, data):
         persj = json.loads(data)['person'][0]
         idj = persj['identity']
@@ -387,6 +462,16 @@ class IRWS(object):
         person.fname = idj['fname']
         person.identifiers = copy.deepcopy(idj['identifiers'])
         return person
+
+    def _regid_from_json(self, data):
+        rj = json.loads(data)['regid'][0]
+        regid = Regid()
+        regid.regid = rj['regid']
+        regid.entity_code = rj['entity_code']
+        regid.entity_name = rj['entity_name']
+        regid.status_code = rj['status_code']
+        regid.status_name = rj['status_name']
+        return regid
 
     def _pw_recover_from_json(self, data):
         info = json.loads(data)['profile'][0]

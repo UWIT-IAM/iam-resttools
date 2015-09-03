@@ -53,6 +53,19 @@ class IRWS_Test():
         eq_(sdb.lname, 'STUDENT')
         eq_(sdb.category_code, '1')
 
+    def test_get_supplemental_person(self):
+        s = self.irws.get_supplemental_person('88E13ABD')
+        eq_(s.lname, 'AVERAGE')
+        eq_(s.category_code, '24')
+
+    def test_get_regid(self):
+        r = self.irws.get_regid(netid='joeuser')
+        eq_(r.entity_code, '10')
+        eq_(r.status_code, '50')
+        r = self.irws.get_regid(regid='FC8E9A4FD5A940ACAC6306EA7DC7D742')
+        eq_(r.entity_code, '10')
+        eq_(r.status_code, '50')
+
     def test_get_qna(self):
         qna = self.irws.get_qna('user1q')
         eq_(len(qna), 3)
