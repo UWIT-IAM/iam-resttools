@@ -67,9 +67,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            err = self._get_code_from_error(response.data)
-            if err == 7000:
-                return None
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -102,9 +100,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            err = self._get_code_from_error(response.data)
-            if err == 7000:
-                return None
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -128,9 +124,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            err = self._get_code_from_error(response.data)
-            if err == 7000:
-                return None
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -150,9 +144,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            err = self._get_code_from_error(response.data)
-            if err == 7000:
-                return None
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -200,6 +192,9 @@ class IRWS(object):
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/name/uwnetid=%s" % (self._service_name, netid.lower())
         response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -274,6 +269,9 @@ class IRWS(object):
         dao = IRWS_DAO(self._conf)
         url = "/%s/v1/subscription?uwnetid=%s&subscription=%d" % (self._service_name, netid.lower(), subscription)
         response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
