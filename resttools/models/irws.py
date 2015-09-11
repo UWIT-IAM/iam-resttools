@@ -182,6 +182,17 @@ class SupplementalPerson():
         return self.regid == other.regid
 
 
+# IRWS GenericPerson
+class GenericPerson():
+    validid = ''
+    regid = ''
+    lname = ''
+    fname = ''
+    contact_email = ''
+    category_code = ''
+    source_code = ''
+
+
 # IRWS UWNetId
 class UWNetId():
     uwnetid = ''

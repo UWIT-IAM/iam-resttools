@@ -66,6 +66,7 @@ class Live(object):
         if 'MAX_POOL_SIZE' in conf:
             self._max_pool_size = conf['MAX_POOL_SIZE']
 
+    # class attribute means you can't switch hosts/keys
     pool = None
 
     def getURL(self, url, headers):
