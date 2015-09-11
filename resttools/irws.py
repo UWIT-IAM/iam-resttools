@@ -22,6 +22,7 @@ from resttools.models.irws import SupplementalPerson
 from resttools.models.irws import Pac
 from resttools.models.irws import Name
 from resttools.models.irws import QnA
+from resttools.models.irws import GenericPerson
 
 from resttools.exceptions import DataFailureException
 
@@ -259,6 +260,24 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._supplemental_person_from_json(response.data)
+
+    def get_generic_person(self, uri):
+        """
+        Returns an irws.GenericPerson object for the given uri.
+        The uris come in from values in irws.Person.identifiers.
+        Raises DataFailureExeption on error.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = '/%s/v1%s' % (self._service_name, uri)
+        response = dao.getURL(url, {'Accept': 'application/json'})
+
+        if response.status == 404:
+            return None
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._generic_person_from_json(response.data)
 
     def get_subscription(self, netid, subscription):
         """
@@ -545,3 +564,15 @@ class IRWS(object):
             # qna.answer = q['answer']
             ret.append(qna)
         return ret
+
+    def _generic_person_from_json(self, data):
+        """
+        Internal method to create a GenericPerson object.
+        """
+        person_data = json.loads(data)['person'][0]
+        person = GenericPerson()
+        attributes = [attribute for attribute in dir(person) if not attribute.startswith('_')]
+        for attribute in (set(attributes) & set(person_data.keys())):
+            # if an attribute exists in our object and in our data dictionary, set it
+            setattr(person, attribute, person_data.get(attribute))
+        return person

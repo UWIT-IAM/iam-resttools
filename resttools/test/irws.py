@@ -80,3 +80,11 @@ class IRWS_Test():
         incorrect = {'1': 'skyblue', '2': 'NOTmememe', '3': 'begood'}
         st = self.irws.get_verify_qna('user1q', incorrect)
         eq_(st, False)
+
+    def test_get_generic_person(self):
+        g = self.irws.get_generic_person('/person/generic/01234')
+        logger.info('vars: {}'.format(vars(g)))
+        eq_(g.lname, 'LEGACYEMAIL')
+        eq_(g.contact_email, 'legacyemail@example.com')
+        eq_(g.category_code, '1')
+        eq_(g.source_code, '2')
