@@ -81,6 +81,7 @@ class UWhrPerson():
     category_code = ''
     category_name = ''
     contact_email = ''
+    workday_home_email = ''
     org_supervisor = ''
 
     wp_name = ''
@@ -89,7 +90,6 @@ class UWhrPerson():
     wp_phone = ''
     wp_title = ''
     wp_address = ''
-    wp_name = ''
     wp_publish = False
 
     college = ''

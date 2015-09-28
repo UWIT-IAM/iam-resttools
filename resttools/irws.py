@@ -395,6 +395,8 @@ class IRWS(object):
         person.status_name = person_data['status_name']
         if 'contact_email' in person_data:
             person.contact_email = person_data['contact_email']
+        if 'workday_home_email' in person_data:
+            person.workday_home_email = person_data['workday_home_email']
         if 'org_supervisor' in person_data:
             person.org_supervisor = person_data['org_supervisor']
 
