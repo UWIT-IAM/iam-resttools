@@ -375,8 +375,10 @@ class IRWS(object):
         if 'birthdate' in person_data:
             person.birthdate = person_data['birthdate']
 
-        person.fname = person_data['fname']
-        person.lname = person_data['lname']
+        if 'lname' in person_data:
+            person.lname = person_data['lname']
+        if 'fname' in person_data:
+            person.fname = person_data['fname']
 
         # data may be old hepps record
         if 'hepps_type' in person_data:
@@ -423,8 +425,10 @@ class IRWS(object):
         if 'birthdate' in person_data:
             person.birthdate = person_data['birthdate']
 
-        person.fname = person_data['fname']
-        person.lname = person_data['lname']
+        if 'lname' in person_data:
+            person.lname = person_data['lname']
+        if 'fname' in person_data:
+            person.fname = person_data['fname']
 
         person.category_code = person_data['category_code']
         person.category_name = person_data['category_name']
