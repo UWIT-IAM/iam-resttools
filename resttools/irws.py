@@ -477,8 +477,10 @@ class IRWS(object):
         idj = persj['identity']
         person = Person()
         person.regid = idj['regid']
-        person.lname = idj['lname']
-        person.fname = idj['fname']
+        if 'lname' in idj:
+            person.lname = idj['lname']
+        if 'fname' in idj:
+            person.fname = idj['fname']
         person.identifiers = copy.deepcopy(idj['identifiers'])
         return person
 
