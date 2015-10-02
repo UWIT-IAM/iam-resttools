@@ -46,17 +46,14 @@ class IRWS_Test():
     def test_get_uwhr_person_hepps(self):
         uwhr = self.irws.get_uwhr_person('123456789', source='hepps')
         eq_(uwhr.lname, 'STUDENT')
-        eq_(uwhr.category_code, '4')
 
     def test_get_sdb_person(self):
         sdb = self.irws.get_sdb_person('000083856')
         eq_(sdb.lname, 'STUDENT')
-        eq_(sdb.category_code, '1')
 
     def test_get_supplemental_person(self):
         s = self.irws.get_supplemental_person('88E13ABD')
         eq_(s.lname, 'AVERAGE')
-        eq_(s.category_code, '24')
 
     def test_get_regid(self):
         r = self.irws.get_regid(netid='joeuser')
@@ -85,6 +82,5 @@ class IRWS_Test():
         g = self.irws.get_generic_person('/person/generic/01234')
         logger.info('vars: {}'.format(vars(g)))
         eq_(g.lname, 'LEGACYEMAIL')
-        eq_(g.contact_email, 'legacyemail@example.com')
-        eq_(g.category_code, '1')
+        eq_(g.contact_email, ['legacyemail@example.com'])
         eq_(g.source_code, '2')

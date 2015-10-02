@@ -1,0 +1,20 @@
+{
+  "uwnetid": [
+    {
+      "uwnetid": "wdspud867",
+      "accid": "D9459CAE21D011D4ABD00004AC494FFE",
+      "validid": "regidforwd867003233xxC7FCFC38F5D00",
+      "uid": "0000",
+      "luid": "-2",
+      "disenfran": "0",
+      "netid_code": "10",
+      "netid_name": "Personal",
+      "status_code": "30",
+      "status_name": "Active UW NetID",
+      "logname": "mango:adduwnetid:liserver@cybele.u.washington.edu",
+      "created": "2000-05-04 08:32:19.962635",
+      "updated": "2005-03-16 08:57:14.763750"
+    }
+  ],
+  "totalcount": 1
+}

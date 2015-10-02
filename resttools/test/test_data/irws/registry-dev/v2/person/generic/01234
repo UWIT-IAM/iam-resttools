@@ -1,0 +1,15 @@
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "person": [
+    {
+      "validid": "01234",
+      "regid": "9136CCB8F66711D5BE060004AC494FFE",
+      "lname": "LEGACYEMAIL",
+      "fname": "JAMES AVERAGE",
+      "contact_email": ["legacyemail@example.com"],
+      "category_code": "1",
+      "source_code": "2"
+    }
+  ],
+  "totalcount": 1
+}

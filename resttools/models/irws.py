@@ -31,28 +31,19 @@ class Name():
         return self.uwregid == other.uwregid
 
 
-# IRWS Profile (only recover part for now)
+# IRWS Profile (only the recover data for now)
 class Profile():
     validid = ''
-    recover_email = None
-    recover_email_date = None
-    recover_sms = None
-    recover_sms_date = None
-    recover_block_code = None
+    recover_block_reasons = []
+    recover_contacts = []
 
     def json_data(self):
-        prof = {}
-        if self.recover_email is not None:
-            prof['recover_email'] = self.recover_email
-        if self.recover_email_date is not None:
-            prof['recover_email_date'] = self.recover_email_date
-        if self.recover_sms is not None:
-            prof['recover_sms'] = self.recover_sms
-        if self.recover_sms_date is not None:
-            prof['recover_sms_date'] = self.recover_sms_date
-        if self.recover_block_code is not None:
-            prof['recover_block_code'] = self.recover_block_code
-        return {'profile': [prof]}
+        return {
+            'profile': [
+                {"recover_contacts": recover_contacts,
+                 "recover_block_reasons": recover_block_reasons
+                 }
+            ]}
 
     def __eq__(self, other):
         return self.uwregid == other.uwregid
@@ -78,18 +69,17 @@ class UWhrPerson():
 
     fname = ''
     lname = ''
-    category_code = ''
-    category_name = ''
-    contact_email = ''
-    workday_home_email = ''
+    categories = []
+    contact_email = []
+    workday_home_email = []
     org_supervisor = ''
 
-    wp_name = ''
+    wp_name = {}
     wp_department = ''
     wp_email = []
-    wp_phone = ''
-    wp_title = ''
-    wp_address = ''
+    wp_phone = []
+    wp_title = []
+    wp_address = []
     wp_publish = False
 
     college = ''
@@ -130,8 +120,7 @@ class SdbPerson():
 
     fname = ''
     lname = ''
-    category_code = ''
-    category_name = ''
+    categories = []
 
     college = ''
     department = ''
@@ -161,8 +150,7 @@ class SupplementalPerson():
     regid = ''
 
     lname = ''
-    category_code = ''
-    category_name = ''
+    categories = []
     comment_code = ''
     comment_name = ''
     sponsor_id = ''
@@ -188,8 +176,8 @@ class GenericPerson():
     regid = ''
     lname = ''
     fname = ''
-    contact_email = ''
-    category_code = ''
+    contact_email = []
+    categories = []
     source_code = ''
 
 

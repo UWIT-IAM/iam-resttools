@@ -1,0 +1,38 @@
+
+sdb entry for javerage
+v1/person/sdb/000083856
+current student
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "person": [
+    {
+      "validid": "000083856",
+      "regid": "9136CCB8F66711D5BE060004AC494FFE",
+      "studentid": "1033334",
+      "lname": "STUDENT",
+      "fname": "JAMES AVERAGE",
+      "pac": "P",
+      "categories": [
+        {"category_code": "1",
+        "category_name": "Undergraduate"}
+      ],
+      "college": "C",
+      "department": "MATH",
+      "sdb_class": "04",
+      "sdb_status": "A",
+      "branch": "0",
+      "techfee": "Y",
+      "source_code": "2",
+      "source_name": "UW Students",
+      "status_code": "1",
+      "status_name": "Current",
+      "in_feed": "1",
+      "logname": "shuksan-prod:updvalidation:accsys/svfgen.ksh@rasp11.s.uw.edu",
+      "created": "1999-12-08 17:59:11.459021",
+      "updated": "2013-07-18 01:44:44.427079"
+    }
+  ],
+  "totalcount": 1
+}
+
