@@ -78,6 +78,12 @@ class IRWS_Test():
         st = self.irws.get_verify_qna('user1q', incorrect)
         eq_(st, False)
 
+    def test_verify_person_attibute(self):
+        st = self.irws.verify_person_attribute('javerage', 'birthdate', '2015-10-04')
+        eq_(st, True)
+        st = self.irws.verify_person_attribute('javerage', 'birthdate', '2015-10-03')
+        eq_(st, False)
+
     def test_get_generic_person(self):
         g = self.irws.get_generic_person('/person/generic/01234')
         logger.info('vars: {}'.format(vars(g)))

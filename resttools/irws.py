@@ -7,6 +7,7 @@ import time
 import re
 import random
 import copy
+from urllib import quote_plus
 
 import json
 
@@ -347,6 +348,19 @@ class IRWS(object):
                 return False
             logging.debug('q %s, correct answer' % q.ordinal)
         return True
+
+    def verify_person_attribute(self, netid, attribute, value):
+        """
+        Verify that the given attribute (eg birthdate) matches the value for the netid.
+
+        Rather than chase all of the person identifier urls client-side, irws will return the
+        list of identifiers. For birthdate, IRWS has the added value of discarding silly
+        birthdates and matching on partial birthdates.
+        """
+        dao = IRWS_DAO(self._conf)
+        url = "/%s/v2/person?uwnetid=%s&%s=%s" % (self._service_name, quote_plus(netid),
+                                                  quote_plus(attribute), quote_plus(value))
+        return dao.getURL(url, {'Accept': 'application/json'}).status == 200
 
     def _uwhr_person_from_json(self, data):
         """
