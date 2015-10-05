@@ -40,8 +40,8 @@ class Profile():
     def json_data(self):
         return {
             'profile': [
-                {"recover_contacts": recover_contacts,
-                 "recover_block_reasons": recover_block_reasons
+                {"recover_contacts": self.recover_contacts,
+                 "recover_block_reasons": self.recover_block_reasons
                  }
             ]}
 
