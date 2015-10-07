@@ -44,7 +44,7 @@ class File(object):
         print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status == 404:
+        if response.status != 404:
             # try set in cache
             File._cache_db[url] = body
             print('not found for put - cache')
