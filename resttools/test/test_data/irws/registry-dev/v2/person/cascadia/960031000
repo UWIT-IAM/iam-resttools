@@ -1,0 +1,4 @@
+cascadia student 
+MOCKDATA-MOCKDATA-MOCKDATA
+{"person": [{"validid": "960031000","regid": "4ECCFAAAAFCC11D78F74AC4E31AAAAF3","lname": "CASLAST","fname": "JAMES","birthdate": "1981-01-01","categories": [{"category_code": "41","category_name": "Cascadia User"}],"department": "STU","source_code": "8","source_name": "V","status_code": "3","status_name": "Former","in_feed": "0","logname": "shuksan-prod:updvalidation:accsys/cccgen.ksh@rasp01.cac.washington.edu","created": "2006-10-09 05:05:56.819022","updated": "2011-04-12 01:16:56.386804"}],"totalcount": 1}
+

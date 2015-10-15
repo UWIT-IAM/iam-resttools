@@ -1,0 +1,18 @@
+person recodrd for cascadia student
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "person": [
+    {
+      "identity": {
+        "regid": "913AAAA8F66711D5BE060004ACAAAAFE",
+        "lname": "CASLAST",
+        "fname": "JAMES",
+        "identifiers": {
+          "cascadia": "/person/cascadia/960031000"
+        }
+      }
+    }
+  ],
+  "totalcount": 1
+}
+

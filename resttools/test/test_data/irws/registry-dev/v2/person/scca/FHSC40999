@@ -1,0 +1,4 @@
+scca emp (cca)
+MOCKDATA-MOCKDATA-MOCKDATA
+{"person": [{"validid": "FHSC40999","regid": "E576BBBBD7CC11D780F500AAA9C31437","ssn": "XXXXX5135","lname": "CCALAST","fname": "RANDY","birthdate": "XXXX-04-14","categories": [{"category_code": "53","category_name": "SCCA Employee"}],"scca_cca_eppn": "ccalast@seattlecca.org","scca_company": "CCA","scca_paygroup": "CCA","scca_status": "T","scca_email": "ccalast@seattlecca.org","source_code": "9","source_name": "V","status_code": "3","status_name": "Former","in_feed": "1","logname": "registry-prod1:joinentity:mu/root@rasp11.s.uw.edu","created": "2011-04-08 01:15:23.761709","updated": "2013-10-16 08:22:03.823896"}],"totalcount": 1}
+
