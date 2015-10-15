@@ -132,6 +132,9 @@ class SdbPerson():
     status_name = ''
     pac = ''
 
+    cnet_id = ''
+    cnet_user = ''
+
     wp_publish = 'Y'
 
     in_feed = ''
@@ -168,6 +171,32 @@ class SupplementalPerson():
         if other is None:
             return False
         return self.regid == other.regid
+
+
+# IRWS Cascadia person
+class CascadiaPerson():
+    validid = ''
+    regid = ''
+    categories = []
+    lname = ''
+    fname = ''
+    birthdate = ''
+    department = ''
+    in_feed = ''
+
+
+# IRWS Scca person
+class SccaPerson():
+    validid = ''
+    regid = ''
+    categories = []
+    lname = ''
+    fname = ''
+    birthdate = ''
+    scca_company = ''
+    scca_cca_eppn = ''
+    scca_fhc_eppn = ''
+    in_feed = ''
 
 
 # IRWS GenericPerson

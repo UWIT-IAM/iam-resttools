@@ -19,6 +19,8 @@ from resttools.models.irws import Person
 from resttools.models.irws import Profile
 from resttools.models.irws import UWhrPerson
 from resttools.models.irws import SdbPerson
+from resttools.models.irws import CascadiaPerson
+from resttools.models.irws import SccaPerson
 from resttools.models.irws import SupplementalPerson
 from resttools.models.irws import Pac
 from resttools.models.irws import Name
@@ -229,6 +231,44 @@ class IRWS(object):
 
         return self._sdb_person_from_json(response.data)
 
+    def get_cascadia_person(self, id):
+        """
+        Returns an irws.CascadiaPerson object for the given id.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error contacting IRWS, throws DataFailureException.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v2/person/cascadia/%s" % (self._service_name, id)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._cascadia_person_from_json(response.data)
+
+    def get_scca_person(self, id):
+        """
+        Returns an irws.SccaPerson object for the given id.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error contacting IRWS, throws DataFailureException.
+        """
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v2/person/scca/%s" % (self._service_name, id)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._scca_person_from_json(response.data)
+
     def get_supplemental_person(self, id):
         """
         Returns an irws.SupplementalPerson object for the given id.
@@ -431,11 +471,55 @@ class IRWS(object):
             person.pac = person_data['pac']
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
+        if 'cnet_id' in person_data:
+            person.cnet_id = person_data['cnet_id']
+        if 'cnet_user' in person_data:
+            person.cnet_user = person_data['cnet_user']
 
         if 'wp_publish' in person_data:
             person.wp_publish = person_data['wp_publish']
         else:
             person.wp_publish = 'Y'
+        return person
+
+    def _cascadia_person_from_json(self, data):
+        """
+        Internal method, for creating the CascadiaPerson object.
+        """
+        person_data = json.loads(data)['person'][0]
+        person = CascadiaPerson()
+        person.validid = person_data['validid']
+        person.regid = person_data['regid']
+        person.lname = person_data['lname']
+        person.categories = person_data['categories']
+        if 'birthdate' in person_data:
+            person.birthdate = person_data['birthdate']
+        if 'department' in person_data:
+            person.department = person_data['department']
+        if 'in_feed' in person_data:
+            person.in_feed = person_data['in_feed']
+        return person
+
+    def _scca_person_from_json(self, data):
+        """
+        Internal method, for creating the SccaPerson object.
+        """
+        person_data = json.loads(data)['person'][0]
+        person = SccaPerson()
+        person.validid = person_data['validid']
+        person.regid = person_data['regid']
+        person.lname = person_data['lname']
+        person.categories = person_data['categories']
+        if 'birthdate' in person_data:
+            person.birthdate = person_data['birthdate']
+        if 'scca_company' in person_data:
+            person.scca_company = person_data['scca_company']
+        if 'scca_cca_eppn' in person_data:
+            person.scca_cca_eppn = person_data['scca_cca_eppn']
+        if 'scca_fhc_eppn' in person_data:
+            person.scca_fhc_eppn = person_data['scca_fhc_eppn']
+        if 'in_feed' in person_data:
+            person.in_feed = person_data['in_feed']
         return person
 
     def _supplemental_person_from_json(self, data):
