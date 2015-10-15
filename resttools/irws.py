@@ -380,7 +380,7 @@ class IRWS(object):
         if 'fname' in person_data:
             person.fname = person_data['fname']
         if 'wp_name' in person_data:
-            person.wp_name = person_data['fname'].split('|')  # whole name only
+            person.wp_name = person_data['fname'].split('|')[0]  # whole name only
 
         # data may be old hepps record
         if 'hepps_type' in person_data:
