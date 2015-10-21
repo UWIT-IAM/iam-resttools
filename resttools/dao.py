@@ -45,6 +45,9 @@ class IRWS_DAO(DAO_BASE):
     def putURL(self, url, headers, body):
         return self._putURL('irws', url, headers, body)
 
+    def deleteURL(self, url, headers):
+        return self._deleteURL('irws', url, headers)
+
     def _getDAO(self):
         if self._run_mode == 'Live':
             return IRWSLive(self._conf)
@@ -71,8 +74,8 @@ class GWS_DAO(DAO_BASE):
     def putURL(self, url, headers, body):
         return self._putURL('gws', url, headers, body)
 
-    def deleteURL(self, url, headers, body):
-        return self._deleteURL('gws', url, headers, body)
+    def deleteURL(self, url, headers):
+        return self._deleteURL('gws', url, headers)
 
     def _getDAO(self):
         if self._run_mode == 'Live':

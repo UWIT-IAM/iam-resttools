@@ -54,6 +54,13 @@ class File(object):
 
         return response
 
+    def deleteURL(self, url, headers):
+        logger.debug('file irws delete url: ' + url)
+        response = get_mockdata_url("irws", self._conf, url, headers)
+        # no status for deletes from mock
+        response.status = 200
+        return response
+
 
 class Live(object):
     """

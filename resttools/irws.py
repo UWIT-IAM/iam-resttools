@@ -349,6 +349,32 @@ class IRWS(object):
             return response.status
         raise DataFailureException(url, response.status, response.data)
 
+    def verify_sc_pin(self, netid, pin):
+        """
+        Verifies a service center one-time pin. Returns 200 (ok) or 400 (no).
+        OK clears the pin.
+        """
+        dao = IRWS_DAO(self._conf)
+        url = "/%s/v2/subscribe/63/%s?action=1&pac=%s" % (self._service_name, netid, pin)
+        response = dao.getURL(url, {"Accept": "application/json"})
+        if response.status == 200:
+            # delete the pac
+            url = "/%s/v2/subscription/63/%s/pac" % (self._service_name, netid)
+            response = dao.deleteURL(url, {"Accept": "application/json"})
+            if response.status != 200:
+                # the pin was good.  we return OK, but note the error
+                logging.warn('Delete SC pin failed: %d' % response.status)
+            # delete the subscription
+            url = "/%s/v2/subscription/63/%s" % (self._service_name, netid)
+            response = dao.deleteURL(url, {"Accept": "application/json"})
+            if response.status != 200:
+                logging.warn('Delete SC subscription failed: %d' % response.status)
+            return 200
+
+        if (response.status == 400 or response.status == 404):
+            return response.status
+        raise DataFailureException(url, response.status, response.data)
+
     def get_qna(self, netid):
         """
         Returns a list irws.QnA for the given netid.

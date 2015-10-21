@@ -98,7 +98,12 @@ class IRWS_Test():
 
     def test_get_generic_person(self):
         g = self.irws.get_generic_person('/person/generic/01234')
-        logger.info('vars: {}'.format(vars(g)))
         eq_(g.lname, 'LEGACYEMAIL')
         eq_(g.contact_email, ['legacyemail@example.com'])
         eq_(g.source_code, '2')
+
+    def test_verify_sc_pin(self):
+        st = self.irws.verify_sc_pin('user1s', '321abc')
+        eq_(st, 404)
+        st = self.irws.verify_sc_pin('user1s', 'goodpin')
+        eq_(st, 200)
