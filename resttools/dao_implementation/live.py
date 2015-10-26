@@ -53,7 +53,7 @@ def get_live_url(con_pool,
                  host,
                  url,
                  headers,
-                 retries=1,
+                 retries=3,
                  body=None,
                  service_name=None):
     """
