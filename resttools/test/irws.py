@@ -101,6 +101,8 @@ class IRWS_Test():
         eq_(g.lname, 'LEGACYEMAIL')
         eq_(g.contact_email, ['legacyemail@example.com'])
         eq_(g.source_code, '2')
+        # not set in our payload, assert the default value
+        eq_(g.status_code, '')
 
     def test_verify_sc_pin(self):
         st = self.irws.verify_sc_pin('user1s', '321abc')

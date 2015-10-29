@@ -154,6 +154,7 @@ class SupplementalPerson():
 
     lname = ''
     categories = []
+    contact_email = []
     comment_code = ''
     comment_name = ''
     sponsor_id = ''
@@ -163,6 +164,7 @@ class SupplementalPerson():
     status_code = ''
     status_name = ''
     in_feed = ''
+    id_proofing = {}
 
     created = ''
     updated = ''
@@ -208,6 +210,7 @@ class GenericPerson():
     contact_email = []
     categories = []
     source_code = ''
+    status_code = ''
 
 
 # IRWS UWNetId

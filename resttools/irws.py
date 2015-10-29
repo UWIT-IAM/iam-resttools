@@ -573,6 +573,9 @@ class IRWS(object):
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
 
+        person.id_proofing = person_data.get('id_proofing', {})
+        person.contact_email = person_data.get('contact_email', [])
+
         return person
 
     def _person_from_json(self, data):
@@ -670,8 +673,9 @@ class IRWS(object):
         """
         person_data = json.loads(data)['person'][0]
         person = GenericPerson()
-        attributes = [attribute for attribute in dir(person) if not attribute.startswith('_')]
-        for attribute in (set(attributes) & set(person_data.keys())):
-            # if an attribute exists in our object and in our data dictionary, set it
-            setattr(person, attribute, person_data.get(attribute))
+        attributes = [attribute for attribute in dir(GenericPerson) if not attribute.startswith('_')]
+        for attribute in attributes:
+            # set the attribute to the value in person_data, or if not set there,
+            # the default attribute value
+            setattr(person, attribute, person_data.get(attribute, getattr(GenericPerson, attribute)))
         return person
