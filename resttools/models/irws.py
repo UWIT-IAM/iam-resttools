@@ -154,6 +154,7 @@ class SupplementalPerson():
 
     lname = ''
     categories = []
+    contact_email = []
     comment_code = ''
     comment_name = ''
     sponsor_id = ''

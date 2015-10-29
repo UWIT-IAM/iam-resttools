@@ -574,6 +574,7 @@ class IRWS(object):
             person.in_feed = person_data['in_feed']
 
         person.id_proofing = person_data.get('id_proofing', {})
+        person.contact_email = person_data.get('contact_email', [])
 
         return person
 
