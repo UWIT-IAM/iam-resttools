@@ -209,6 +209,7 @@ class GenericPerson():
     contact_email = []
     categories = []
     source_code = ''
+    status_code = ''
 
 
 # IRWS UWNetId
