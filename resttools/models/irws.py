@@ -163,6 +163,7 @@ class SupplementalPerson():
     status_code = ''
     status_name = ''
     in_feed = ''
+    id_proofing = {}
 
     created = ''
     updated = ''

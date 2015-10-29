@@ -573,6 +573,8 @@ class IRWS(object):
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
 
+        person.id_proofing = person_data.get('id_proofing', {})
+
         return person
 
     def _person_from_json(self, data):
