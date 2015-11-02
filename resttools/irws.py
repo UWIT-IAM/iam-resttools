@@ -342,7 +342,8 @@ class IRWS(object):
         Verifies a permanent student PAC. Returns 200 (ok) or 400 (no)
         """
         dao = IRWS_DAO(self._conf)
-        url = "/%s/v2/person/sdb/%s/?pac=%s" % (self._service_name, sid, pac)
+        url = "/%s/v2/person/sdb/%s?pac=%s" % (self._service_name,
+                                               quote_plus(sid), quote_plus(pac))
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if (response.status == 200 or response.status == 400 or response.status == 404):
