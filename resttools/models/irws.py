@@ -71,11 +71,11 @@ class UWhrPerson():
     lname = ''
     categories = []
     contact_email = []
-    workday_home_email = []
+    workday_home_email = ''
     org_supervisor = ''
 
     wp_name = {}
-    wp_department = ''
+    wp_department = []
     wp_email = []
     wp_phone = []
     wp_title = []
