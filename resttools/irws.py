@@ -356,6 +356,17 @@ class IRWS(object):
         OK clears the pin.
         """
         dao = IRWS_DAO(self._conf)
+ 
+        # make sure there is a pin subscription
+        url = "/%s/v2/subscription/63/%s" % (self._service_name, netid)
+        response = dao.getURL(url, {"Accept": "application/json"})
+        if response.status == 200:
+            sub = json.loads(response.data)['subscription'][0]
+            if sub['status_code'] != '20':
+                return 404
+        else:
+            return response.status
+
         url = "/%s/v2/subscribe/63/%s?action=1&pac=%s" % (self._service_name, netid, pin)
         response = dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:

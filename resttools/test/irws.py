@@ -107,5 +107,7 @@ class IRWS_Test():
     def test_verify_sc_pin(self):
         st = self.irws.verify_sc_pin('user1s', '321abc')
         eq_(st, 404)
-        st = self.irws.verify_sc_pin('user1s', 'goodpin')
+        st = self.irws.verify_sc_pin('user1s', '123456')
         eq_(st, 200)
+        st = self.irws.verify_sc_pin('user1q', '123456')
+        eq_(st, 404)
