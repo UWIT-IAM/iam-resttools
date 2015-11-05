@@ -362,7 +362,8 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:
             sub = json.loads(response.data)['subscription'][0]
-            if sub['status_code'] != '20':
+            # verify pending subscription and unexpired, unused pac
+            if sub['status_code'] != '23' or sub['pac'] != 'Y':
                 return 404
         else:
             return response.status
