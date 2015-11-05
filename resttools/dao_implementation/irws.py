@@ -85,6 +85,15 @@ class Live(object):
                             url, headers=headers,
                             service_name='irws')
 
+    def deleteURL(self, url, headers):
+        if Live.pool is None:
+            Live.pool = self._get_pool()
+
+        return get_live_url(Live.pool, 'DELETE',
+                            self._conf['HOST'],
+                            url, headers=headers,
+                            service_name='irws')
+
     def putURL(self, url, headers, body):
         if Live.pool is None:
             Live.pool = self._get_pool()
