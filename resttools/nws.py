@@ -66,8 +66,6 @@ class NWS(object):
         Sets password for netid
         """
 
-        # in test period, no set passwords
-        action = 'Test'
         if action is None:
             action = self._pw_action
 
