@@ -371,6 +371,7 @@ class IRWS(object):
         url = "/%s/v2/subscribe/63/%s?action=1&pac=%s" % (self._service_name, netid, pin)
         response = dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:
+            # TODO: The following series of deletes don't appear to work in a Live setting
             # delete the pac
             url = "/%s/v2/subscription/63/%s/pac" % (self._service_name, netid)
             response = dao.deleteURL(url, {"Accept": "application/json"})
