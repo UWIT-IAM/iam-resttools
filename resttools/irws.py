@@ -597,9 +597,12 @@ class IRWS(object):
         idj = persj['identity']
         person = Person()
         person.regid = idj['regid']
-        person.lname = idj['lname']
-        person.fname = idj['fname']
-        person.identifiers = copy.deepcopy(idj['identifiers'])
+        if 'lname' in idj:
+            person.lname = idj['lname']
+        if 'fname' in idj:
+            person.fname = idj['fname']
+        if 'identifiers' in idj:
+            person.identifiers = copy.deepcopy(idj['identifiers'])
         return person
 
     def _regid_from_json(self, data):
