@@ -521,7 +521,7 @@ class IRWS(object):
             person.in_feed = person_data['in_feed']
 
         if 'wp_name' in person_data:
-            wpn = person_data['wp_name].split('|')
+            wpn = person_data['wp_name'].split('|')
             person.wp_name = wpn[0]
             if len(wpn)>1:
                 person.wp_lname = wpn[1]
