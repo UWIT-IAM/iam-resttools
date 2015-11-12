@@ -74,7 +74,9 @@ class UWhrPerson():
     workday_home_email = ''
     org_supervisor = ''
 
-    wp_name = {}
+    wp_name = ''
+    wp_lname = ''
+    wp_fname = ''
     wp_department = []
     wp_email = []
     wp_phone = []
