@@ -263,6 +263,7 @@ class Subscription():
     uwnetid = ''
     subscription_code = ''
     subscription_name = ''
+    subscription_data = ''
     notify_code = ''
     status_code = ''
     status_name = ''

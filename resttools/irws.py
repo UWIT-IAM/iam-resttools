@@ -691,6 +691,7 @@ class IRWS(object):
         subscription.uwnetid = sub_data['uwnetid']
         subscription.subscription_code = sub_data['subscription_code']
         subscription.subscription_name = sub_data['subscription_name']
+        subscription.subscription_data = sub_data.get('subscription_data', None)
         return subscription
 
     def _pac_from_json(self, data):
