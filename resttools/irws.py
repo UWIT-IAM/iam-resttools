@@ -364,7 +364,7 @@ class IRWS(object):
         source = self._clean(source)
 
         dao = IRWS_DAO(self._conf)
-        url = "/%s/v2/person/%s/%s/pac" % (self._service_name, source, eid)
+        url = "/%s/v2/person/%s/%s/pac?-force" % (self._service_name, source, eid)
         response = dao.putURL(url, {"Accept": "application/json"}, '')
 
         if response.status != 200:
