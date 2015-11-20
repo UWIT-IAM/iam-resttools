@@ -94,7 +94,9 @@ class NWS(object):
     def _pwinfo_from_json(self, data):
         infoobj = json.loads(data)
         if 'minimumLength' in infoobj:
-            return UWNetIdPwInfo(min_len=infoobj['minimumLength'], last_change=infoobj['lastChange'])
+            return UWNetIdPwInfo(min_len=infoobj['minimumLength'],
+                                 last_change=infoobj['lastChange'],
+                                 kerb_status=infoobj['kerbStatus'])
         else:
             return None
 
