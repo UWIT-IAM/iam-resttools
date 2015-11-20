@@ -24,3 +24,4 @@ class NWS_Test():
     def test_get_netid_pw(self):
         pw = self.nws.get_netid_pwinfo('groups')
         eq_(pw.min_len, 8)
+        eq_(pw.kerb_status, 'Active')
