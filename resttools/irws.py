@@ -590,6 +590,7 @@ class IRWS(object):
             person.department = person_data['department']
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
+        person.status_code = person_data.get('status_code', person.__class__.status_code)
         return person
 
     def _scca_person_from_json(self, data):
@@ -612,6 +613,7 @@ class IRWS(object):
             person.scca_fhc_eppn = person_data['scca_fhc_eppn']
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
+        person.status_code = person_data.get('status_code', person.__class__.status_code)
         return person
 
     def _supplemental_person_from_json(self, data):
