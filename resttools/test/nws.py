@@ -19,7 +19,9 @@ class NWS_Test():
         admins = self.nws.get_netid_admins('groups')
         eq_(len(admins), 3)
         for a in admins:
-            ok_(a.name == 'fox' or a.name == 'dors' or a.name == 'spud123')
+            ok_((a.name == 'fox' and a.type == 'netid') or
+                (a.name == 'dors' and a.type == 'netid') or
+                (a.name == 'u_fox_browser6' and a.type == 'group'))
 
     def test_get_netid_pw(self):
         pw = self.nws.get_netid_pwinfo('groups')
@@ -31,7 +33,7 @@ class NWS_Test():
         eq_(pw.__dict__, {'min_len': 50000, 'kerb_status': 'Active', 'last_change': ''})
 
         pw = self.nws._pwinfo_from_json(json.dumps(
-                    {'minimumLength': 4000, 'lastChange': 'tomorrow', 'kerbStatus': 'dissed'}))
+                                        {'minimumLength': 4000, 'lastChange': 'tomorrow', 'kerbStatus': 'dissed'}))
         eq_(pw.__dict__, {'min_len': 4000, 'kerb_status': 'dissed', 'last_change': 'tomorrow'})
 
         pw = self.nws._pwinfo_from_json(json.dumps({}))

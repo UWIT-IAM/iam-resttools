@@ -2,10 +2,12 @@
 class UWNetIdAdmin():
     name = ''
     role = ''
+    type = 'netid'
 
-    def __init__(self, name='', role=''):
+    def __init__(self, name='', role='', type='netid'):
         self.name = name
         self.role = role
+        self.type = type
 
 
 class UWNetIdPwInfo():
