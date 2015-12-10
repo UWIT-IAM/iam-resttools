@@ -19,7 +19,9 @@ class NWS_Test():
         admins = self.nws.get_netid_admins('groups')
         eq_(len(admins), 3)
         for a in admins:
-            ok_(a.name == 'fox' or a.name == 'dors' or a.name == 'spud123')
+            ok_( (a.name == 'fox' and a.type == 'netid') or \
+                 (a.name == 'dors' and a.type == 'netid') or \
+                 (a.name == 'u_fox_browser6' and a.type == 'group') )
 
     def test_get_netid_pw(self):
         pw = self.nws.get_netid_pwinfo('groups')
