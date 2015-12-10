@@ -86,9 +86,11 @@ class NWS(object):
         adminobj = json.loads(data)
         admins = []
         for admin in adminobj['adminList']:
+            logger.debug(admin)
             name = admin['name']
             role = admin['role']
-            admins.append(UWNetIdAdmin(name=name, role=role))
+            type = admin['type']
+            admins.append(UWNetIdAdmin(name=admin['name'], role=admin['role'], type=admin['type']))
         return admins
 
     def _pwinfo_from_json(self, data):

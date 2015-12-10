@@ -13,7 +13,11 @@ from urllib3 import connection_from_url
 import urllib3
 
 # temporary during testing
-urllib3.disable_warnings()
+try:
+    urllib3.disable_warnings()
+except AttributeError:
+    pass
+
 logging.captureWarnings(True)
 
 
