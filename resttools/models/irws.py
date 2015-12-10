@@ -187,6 +187,7 @@ class CascadiaPerson():
     birthdate = ''
     department = ''
     in_feed = ''
+    status_code = ''
 
 
 # IRWS Scca person
@@ -201,6 +202,7 @@ class SccaPerson():
     scca_cca_eppn = ''
     scca_fhc_eppn = ''
     in_feed = ''
+    status_code = ''
 
 
 # IRWS GenericPerson

@@ -89,12 +89,14 @@ class IRWS_Test():
         eq_(g.lname, 'CASLAST')
         eq_(g.birthdate, '1981-01-01')
         eq_(g.department, 'STU')
+        eq_(g.status_code, '3')
 
     def test_get_scca_person(self):
         g = self.irws.get_scca_person('FHSC40999')
         eq_(g.lname, 'CCALAST')
         eq_(g.scca_company, 'CCA')
         eq_(g.scca_cca_eppn, 'ccalast@seattlecca.org')
+        eq_(g.status_code, '3')
 
     def test_get_generic_person(self):
         g = self.irws.get_generic_person('/person/generic/01234')
