@@ -92,6 +92,7 @@ class UWhrPerson():
 
     emp_ecs_code = ''
     emp_status_code = ''
+    workday_last_active = ''
 
     budget = ''
     faccode = ''

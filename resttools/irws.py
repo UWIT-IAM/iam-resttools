@@ -504,6 +504,8 @@ class IRWS(object):
             person.emp_ecs_code = person_data['emp_ecs_code']
         if 'emp_status_code' in person_data:
             person.emp_status_code = person_data['emp_status_code']
+        if 'workday_last_active' in person_data:
+            person.workday_last_active = person_data['workday_last_active']
         person.source_code = person_data['source_code']
         person.source_name = person_data['source_name']
         person.status_code = person_data['status_code']
