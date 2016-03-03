@@ -80,7 +80,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            return None
+            return [] if ret_array else return None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -506,6 +506,12 @@ class IRWS(object):
             person.emp_status_code = person_data['emp_status_code']
         if 'workday_last_active' in person_data:
             person.workday_last_active = person_data['workday_last_active']
+        if 'workday_emp_status' in person_data:
+            person.workday_emp_status = person_data['workday_emp_status']
+        if 'workday_con_status' in person_data:
+            person.workday_con_status = person_data['workday_con_status']
+        if 'workday_aff_status' in person_data:
+            person.workday_aff_status = person_data['workday_aff_status']
         person.source_code = person_data['source_code']
         person.source_name = person_data['source_name']
         person.status_code = person_data['status_code']
