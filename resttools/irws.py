@@ -80,7 +80,7 @@ class IRWS(object):
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
-            return [] if ret_array else return None
+            return [] if ret_array else None
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
