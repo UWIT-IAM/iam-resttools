@@ -173,6 +173,7 @@ class GWS(object):
     def put_membership(self, group_id, members):
         """
         Puts the membership of the group represented by the passed group id.
+        Members is an object: name=<member_id>, type=<member_type>
         Returns a list of members not found.
         """
         if not self._is_valid_group_id(group_id):
@@ -195,6 +196,7 @@ class GWS(object):
     def put_members(self, group_id, members):
         """
         Puts members into the group represented by the passed group id.
+        Members is a list of string. (could be prefaced, e.g. 'u:user_id')
         Returns a list of members not found.
         """
         if not self._is_valid_group_id(group_id):
@@ -215,6 +217,7 @@ class GWS(object):
     def delete_members(self, group_id, members):
         """
         Delete members from the group represented by the passed group id.
+        Members is a list of string.
         Returns a list of members not found.
         """
         if not self._is_valid_group_id(group_id):
@@ -222,9 +225,7 @@ class GWS(object):
 
         dao = GWS_DAO(self._conf)
         url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
-        response = dao.deleteURL(url,
-                              self._headers({"Content-Type": "text/xml",
-                                             "If-Match": "*"}))
+        response = dao.deleteURL(url, self._headers({"Content-Type": "text/xml", "If-Match": "*"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -373,7 +374,6 @@ class GWS(object):
         return members
 
     def _notfoundmembers_from_xml(self, data):
-        print data
         members = []
         root = etree.fromstring(data)
         e_nf = root.find('notfoundmembers')
