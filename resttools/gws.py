@@ -170,7 +170,7 @@ class GWS(object):
 
         return self._members_from_xml(response.data)
 
-    def put_members(self, group_id, members):
+    def put_membership(self, group_id, members):
         """
         Puts the membership of the group represented by the passed group id.
         Returns a list of members not found.
@@ -191,6 +191,45 @@ class GWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._notfoundmembers_from_xml(response.data)
+
+    def put_members(self, group_id, members):
+        """
+        Puts members into the group represented by the passed group id.
+        Returns a list of members not found.
+        """
+        if not self._is_valid_group_id(group_id):
+            raise InvalidGroupID(group_id)
+
+        dao = GWS_DAO(self._conf)
+        url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
+        response = dao.putURL(url,
+                              self._headers({"Content-Type": "text/xml",
+                                             "If-Match": "*"}),
+                              None)
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._notfoundmembers_from_xml(response.data)
+
+    def delete_members(self, group_id, members):
+        """
+        Delete members from the group represented by the passed group id.
+        Returns a list of members not found.
+        """
+        if not self._is_valid_group_id(group_id):
+            raise InvalidGroupID(group_id)
+
+        dao = GWS_DAO(self._conf)
+        url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
+        response = dao.deleteURL(url,
+                              self._headers({"Content-Type": "text/xml",
+                                             "If-Match": "*"}))
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return True
 
     def get_effective_members(self, group_id):
         """
@@ -334,6 +373,7 @@ class GWS(object):
         return members
 
     def _notfoundmembers_from_xml(self, data):
+        print data
         members = []
         root = etree.fromstring(data)
         e_nf = root.find('notfoundmembers')
