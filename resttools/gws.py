@@ -202,6 +202,9 @@ class GWS(object):
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
 
+        if len(members) == 0:
+            return []
+
         dao = GWS_DAO(self._conf)
         url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
         response = dao.putURL(url,
@@ -222,6 +225,9 @@ class GWS(object):
         """
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
+
+        if len(members) == 0:
+            return True
 
         dao = GWS_DAO(self._conf)
         url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
