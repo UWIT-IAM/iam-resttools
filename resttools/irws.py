@@ -575,11 +575,11 @@ class IRWS(object):
             person.cnet_id = person_data['cnet_id']
         if 'cnet_user' in person_data:
             person.cnet_user = person_data['cnet_user']
+        person.wp_publish = person_data.get('wp_publish', 'Y')
+        person.branch = person_data.get('branch', '')
+        person.college = person_data.get('college', '')
+        person.department = person_data.get('department', '')
 
-        if 'wp_publish' in person_data:
-            person.wp_publish = person_data['wp_publish']
-        else:
-            person.wp_publish = 'Y'
         return person
 
     def _cascadia_person_from_json(self, data):
