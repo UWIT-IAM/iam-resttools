@@ -28,8 +28,8 @@ class File(object):
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
         if url in File._cache_db:
-            print'usng cache'
-            response = MockHTTP
+            logger.debug('using cache')
+            response = MockHTTP()
             response.data = File._cache_db[url]
             response.status = 200
             return response
