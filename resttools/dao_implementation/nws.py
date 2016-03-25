@@ -18,6 +18,7 @@ class File(object):
 
     """
     _max_pool_size = 5
+    _cache_db = {}
 
     def __init__(self, conf):
         self._conf = conf
@@ -26,7 +27,13 @@ class File(object):
 
     def getURL(self, url, headers):
         logger.debug('file nws get url: ' + url)
-        response = get_mockdata_url("nws", self._conf, url, headers)
+        if url not in File._cache_db:
+            response = get_mockdata_url("nws", self._conf, url, headers)
+        else:
+            logger.debug('using cache')
+            response = MockHTTP()
+            response.data = File._cache_db[url]
+            response.status = 200
         if response.status == 404:
             logger.debug('status 404')
             response.data = '{"error": {"code": "7000","message": "No record matched"}}'
