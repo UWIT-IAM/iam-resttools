@@ -128,6 +128,7 @@ class SdbPerson():
     lname = ''
     categories = []
 
+    branch = ''
     college = ''
     department = ''
 

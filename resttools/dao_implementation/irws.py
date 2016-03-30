@@ -28,8 +28,8 @@ class File(object):
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
         if url in File._cache_db:
-            print'usng cache'
-            response = MockHTTP
+            logger.debug('using cache')
+            response = MockHTTP()
             response.data = File._cache_db[url]
             response.status = 200
             return response
@@ -44,7 +44,7 @@ class File(object):
         print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status != 404:
+        if response.status != 404 or url in File._cache_db:
             # try set in cache
             File._cache_db[url] = body
             print('not found for put - cache')
