@@ -246,6 +246,9 @@ class UWNetId():
             return False
         return self.uwnetid == other.uwnetid
 
+    def __cmp__(self, other):
+        return self.uwnetid.__cmp__(other.uwnetid)
+
 
 # IRWS Regid
 class Regid():
