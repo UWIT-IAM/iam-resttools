@@ -27,7 +27,7 @@ from resttools.models.irws import Name
 from resttools.models.irws import QnA
 from resttools.models.irws import GenericPerson
 
-from resttools.exceptions import DataFailureException
+from resttools.exceptions import DataFailureException, InvalidIRWSName
 
 import logging
 logger = logging.getLogger(__name__)
@@ -210,6 +210,33 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._name_from_json(response.data)
+
+    def put_name_by_netid(self, netid, first=None, middle=None, last=None):
+        name = self.valid_name_json(first=first, middle=middle, last=last)
+        url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
+        response = IRWS_DAO(self._conf).putURL(
+            url, {'Accept': 'application/json'}, name)
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+        return response.status
+
+    def valid_name_json(self, first=None, middle=None, last=None):
+        """Construct name json to put to IRWS name."""
+        if any(not self._valid_name_part(x) for x in (first, middle, last)):
+            raise InvalidIRWSName('name too long or has invalid characters')
+        if any(not x for x in (first, last)):
+            raise InvalidIRWSName('required fields cannot be empty')
+        if len(' '.join(x for x in (first, middle, last) if x)) > 80:
+            raise InvalidIRWSName(
+                'complete display name cannot be longer than 80 characters')
+
+        return json.dumps({'name': [{'display_fname': first,
+                                     'display_mname': middle,
+                                     'display_sname': last}]})
+
+    def _valid_name_part(self, name):
+        regex = r'^[\w !$&\'*\-,.?^_`{}~#+%]*$'
+        return len(name) <= 64 and re.match(regex, name)
 
     def get_uwhr_person(self, eid, source='uwhr'):
         """

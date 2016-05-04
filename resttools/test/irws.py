@@ -3,6 +3,7 @@ import logging
 from nose.tools import *
 
 from resttools.irws import IRWS
+from resttools.exceptions import InvalidIRWSName, DataFailureException
 
 import resttools.test.test_settings as settings
 import logging.config
@@ -113,3 +114,90 @@ class IRWS_Test():
         eq_(st, 200)
         st = self.irws.verify_sc_pin('user1q', '123456')
         eq_(st, 404)
+
+    def test_put_name_by_netid(self):
+        # prime the cache first
+        # irws.get_name_by_netid('javerage')
+
+        response = self.irws.put_name_by_netid(
+            'javerage', first='J', middle='', last='Student')
+        eq_(200, response)
+        name = self.irws.get_name_by_netid('javerage')
+        eq_('J', name.display_fname)
+        eq_('', name.display_mname)
+        eq_('Student', name.display_lname)
+
+    def test_put_name_by_netid_no_user(self):
+        assert_raises(DataFailureException,
+                      self.irws.put_name_by_netid,
+                      'nonuser',
+                      first='J', middle='', last='Student')
+
+    def test_valid_name_part_good(self):
+        ok_(self.irws._valid_name_part('james'))
+        ok_(self.irws._valid_name_part(' '))
+        ok_(self.irws._valid_name_part(' !$&\'*-,.?^_`{}~#+%'))
+
+    def test_valid_name_part_bad(self):
+        bad_chars = '"():;<>[\]|@'
+        assert not self.irws._valid_name_part(u'Jos\xe9')  # utf-8
+        for c in bad_chars:
+            assert not self.irws._valid_name_part(c)
+
+    def test_valid_name_part_too_long(self):
+        # 64 is the magic number
+        bad_name = 'a' * 65
+        assert not self.irws._valid_name_part(bad_name)
+        # one less should be good
+        assert self.irws._valid_name_part(bad_name[:-1])
+
+    def test_valid_name_json_good(self):
+        names = json.loads(
+            self.irws.valid_name_json(first='joe', middle='average', last='user'))
+        name = names['name'][0]
+        eq_(name['display_fname'], 'joe')
+        eq_(name['display_mname'], 'average')
+        eq_(name['display_sname'], 'user')
+
+    def test_valid_irws_name_empty_middle_name(self):
+        names = json.loads(self.irws.valid_name_json(first='joe', middle='', last='user'))
+        eq_(names['name'][0]['display_mname'], '')
+
+    def test_valid_name_json_required_fields_missing(self):
+        bad_data_list = [
+            dict(first='', middle='average', last='user'),
+            dict(first='joe', middle='average', last='')]
+
+        for bad_data in bad_data_list:
+            assert_raises(InvalidIRWSName,
+                          self.irws.valid_name_json,
+                          **bad_data)
+
+    def test_valid_irws_name_bad_characters(self):
+        bad_data_list = [
+            ('@', 'average', 'user'),
+            ('joe', '@', 'user'),
+            ('joe', 'average', '@'),
+            ]
+
+        for bad_data in bad_data_list:
+            bad_name = dict(first=bad_data[0], middle=bad_data[1], last=bad_data[2])
+            assert_raises(InvalidIRWSName,
+                          self.irws.valid_name_json,
+                          **bad_name)
+
+    def test_valid_irws_name_too_long(self):
+        # 80 is the magic number
+        bad_data_list = [
+            ('f' * 30, 'm' * 30, 'l' * 19),
+            ('f' * 40, '', 'l' * 40)]
+
+        for bad_data in bad_data_list:
+            # one less character will pass
+            good_name = (bad_data[0:2] + (bad_data[2][:-1],))
+            ok_(self.irws.valid_name_json(first=good_name[0],
+                                          middle=good_name[1], last=good_name[2]))
+            # failure
+            assert_raises(InvalidIRWSName,
+                          self.irws.valid_name_json,
+                          first=bad_data[0], middle=bad_data[1], last=bad_data[2])

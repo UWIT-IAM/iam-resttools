@@ -4,6 +4,7 @@ Contains IRWS DAO implementations.
 
 from resttools.mock.mock_http import MockHTTP
 import re
+import json
 from resttools.dao_implementation.live import get_con_pool, get_live_url
 from resttools.dao_implementation.mock import get_mockdata_url
 
@@ -41,14 +42,24 @@ class File(object):
 
     def putURL(self, url, headers, body):
         logger.debug('file irws put url: ' + url)
-        print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status != 404 or url in File._cache_db:
             # try set in cache
-            File._cache_db[url] = body
-            print('not found for put - cache')
-            logger.debug('not found for put - cache')
+            cache_data = json.loads(File._cache_db.get(url, None) or
+                                    response.data)
+            put_data = json.loads(body)
+            key = put_data.keys()[0]
+            put_section = put_data[key][0]
+            if key == 'name':
+                # fake a cname update
+                name_parts = [put_section.get('display_{}name'.format(x), '')
+                              for x in ('f', 'm', 's')]
+                put_section['display_cname'] = ' '.join(x for x in name_parts if x)
+            # update the put data and leave everything else in place
+            cache_data[key][0].update(put_section)
+            File._cache_db[url] = json.dumps(cache_data)
+            # return an irws-style put response
             response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
             response.status = 200
 
