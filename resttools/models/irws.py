@@ -143,6 +143,7 @@ class SdbPerson():
     cnet_user = ''
 
     wp_publish = 'Y'
+    wp_title = ''
 
     in_feed = ''
     created = ''
