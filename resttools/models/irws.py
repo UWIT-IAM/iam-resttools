@@ -144,6 +144,7 @@ class SdbPerson():
 
     wp_publish = 'Y'
     wp_title = ''
+    wp_phone = ''
 
     in_feed = ''
     created = ''

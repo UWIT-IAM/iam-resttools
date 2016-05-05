@@ -603,6 +603,8 @@ class IRWS(object):
         if 'cnet_user' in person_data:
             person.cnet_user = person_data['cnet_user']
         person.wp_publish = person_data.get('wp_publish', 'Y')
+        person.wp_phone = person_data.get('wp_phone', '')
+        person.wp_title = person_data.get('wp_title', '')
         person.branch = person_data.get('branch', '')
         person.college = person_data.get('college', '')
         person.department = person_data.get('department', '')
