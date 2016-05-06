@@ -571,6 +571,10 @@ class IRWS(object):
             person.wp_publish = person_data['wp_publish']
         else:
             person.wp_publish = 'Y'
+        person.wp_phone = person_data.get('wp_phone', '')
+        person.wp_title = person_data.get('wp_title', '')
+        person.wp_address = person_data.get('wp_address', '')
+        person.wp_department = person_data.get('wp_department', '')
         return person
 
     def _sdb_person_from_json(self, data):
