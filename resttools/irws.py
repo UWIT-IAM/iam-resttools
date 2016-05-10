@@ -572,8 +572,9 @@ class IRWS(object):
         else:
             person.wp_publish = 'Y'
         person.wp_phone = person_data.get('wp_phone', '')
-        person.wp_title = person_data.get('wp_title', '')
+        person.mailstop = person_data.get('mailstop', '')
         person.wp_address = person_data.get('wp_address', '')
+        person.wp_title = person_data.get('wp_title', '')
         person.wp_department = person_data.get('wp_department', '')
         return person
 
