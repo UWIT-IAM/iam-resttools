@@ -143,9 +143,10 @@ class SdbPerson():
     cnet_user = ''
 
     wp_publish = 'Y'
-    wp_title = ''
-    wp_phone = ''
-    wp_department = ''
+    wp_title = []
+    wp_phone = []
+    wp_department = []
+    wp_email = []
 
     in_feed = ''
     created = ''

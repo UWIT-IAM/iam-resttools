@@ -571,11 +571,12 @@ class IRWS(object):
             person.wp_publish = person_data['wp_publish']
         else:
             person.wp_publish = 'Y'
-        person.wp_phone = person_data.get('wp_phone', '')
+        person.wp_phone = person_data.get('wp_phone', [])
         person.mailstop = person_data.get('mailstop', '')
-        person.wp_address = person_data.get('wp_address', '')
-        person.wp_title = person_data.get('wp_title', '')
-        person.wp_department = person_data.get('wp_department', '')
+        person.wp_address = person_data.get('wp_address', [])
+        person.wp_title = person_data.get('wp_title', [])
+        person.wp_department = person_data.get('wp_department', [])
+        person.wp_email = person_data.get('wp_email', [])
         return person
 
     def _sdb_person_from_json(self, data):
@@ -608,12 +609,12 @@ class IRWS(object):
         if 'cnet_user' in person_data:
             person.cnet_user = person_data['cnet_user']
         person.wp_publish = person_data.get('wp_publish', 'Y')
-        person.wp_phone = person_data.get('wp_phone', '')
-        person.wp_title = person_data.get('wp_title', '')
+        person.wp_phone = person_data.get('wp_phone', [])
+        person.wp_title = person_data.get('wp_title', [])
         person.branch = person_data.get('branch', '')
         person.college = person_data.get('college', '')
-        person.wp_department = person_data.get('wp_department', '')
-
+        person.wp_department = person_data.get('wp_department', [])
+        person.wp_email = person_data.get('wp_email', [])
         return person
 
     def _cascadia_person_from_json(self, data):
