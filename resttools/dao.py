@@ -45,6 +45,9 @@ class IRWS_DAO(DAO_BASE):
     def putURL(self, url, headers, body):
         return self._putURL('irws', url, headers, body)
 
+    def postURL(self, url, headers, body):
+        return self._postURL('irws', url, headers, body)
+
     def deleteURL(self, url, headers):
         return self._deleteURL('irws', url, headers)
 

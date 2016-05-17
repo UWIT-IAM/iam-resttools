@@ -28,6 +28,7 @@ from resttools.models.irws import QnA
 from resttools.models.irws import GenericPerson
 
 from resttools.exceptions import DataFailureException, InvalidIRWSName
+from resttools.exceptions import ResourceNotFound, BadInput
 
 import logging
 logger = logging.getLogger(__name__)
@@ -124,6 +125,40 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._person_from_json(response.data)
+
+    def post_hr_person_by_netid(self, netid, wp_publish=None):
+        """
+        Update the whitepages publish value for a netid's employee record.
+        """
+        if wp_publish not in ('Y', 'N', 'E'):
+            raise BadInput('Invalid publish option')
+
+        url = self._get_hr_url(netid)
+        if url:
+            hr_data = {'person': [{'wp_publish': wp_publish}]}
+            response = IRWS_DAO(self._conf).postURL(
+                url, {"Accept": "application/json"}, json.dumps(hr_data))
+            if response.status != 200:
+                raise DataFailureException(url, response.status, response.data)
+        else:
+            raise ResourceNotFound('not an hr person: {}'.format(netid))
+        source, eid = url.split('/')[-2:]
+        return self.get_uwhr_person(eid, source=source)
+
+    def _get_hr_url(self, netid):
+        """
+        Given a netid, return the absolute url for a person's employee record
+        or None if not an employee.
+        """
+        person = self.get_person(netid=netid)
+        hr_url = None
+        if person:
+            hr_url = next((url for key, url in person.identifiers.items()
+                           if key in ('uwhr', 'hepps')),
+                          None)
+            if hr_url:
+                hr_url = '/{}/v2{}'.format(self._service_name, hr_url)
+        return hr_url
 
     # v2 - no change
     def get_regid(self, netid=None, regid=None):

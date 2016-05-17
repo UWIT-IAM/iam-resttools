@@ -65,6 +65,9 @@ class File(object):
 
         return response
 
+    def postURL(self, url, headers, body):
+        return self.putURL(url, headers, body)
+
     def deleteURL(self, url, headers):
         logger.debug('file irws delete url: ' + url)
         response = get_mockdata_url("irws", self._conf, url, headers)
@@ -88,39 +91,35 @@ class Live(object):
     pool = None
 
     def getURL(self, url, headers):
-        if Live.pool is None:
-            Live.pool = self._get_pool()
-
-        return get_live_url(Live.pool, 'GET',
+        return get_live_url(self._get_pool(), 'GET',
                             self._conf['HOST'],
                             url, headers=headers,
                             service_name='irws')
 
     def deleteURL(self, url, headers):
-        if Live.pool is None:
-            Live.pool = self._get_pool()
-
-        return get_live_url(Live.pool, 'DELETE',
+        return get_live_url(self._get_pool(), 'DELETE',
                             self._conf['HOST'],
                             url, headers=headers,
                             service_name='irws')
 
     def putURL(self, url, headers, body):
-        if Live.pool is None:
-            Live.pool = self._get_pool()
+        return get_live_url(self._get_pool(), 'PUT',
+                            self._conf['HOST'],
+                            url, headers=headers, body=body,
+                            service_name='irws')
 
-        return get_live_url(Live.pool, 'PUT',
+    def postURL(self, url, headers, body):
+        return get_live_url(self._get_pool(), 'POST',
                             self._conf['HOST'],
                             url, headers=headers, body=body,
                             service_name='irws')
 
     def _get_pool(self):
-        vfy = True
-        if 'VERIFY_HOST' in self._conf:
-            vfy = self._conf['VERIFY_HOST']
-        return get_con_pool(self._conf['HOST'],
-                            self._conf['KEY_FILE'],
-                            self._conf['CERT_FILE'],
-                            self._conf['CA_FILE'],
-                            max_pool_size=self._max_pool_size,
-                            verify_https=vfy)
+        if not Live.pool:
+            Live.pool = get_con_pool(self._conf['HOST'],
+                                     self._conf['KEY_FILE'],
+                                     self._conf['CERT_FILE'],
+                                     self._conf['CA_FILE'],
+                                     max_pool_size=self._max_pool_size,
+                                     verify_https=self._conf.get('VERIFY_HOST', True))
+        return Live.pool
