@@ -3,8 +3,8 @@ import logging
 from nose.tools import *
 
 from resttools.irws import IRWS
-from resttools.exceptions import InvalidIRWSName, DataFailureException
-
+from resttools.exceptions import (InvalidIRWSName, DataFailureException,
+                                  BadInput, ResourceNotFound)
 import resttools.test.test_settings as settings
 import logging.config
 logging.config.dictConfig(settings.LOGGING)
@@ -43,6 +43,20 @@ class IRWS_Test():
     def test_get_person_by_netid_nonexists(self):
         person = self.irws.get_person(netid='pud867')
         eq_(person, None)
+
+    def test_post_hr_person_by_netid(self):
+        uwhr = self.irws.post_hr_person_by_netid('javerage', wp_publish='E')
+        eq_(uwhr.wp_publish, 'E')
+
+    def test_post_hr_person_bad_publish_value(self):
+        assert_raises(BadInput,
+                      self.irws.post_hr_person_by_netid,
+                      'javerage', wp_publish='X')
+
+    def test_post_hr_person_not_employee(self):
+        assert_raises(ResourceNotFound,
+                      self.irws.post_hr_person_by_netid,
+                      'notaperson', wp_publish='Y')
 
     def test_get_uwhr_person_hepps(self):
         uwhr = self.irws.get_uwhr_person('123456789', source='hepps')
