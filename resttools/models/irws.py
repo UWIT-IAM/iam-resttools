@@ -306,3 +306,43 @@ class QnA():
     ordinal = ''
     question = ''
     answer = ''
+
+# IRWS PDSEntry
+class PDSEntry():
+    regid = ''
+    objectclass = []
+    test = ''
+    eid = ''
+    ewpname = ''
+    ewpdept = []
+    ewpemail = []
+    ewpphone = []
+    ewptitle = []
+    ewpaddr = []
+    ewppublish = ''
+    employeehomedepartment = ''
+    employeemailstop = ''
+    studentsystemkey = ''
+    sid = ''
+    swpname = ''
+    swpdept = []
+    swpemail = ''
+    swpclass = ''
+    swppublish = ''
+    developmentid = ''
+    wppublish = ''
+    displayname = ''
+    registeredname = ''
+    registeredfirstmiddle = ''
+    registeredsurname = ''
+    cn = ''
+    sn = ''
+    preferredname = ''
+    preferredfirst = ''
+    preferredsurname = ''
+    uwnetid = ''
+    uidnumber = ''
+    edupersonaffiliation = []
+
+    def __eq__(self, other):
+        return self.uwnetid == other.uwnetid
