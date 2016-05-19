@@ -227,7 +227,7 @@ class IRWS(object):
 
         return response.status
 
-    def get_name_by_netid(self, netid):
+    def get_name_by_netid(self, netid, rollup=False):
         """
         Returns a resttools.irws.Name object for the given netid.  If the
         netid isn't found, nothing will be returned.  If there is an error
@@ -237,7 +237,10 @@ class IRWS(object):
 
         dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
-        response = dao.getURL(url, {"Accept": "application/json"})
+        headers = {"Accept": "application/json"}
+        if rollup:  # add rollup flag if requested
+            headers["Option-List"] = "rollup"
+        response = dao.getURL(url, headers)
 
         if response.status == 404:
             return None
