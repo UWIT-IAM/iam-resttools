@@ -26,6 +26,7 @@ from resttools.models.irws import Pac
 from resttools.models.irws import Name
 from resttools.models.irws import QnA
 from resttools.models.irws import GenericPerson
+from resttools.models.irws import PDSEntry
 
 from resttools.exceptions import DataFailureException, InvalidIRWSName
 from resttools.exceptions import ResourceNotFound, BadInput
@@ -226,7 +227,7 @@ class IRWS(object):
 
         return response.status
 
-    def get_name_by_netid(self, netid):
+    def get_name_by_netid(self, netid, rollup=False):
         """
         Returns a resttools.irws.Name object for the given netid.  If the
         netid isn't found, nothing will be returned.  If there is an error
@@ -236,6 +237,8 @@ class IRWS(object):
 
         dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
+        if rollup:  # add rollup flag if requested
+            url += "?-rollup"
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -417,6 +420,28 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         return self._subscription_from_json(response.data)
+
+    def get_pdsentry_by_netid(self, netid):
+        """
+            Returns an irws.PdsEntry object for the given netid.
+            If the person doesn't have a pds entry, returns None.
+            If the netid isn't found, throws #TODO
+            If there is an error contacting IRWS, throws DataFailureException.
+            """
+        sid = self._clean(netid)
+
+        dao = IRWS_DAO(self._conf)
+
+        url = "/%s/v2/pdsentry/validid=uwnetid=%s" % (self._service_name, netid)
+        response = dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._pdsentry_from_json(response.data)
 
     def put_pac(self, eid, source='uwhr'):
         """
@@ -773,6 +798,48 @@ class IRWS(object):
         subscription.subscription_name = sub_data['subscription_name']
         subscription.subscription_data = sub_data.get('subscription_data', None)
         return subscription
+
+    def _pdsentry_from_json(self, data):
+        """
+            Internal method, for creating the PDSEntry object.
+            """
+        person_data = json.loads(data)['pdsentry'][0]['entry']
+        person = PDSEntry()
+        person.regid = person_data.get('uwRegID', '')
+        person.objectclass = person_data.get('objectClass', [])
+        person.test = person_data.get('uwTest', '')
+        person.eid = person_data.get('uwEmployeeID', '')
+        person.ewpname = person_data.get('uwEWPName', '')
+        person.ewpdept = person_data.get('uwEWPDept', [])
+        person.ewpemail = person_data.get('uwEWPEmail', [])
+        person.ewpphone = person_data.get('uwEWPPhone', [])
+        person.ewptitle = person_data.get('uwEWPTitle', [])
+        person.ewpaddr = person_data.get('uwEWPAddr', [])
+        person.ewppublish = person_data.get('uwEWPPublish', '')
+        person.employeehomedept = person_data.get('uwEmployeeHomeDepartment', '')
+        person.employeemailstop = person_data.get('uwEmployeeMailstop', '')
+        person.studentsystemkey = person_data.get('uwStudentSystemKey', '')
+        person.sid = person_data.get('uwStudentID', '')
+        person.swpname = person_data.get('uwSWPName', '')
+        person.swpdept = person_data.get('uwSWPDept', [])
+        person.swpemail = person_data.get('uwSWPEmail', '')
+        person.swpclass = person_data.get('uwSWPClass', '')
+        person.swppublish = person_data.get('uwSWPPublish', '')
+        person.developmentid = person_data.get('uwDevelopmentID', '')
+        person.wppublish = person_data.get('uwWPPublish', '')
+        person.displayname = person_data.get('displayName', '')
+        person.registeredname = person_data.get('uwPersonRegisteredName', '')
+        person.registeredfirstmiddle = person_data.get('uwPersonRegisteredFirstMiddle', '')
+        person.registeredsurname = person_data.get('uwPersonRegisteredSurname', '')
+        person.cn = person_data.get('cn', '')
+        person.sn = person_data.get('sn', '')
+        person.preferredname = person_data.get('uwPersonPreferredName', '')
+        person.preferredfirst = person_data.get('uwPersonPreferredFirst', '')
+        person.preferredsurname = person_data.get('uwPersonPreferredSurname', '')
+        person.uwnetid = person_data.get('uwNetID', '')
+        person.uidnumber = person_data.get('uidNumber', '')
+        person.edupersonaffiliation = person_data.get('eduPersonAffiliation', '')
+        return person
 
     def _pac_from_json(self, data):
         pac_data = json.loads(data)['person'][0]
