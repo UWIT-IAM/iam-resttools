@@ -238,7 +238,7 @@ class IRWS(object):
         dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
         if rollup:  # add rollup flag if requested
-            url+="?-rollup"
+            url += "?-rollup"
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -840,7 +840,6 @@ class IRWS(object):
         person.uidnumber = person_data.get('uidNumber', '')
         person.edupersonaffiliation = person_data.get('eduPersonAffiliation', '')
         return person
-
 
     def _pac_from_json(self, data):
         pac_data = json.loads(data)['person'][0]

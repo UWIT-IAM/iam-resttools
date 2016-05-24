@@ -307,6 +307,7 @@ class QnA():
     question = ''
     answer = ''
 
+
 # IRWS PDSEntry
 class PDSEntry():
     regid = ''
