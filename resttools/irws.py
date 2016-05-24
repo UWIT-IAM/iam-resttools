@@ -237,10 +237,9 @@ class IRWS(object):
 
         dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
-        headers = {"Accept": "application/json"}
         if rollup:  # add rollup flag if requested
-            headers["Option-List"] = "rollup"
-        response = dao.getURL(url, headers)
+            url+="?-rollup"
+        response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
