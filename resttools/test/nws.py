@@ -1,6 +1,7 @@
 import json
 import logging
 from nose.tools import *
+from mock import patch
 
 from resttools.nws import NWS
 
@@ -22,6 +23,13 @@ class NWS_Test():
             ok_((a.name == 'fox' and a.type == 'netid') or
                 (a.name == 'dors' and a.type == 'netid') or
                 (a.name == 'u_fox_browser6' and a.type == 'group'))
+
+    def test_get_netid_admins_no_list(self):
+        with patch('resttools.nws.NWS_DAO') as nws_dao:
+            mock_response = nws_dao.return_value.getURL.return_value
+            mock_response.status = 200
+            mock_response.data = json.dumps({"timeStamp": "now", "uwNetID": "joe"})
+            eq_(self.nws.get_netid_admins('joe'), [])
 
     def test_get_netid_pw(self):
         pw = self.nws.get_netid_pwinfo('groups')
