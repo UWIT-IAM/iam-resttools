@@ -3,4 +3,5 @@ python-dateutil>=2.1
 urllib3>=1.9
 jinja2
 nose
+mock
 coverage
