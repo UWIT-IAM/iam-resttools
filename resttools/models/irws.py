@@ -142,7 +142,7 @@ class SdbPerson():
     cnet_id = ''
     cnet_user = ''
 
-    wp_publish = 'Y'
+    wp_publish = None
     wp_title = []
     wp_phone = []
     wp_department = []
