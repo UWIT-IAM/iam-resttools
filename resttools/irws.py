@@ -668,7 +668,9 @@ class IRWS(object):
             person.cnet_id = person_data['cnet_id']
         if 'cnet_user' in person_data:
             person.cnet_user = person_data['cnet_user']
-        person.wp_publish = person_data.get('wp_publish', 'Y')
+        # student wp_publish values are 'Y' and 'N'. Default to
+        # None so we can know whether it's supplied by IRWS.
+        person.wp_publish = person_data.get('wp_publish', None)
         person.wp_phone = person_data.get('wp_phone', [])
         person.wp_title = person_data.get('wp_title', [])
         person.branch = person_data.get('branch', '')
