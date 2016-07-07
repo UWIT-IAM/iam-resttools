@@ -412,7 +412,7 @@ class IRWS(object):
         if 'wp_publish' in person_data:
             person.wp_publish = person_data['wp_publish']
         else:
-            person.wp_publish = 'Y'
+            person.wp_publish = 'N'
         return person
 
     def _sdb_person_from_json(self, data):
