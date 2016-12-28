@@ -27,7 +27,9 @@ logger = logging.getLogger(__name__)
 class NWS(object):
 
     def __init__(self, conf, actas=None):
-        self._service_name = conf['SERVICE_NAME']
+        service_name = conf['SERVICE_NAME']
+        version = conf.get('VERSION', 'v1')
+        self._base_url = '/{}/{}'.format(service_name, version)
         self._conf = conf
         self._pw_action = 'Set'
         if 'PASSWORD_ACTION' in conf:
@@ -39,7 +41,7 @@ class NWS(object):
         """
 
         dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/admin" % (self._service_name, netid)
+        url = "%s/uwnetid/%s/admin" % (self._base_url, netid)
         response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
@@ -53,7 +55,7 @@ class NWS(object):
         """
 
         dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
+        url = "%s/uwnetid/%s/password" % (self._base_url, netid)
         response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
@@ -70,7 +72,7 @@ class NWS(object):
             action = self._pw_action
 
         dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
+        url = "%s/uwnetid/%s/password" % (self._base_url, netid)
         data = {'action': action, 'newPassword': password, 'uwNetID': netid, 'authMethod': auth}
         response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
 
