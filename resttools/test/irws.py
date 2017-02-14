@@ -145,9 +145,9 @@ class IRWS_Test():
             'javerage', first='J', middle='', last='Student')
         eq_(200, response)
         name = self.irws.get_name_by_netid('javerage')
-        eq_('J', name.display_fname)
-        eq_('', name.display_mname)
-        eq_('Student', name.display_lname)
+        eq_('J', name.preferred_fname)
+        eq_('', name.preferred_mname)
+        eq_('Student', name.preferred_lname)
 
     def test_put_name_by_netid_no_user(self):
         assert_raises(DataFailureException,
@@ -177,13 +177,13 @@ class IRWS_Test():
         names = json.loads(
             self.irws.valid_name_json(first='joe', middle='average', last='user'))
         name = names['name'][0]
-        eq_(name['display_fname'], 'joe')
-        eq_(name['display_mname'], 'average')
-        eq_(name['display_sname'], 'user')
+        eq_(name['preferred_fname'], 'joe')
+        eq_(name['preferred_mname'], 'average')
+        eq_(name['preferred_sname'], 'user')
 
     def test_valid_irws_name_empty_middle_name(self):
         names = json.loads(self.irws.valid_name_json(first='joe', middle='', last='user'))
-        eq_(names['name'][0]['display_mname'], '')
+        eq_(names['name'][0]['preferred_mname'], '')
 
     def test_valid_name_json_required_fields_missing(self):
         bad_data_list = [
