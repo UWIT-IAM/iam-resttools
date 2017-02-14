@@ -14,6 +14,11 @@ class Name():
     display_mname = ''
     display_lname = ''
     display_privacy = ''
+    preferred_cname = ''
+    preferred_fname = ''
+    preferred_mname = ''
+    preferred_lname = ''
+    preferred_privacy = ''
 
     def json_data(self):
         return {"formal_cname": self.formal_cname,
@@ -25,6 +30,11 @@ class Name():
                 "display_mname": self.display_mname,
                 "display_lname": self.display_lname,
                 "display_privacy": self.display_privacy,
+                "preferred_cname": self.preferred_cname,
+                "preferred_fname": self.preferred_fname,
+                "preferred_mname": self.preferred_mname,
+                "preferred_lname": self.preferred_lname,
+                "preferred_privacy": self.preferred_privacy,
                 }
 
     def __eq__(self, other):
