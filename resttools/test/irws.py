@@ -18,8 +18,8 @@ class IRWS_Test():
 
     def test_get_name_by_netid(self):
         name = self.irws.get_name_by_netid('javerage')
-        eq_(name.display_cname, 'JAMES AVERAGE STUDENT')
-        eq_(name.display_privacy, 'Public')
+        eq_(name.preferred_cname, 'JAMES AVERAGE STUDENT-P')
+        eq_(name.preferred_privacy, 'Public')
 
     def test_get_uwnetid_by_regid(self):
         netid = self.irws.get_uwnetid(regid='DC5C0C166A7C11D5A4AE0004AC494FFE', status=30)
