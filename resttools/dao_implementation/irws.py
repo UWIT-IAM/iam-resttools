@@ -53,9 +53,9 @@ class File(object):
             put_section = put_data[key][0]
             if key == 'name':
                 # fake a cname update
-                name_parts = [put_section.get('display_{}name'.format(x), '')
+                name_parts = [put_section.get('preferred_{}name'.format(x), '')
                               for x in ('f', 'm', 's')]
-                put_section['display_cname'] = ' '.join(x for x in name_parts if x)
+                put_section['preferred_cname'] = ' '.join(x for x in name_parts if x)
             # update the put data and leave everything else in place
             cache_data[key][0].update(put_section)
             File._cache_db[url] = json.dumps(cache_data)

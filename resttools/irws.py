@@ -227,7 +227,7 @@ class IRWS(object):
 
         return response.status
 
-    def get_name_by_netid(self, netid, rollup=False):
+    def get_name_by_netid(self, netid):
         """
         Returns a resttools.irws.Name object for the given netid.  If the
         netid isn't found, nothing will be returned.  If there is an error
@@ -237,8 +237,6 @@ class IRWS(object):
 
         dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
-        if rollup:  # add rollup flag if requested
-            url += "?-rollup"
         response = dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -268,9 +266,9 @@ class IRWS(object):
             raise InvalidIRWSName(
                 'complete display name cannot be longer than 80 characters')
 
-        return json.dumps({'name': [{'display_fname': first,
-                                     'display_mname': middle,
-                                     'display_sname': last}]})
+        return json.dumps({'name': [{'preferred_fname': first,
+                                     'preferred_mname': middle,
+                                     'preferred_sname': last}]})
 
     def _valid_name_part(self, name):
         regex = r'^[\w !$&\'*\-,.?^_`{}~#+%]*$'
@@ -872,6 +870,16 @@ class IRWS(object):
             name.display_lname = nd['display_sname']
         if 'display_privacy' in nd:
             name.display_privacy = nd['display_privacy']
+        if 'preferred_cname' in nd:
+            name.preferred_cname = nd['preferred_cname']
+        if 'preferred_fname' in nd:
+            name.preferred_fname = nd['preferred_fname']
+        if 'preferred_mname' in nd:
+            name.preferred_mname = nd['preferred_mname']
+        if 'preferred_sname' in nd:
+            name.preferred_lname = nd['preferred_sname']
+        if 'preferred_privacy' in nd:
+            name.preferred_privacy = nd['preferred_privacy']
         return name
 
     def _qna_from_json(self, data):
