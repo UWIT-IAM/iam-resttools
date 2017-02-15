@@ -44,11 +44,11 @@ def get_mockdata_url(service_name, conf,
 def _load_resource_from_path(app_root, service_name, conf, url, headers):
 
     logger = logging.getLogger(__name__)
-    mock_root = app_root + '/../mock'
-    std_root = mock_root + '/' + service_name
+    mock_root = os.path.realpath(os.path.join(app_root, '../mock'))
+    std_root = os.path.join(mock_root, service_name)
     if 'MOCK_ROOT' in conf and conf['MOCK_ROOT'] is not None:
         mock_root = conf['MOCK_ROOT']
-    root = mock_root + '/' + service_name
+    root = os.path.join(mock_root, service_name)
 
     if url == "///":
         # Just a placeholder to put everything else in an else.

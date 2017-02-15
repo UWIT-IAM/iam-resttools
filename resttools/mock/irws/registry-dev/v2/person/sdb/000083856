@@ -13,8 +13,10 @@ MOCKDATA-MOCKDATA-MOCKDATA
       "lname": "STUDENT",
       "fname": "JAMES AVERAGE",
       "pac": "P",
-      "category_code": "1",
-      "category_name": "Undergraduate",
+      "categories": [
+        {"category_code": "1",
+        "category_name": "Undergraduate"}
+      ],
       "college": "C",
       "department": "MATH",
       "sdb_class": "04",
