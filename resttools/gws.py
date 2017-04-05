@@ -1,13 +1,12 @@
 """
 This is the interface for interacting with the Group Web Service.
 """
-
 from resttools.dao import GWS_DAO
 from resttools.exceptions import InvalidGroupID
 from resttools.exceptions import DataFailureException
 from resttools.models.gws import Group, CourseGroup, GroupReference
 from resttools.models.gws import GroupUser, GroupMember
-from urllib import urlencode
+from six.moves.urllib.parse import urlencode
 from lxml import etree
 import re
 from jinja2 import Environment, PackageLoader
@@ -51,7 +50,7 @@ class GWS(object):
                 Values are 'one' to limit results to one level of stem name
                 and 'all' to return all groups.
         """
-        kwargs = dict((k.lower(), v.lower()) for k, v in kwargs.iteritems())
+        kwargs = dict((k.lower(), v.lower()) for k, v in kwargs.items())
         if 'type' in kwargs and (kwargs['type'] != 'direct' and
                                  kwargs['type'] != 'effective'):
             del(kwargs['type'])
