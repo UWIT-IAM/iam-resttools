@@ -1,17 +1,11 @@
 """
 This is the interface for interacting with the UW NetID Web Service.
 """
-
 from resttools.dao import NWS_DAO
 from resttools.models.nws import UWNetIdAdmin, UWNetIdPwInfo
 from resttools.exceptions import DataFailureException
-
-from urllib import urlencode
-
+from six.moves.urllib.parse import quote_plus
 import json
-
-import re
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -41,7 +35,7 @@ class NWS(object):
         """
 
         dao = NWS_DAO(self._conf)
-        url = "%s/uwnetid/%s/admin" % (self._base_url, netid)
+        url = "%s/uwnetid/%s/admin" % (self._base_url, quote_plus(netid))
         response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
@@ -55,7 +49,7 @@ class NWS(object):
         """
 
         dao = NWS_DAO(self._conf)
-        url = "%s/uwnetid/%s/password" % (self._base_url, netid)
+        url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
         response = dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
@@ -72,7 +66,7 @@ class NWS(object):
             action = self._pw_action
 
         dao = NWS_DAO(self._conf)
-        url = "%s/uwnetid/%s/password" % (self._base_url, netid)
+        url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
         data = {'action': action, 'newPassword': password, 'uwNetID': netid, 'authMethod': auth}
         response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
 
