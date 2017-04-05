@@ -1,16 +1,8 @@
-# IRWS service interface
-#
-
-import os
-import string
-import time
+"""IRWS service interface"""
 import re
-import random
 import copy
-from urllib import quote_plus
-
+from six.moves.urllib.parse import quote_plus
 import json
-
 from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
 from resttools.models.irws import Regid
@@ -270,8 +262,9 @@ class IRWS(object):
                                      'preferred_mname': middle,
                                      'preferred_sname': last}]})
 
-    def _valid_name_part(self, name):
-        regex = r'^[\w !$&\'*\-,.?^_`{}~#+%]*$'
+    @staticmethod
+    def _valid_name_part(name):
+        regex = r'^[A-Za-z0-9 !$&\'*\-,.?^_`{}~#+%]*$'
         return len(name) <= 64 and re.match(regex, name)
 
     def get_uwhr_person(self, eid, source='uwhr'):

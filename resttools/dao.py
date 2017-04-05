@@ -1,6 +1,4 @@
 # resttools implementation for non-django applications
-
-from resttools.mock.mock_http import MockHTTP
 from resttools.dao_implementation.irws import File as IRWSFile
 from resttools.dao_implementation.irws import Live as IRWSLive
 from resttools.dao_implementation.nws import File as NWSFile

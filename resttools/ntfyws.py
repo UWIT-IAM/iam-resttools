@@ -1,14 +1,8 @@
 """
 This is the interface for interacting with the Notify Web Service.
 """
-
 from resttools.dao import NTFYWS_DAO
-from urllib import urlencode
-
 import json
-
-import re
-
 import logging
 logger = logging.getLogger(__name__)
 

@@ -1,9 +1,7 @@
 """
 Contains IRWS DAO implementations.
 """
-
 from resttools.mock.mock_http import MockHTTP
-import re
 import json
 from resttools.dao_implementation.live import get_con_pool, get_live_url
 from resttools.dao_implementation.mock import get_mockdata_url
@@ -49,8 +47,8 @@ class File(object):
             cache_data = json.loads(File._cache_db.get(url, None) or
                                     response.data)
             put_data = json.loads(body)
-            key = put_data.keys()[0]
-            put_section = put_data[key][0]
+            key, items = next(iter(put_data.items()))
+            put_section = items[0]
             if key == 'name':
                 # fake a cname update
                 name_parts = [put_section.get('preferred_{}name'.format(x), '')

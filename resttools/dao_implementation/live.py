@@ -3,22 +3,9 @@ Provides access to the http connection pools and
 connections for live data from a web service
 
 """
-import logging
 import ssl
-import time
-import socket
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 from urllib3 import connection_from_url
-
-import urllib3
-
-# temporary during testing
-try:
-    urllib3.disable_warnings()
-except AttributeError:
-    pass
-
-logging.captureWarnings(True)
 
 
 def get_con_pool(host,
@@ -74,8 +61,5 @@ def get_live_url(con_pool,
         the POST, PUT body of the request
     """
     timeout = con_pool.timeout
-
-    start_time = time.time()
     response = con_pool.urlopen(method, url, body=body, headers=headers, retries=retries, timeout=timeout)
-    request_time = time.time() - start_time
     return response

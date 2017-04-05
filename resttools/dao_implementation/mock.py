@@ -1,17 +1,13 @@
+"""
+A centralized the mock data access
+"""
 import sys
 import os
 from os.path import abspath, dirname
 import re
 import json
-import time
-import string
 import logging
 from resttools.mock.mock_http import MockHTTP
-
-"""
-A centralized the mock data access
-"""
-
 fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
 app_resource_dirs = []
 
@@ -22,11 +18,6 @@ def get_mockdata_url(service_name, conf,
     :param service_name:
         possible "irws", "pws", "gws", etc.
     """
-
-    file_path = None
-    success = False
-    start_time = time.time()
-
     dir_base = dirname(__file__)
     app_root = abspath(dir_base)
     response = _load_resource_from_path(app_root, service_name, conf, url, headers)
@@ -77,18 +68,18 @@ def _load_resource_from_path(app_root, service_name, conf, url, headers):
         response = MockHTTP()
         response.status = 200
         data = handle.read()
-        cut = string.find(data, 'MOCKDATA-MOCKDATA-MOCKDATA')
+        cut = data.find('MOCKDATA-MOCKDATA-MOCKDATA')
         if cut >= 0:
-            data = data[string.find(data, '\n', cut)+1:]
+            data = data[(data.find('\n', cut)+1):]
         response.data = data
         response.headers = {"X-Data-Source": service_name + " file mock data", }
 
         try:
             headers = open(handle.name + '.http-headers')
             data = headers.read()
-            cut = string.find(data, 'MOCKDATA-MOCKDATA-MOCKDATA')
+            cut = data.find('MOCKDATA-MOCKDATA-MOCKDATA')
             if cut >= 0:
-                data = data[string.find(data, '\n', cut)+1:]
+                data = data[(data.find('\n', cut) + 1):]
             file_values = json.loads(data)
 
             if "headers" in file_values:
