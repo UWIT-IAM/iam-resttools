@@ -24,19 +24,17 @@ class NWS(object):
         service_name = conf['SERVICE_NAME']
         version = conf.get('VERSION', 'v1')
         self._base_url = '/{}/{}'.format(service_name, version)
-        self._conf = conf
         self._pw_action = 'Set'
         if 'PASSWORD_ACTION' in conf:
             self._pw_action = conf['PASSWORD_ACTION']
+        self.dao = NWS_DAO(conf)
 
     def get_netid_admins(self, netid):
         """
         Returns a list of NetidAdmin objects for the netid
         """
-
-        dao = NWS_DAO(self._conf)
         url = "%s/uwnetid/%s/admin" % (self._base_url, quote_plus(netid))
-        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
+        response = self.dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -47,10 +45,8 @@ class NWS(object):
         """
         Returns NetidPwINfo object for the netid
         """
-
-        dao = NWS_DAO(self._conf)
         url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
-        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
+        response = self.dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -65,10 +61,9 @@ class NWS(object):
         if action is None:
             action = self._pw_action
 
-        dao = NWS_DAO(self._conf)
         url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
         data = {'action': action, 'newPassword': password, 'uwNetID': netid, 'authMethod': auth}
-        response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
+        response = self.dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
 
         if response.status >= 500:
             raise DataFailureException(url, response.status, response.data)

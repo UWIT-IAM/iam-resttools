@@ -11,14 +11,12 @@ class NTFYWS(object):
 
     def __init__(self, conf, actas=None):
         self._service_name = conf['SERVICE_NAME']
-        self._conf = conf
+        self.dao = NTFYWS_DAO(conf)
 
     def send_message(self, eppn, number, message, type='text'):
         """
         Sends a text (or voice) message to the phone number
         """
-        dao = NTFYWS_DAO(self._conf)
-
         if type == 'text':
             mtype = 'uw_direct_phone_sms'
             ts = 'Text'
@@ -37,6 +35,6 @@ class NTFYWS(object):
         }}
 
         url = "/%s/v1/dispatch" % (self._service_name)
-        resp = dao.postURL(url, {"Content-Type": "application/json"}, json.dumps(data))
+        resp = self.dao.postURL(url, {"Content-Type": "application/json"}, json.dumps(data))
 
         return resp.status
