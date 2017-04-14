@@ -1,5 +1,4 @@
 import json
-import logging
 from nose.tools import *
 from mock import patch
 
@@ -29,7 +28,8 @@ class NWS_Test():
             mock_response = nws_dao.return_value.getURL.return_value
             mock_response.status = 200
             mock_response.data = json.dumps({"timeStamp": "now", "uwNetID": "joe"})
-            eq_(self.nws.get_netid_admins('joe'), [])
+            nws = NWS(settings.NWS_CONF)
+            eq_(nws.get_netid_admins('joe'), [])
 
     def test_get_netid_pw(self):
         pw = self.nws.get_netid_pwinfo('groups')

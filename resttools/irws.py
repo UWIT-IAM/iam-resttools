@@ -32,8 +32,7 @@ class IRWS(object):
     def __init__(self, conf):
 
         self._service_name = conf['SERVICE_NAME']
-        self._conf = conf
-        self.new_ids = set([])
+        self.dao = IRWS_DAO(conf)
 
     def _get_code_from_error(self, message):
         try:
@@ -62,7 +61,6 @@ class IRWS(object):
         status_str = ''
         if status is not None:
             status_str = '&status=%d' % status
-        dao = IRWS_DAO(self._conf)
         if eid is not None and source is not None:
             url = "/%s/v2/uwnetid?validid=%d=%s%s" % (self._service_name, source, eid, status_str)
         elif regid is not None:
@@ -71,7 +69,7 @@ class IRWS(object):
             url = "/%s/v2/uwnetid?validid=uwnetid=%s%s" % (self._service_name, netid, status_str)
         else:
             return None
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return [] if ret_array else None
@@ -99,8 +97,6 @@ class IRWS(object):
         regid = self._clean(regid)
         eid = self._clean(eid)
 
-        dao = IRWS_DAO(self._conf)
-        url = None
         if netid is not None:
             url = "/%s/v2/person?uwnetid=%s" % (self._service_name, netid.lower())
         elif regid is not None:
@@ -109,7 +105,7 @@ class IRWS(object):
             url = "/%s/v2/person?validid=1=%s" % (self._service_name, eid)
         else:
             return None
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -129,7 +125,7 @@ class IRWS(object):
         url = self._get_hr_url(netid)
         if url:
             hr_data = {'person': [{'wp_publish': wp_publish}]}
-            response = IRWS_DAO(self._conf).postURL(
+            response = self.dao.postURL(
                 url, {"Accept": "application/json"}, json.dumps(hr_data))
             if response.status != 200:
                 raise DataFailureException(url, response.status, response.data)
@@ -163,15 +159,13 @@ class IRWS(object):
         regid = self._clean(regid)
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
-        url = None
         if netid is not None:
             url = "/%s/v2/regid?uwnetid=%s" % (self._service_name, netid.lower())
         elif regid is not None:
             url = "/%s/v2/regid?validid=regid=%s" % (self._service_name, regid)
         else:
             return None
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -191,10 +185,9 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/profile/validid=uwnetid=%s" % \
             (self._service_name, netid.lower())
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -210,9 +203,8 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/profile/validid=uwnetid=%s" % (self._service_name, netid)
-        response = dao.putURL(url, {"Content-type": "application/json"}, json.dumps(profile.json_data()))
+        response = self.dao.putURL(url, {"Content-type": "application/json"}, json.dumps(profile.json_data()))
 
         if response.status >= 500:
             raise DataFailureException(url, response.status, response.data)
@@ -227,9 +219,8 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -242,7 +233,7 @@ class IRWS(object):
     def put_name_by_netid(self, netid, first=None, middle=None, last=None):
         name = self.valid_name_json(first=first, middle=middle, last=last)
         url = "/%s/v2/name/uwnetid=%s" % (self._service_name, netid.lower())
-        response = IRWS_DAO(self._conf).putURL(
+        response = self.dao.putURL(
             url, {'Accept': 'application/json'}, name)
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -277,9 +268,8 @@ class IRWS(object):
         eid = self._clean(eid)
         source = self._clean(source)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/person/%s/%s" % (self._service_name, source, eid)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -298,10 +288,8 @@ class IRWS(object):
         """
         sid = self._clean(sid)
 
-        dao = IRWS_DAO(self._conf)
-
         url = "/%s/v2/person/sdb/%s" % (self._service_name, sid)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -319,10 +307,8 @@ class IRWS(object):
         """
         id = self._clean(id)
 
-        dao = IRWS_DAO(self._conf)
-
         url = "/%s/v2/person/cascadia/%s" % (self._service_name, id)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -340,10 +326,8 @@ class IRWS(object):
         """
         id = self._clean(id)
 
-        dao = IRWS_DAO(self._conf)
-
         url = "/%s/v2/person/scca/%s" % (self._service_name, id)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -360,10 +344,8 @@ class IRWS(object):
         If there is an error contacting IRWS, throws DataFailureException.
         """
         id = self._clean(id)
-
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/person/supplemental/%s" % (self._service_name, id)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -381,9 +363,8 @@ class IRWS(object):
         """
         uri = quote_plus(uri, '/')
 
-        dao = IRWS_DAO(self._conf)
         url = '/%s/v2%s' % (self._service_name, uri)
-        response = dao.getURL(url, {'Accept': 'application/json'})
+        response = self.dao.getURL(url, {'Accept': 'application/json'})
 
         if response.status == 404:
             return None
@@ -400,9 +381,8 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/subscription?uwnetid=%s&subscription=%d" % (self._service_name, netid.lower(), subscription)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -419,12 +399,10 @@ class IRWS(object):
             If the netid isn't found, throws #TODO
             If there is an error contacting IRWS, throws DataFailureException.
             """
-        sid = self._clean(netid)
-
-        dao = IRWS_DAO(self._conf)
+        netid = self._clean(netid)
 
         url = "/%s/v2/pdsentry/validid=uwnetid=%s" % (self._service_name, netid)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -441,9 +419,8 @@ class IRWS(object):
         eid = self._clean(eid)
         source = self._clean(source)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/person/%s/%s/pac?-force" % (self._service_name, source, eid)
-        response = dao.putURL(url, {"Accept": "application/json"}, '')
+        response = self.dao.putURL(url, {"Accept": "application/json"}, '')
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -457,9 +434,8 @@ class IRWS(object):
         sid = self._clean(sid)
         pac = self._clean(pac)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/person/sdb/%s?pac=%s" % (self._service_name, sid, pac)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if (response.status == 200 or response.status == 400 or response.status == 404):
             return response.status
@@ -473,10 +449,9 @@ class IRWS(object):
         netid = self._clean(netid)
         pin = self._clean(pin)
 
-        dao = IRWS_DAO(self._conf)
         # make sure there is a pin subscription
         url = "/%s/v2/subscription/63/%s" % (self._service_name, netid)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:
             sub = json.loads(response.data)['subscription'][0]
             # verify pending subscription and unexpired, unused pac
@@ -486,11 +461,11 @@ class IRWS(object):
             return response.status
 
         url = "/%s/v2/subscribe/63/%s?action=1&pac=%s" % (self._service_name, netid, pin)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:
             # delete the pac
             url = "/%s/v2/subscribe/63/%s?action=2" % (self._service_name, netid)
-            response = dao.getURL(url, {"Accept": "application/json"})
+            response = self.dao.getURL(url, {"Accept": "application/json"})
             if response.status != 200:
                 # the pin was good.  we return OK, but note the error
                 logging.warn('Delete SC pin failed: %d' % response.status)
@@ -506,10 +481,8 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
-
         url = "/%s/v2/qna?uwnetid=%s" % (self._service_name, netid)
-        response = dao.getURL(url, {"Accept": "application/json"})
+        response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
             return None
@@ -526,7 +499,6 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        dao = IRWS_DAO(self._conf)
         q_list = self.get_qna(netid)
         for q in q_list:
             if q.ordinal not in answers:
@@ -534,7 +506,7 @@ class IRWS(object):
                 return False
             ans = re.sub(r'\W+', '', answers[q.ordinal])
             url = "/%s/v2/qna/%s/%s/check?ans=%s" % (self._service_name, q.ordinal, netid, quote_plus(ans))
-            response = dao.getURL(url, {"Accept": "application/json"})
+            response = self.dao.getURL(url, {"Accept": "application/json"})
             if response.status == 404:
                 logging.debug('q %s, wrong answer' % q.ordinal)
                 return False
@@ -556,9 +528,8 @@ class IRWS(object):
         attribute = self._clean(attribute)
         value = self._clean(value)
 
-        dao = IRWS_DAO(self._conf)
         url = "/%s/v2/person?uwnetid=%s&%s=%s" % (self._service_name, netid, attribute, value)
-        return dao.getURL(url, {'Accept': 'application/json'}).status == 200
+        return self.dao.getURL(url, {'Accept': 'application/json'}).status == 200
 
     def _uwhr_person_from_json(self, data):
         """
