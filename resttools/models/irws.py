@@ -92,7 +92,8 @@ class UWhrPerson():
     wp_phone = []
     wp_title = []
     wp_address = []
-    wp_publish = False
+    wp_publish = None
+    wp_publish_options = None
 
     college = ''
     department = ''
