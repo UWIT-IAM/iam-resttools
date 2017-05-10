@@ -277,7 +277,8 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return self._uwhr_person_from_json(response.data)
+        person_data = json.loads(response.data)['person'][0]
+        return UWhrPerson(**person_data)
 
     def get_sdb_person(self, sid):
         """
@@ -530,74 +531,6 @@ class IRWS(object):
 
         url = "/%s/v2/person?uwnetid=%s&%s=%s" % (self._service_name, netid, attribute, value)
         return self.dao.getURL(url, {'Accept': 'application/json'}).status == 200
-
-    def _uwhr_person_from_json(self, data):
-        """
-        Internal method, for creating the UWhrPerson object.
-        """
-        person_data = json.loads(data)['person'][0]
-        person = UWhrPerson()
-        person.validid = person_data['validid']
-        person.regid = person_data['regid']
-        if 'studentid' in person_data:
-            person.studentid = person_data['studentid']
-        if 'birthdate' in person_data:
-            person.birthdate = person_data['birthdate']
-
-        if 'fname' in person_data:
-            person.fname = person_data['fname']
-        if 'lname' in person_data:
-            person.lname = person_data['lname']
-
-        if 'emp_ecs_code' in person_data:
-            person.emp_ecs_code = person_data['emp_ecs_code']
-        if 'emp_status_code' in person_data:
-            person.emp_status_code = person_data['emp_status_code']
-        if 'workday_last_active' in person_data:
-            person.workday_last_active = person_data['workday_last_active']
-        if 'workday_emp_status' in person_data:
-            person.workday_emp_status = person_data['workday_emp_status']
-        if 'workday_con_status' in person_data:
-            person.workday_con_status = person_data['workday_con_status']
-        if 'workday_aff_status' in person_data:
-            person.workday_aff_status = person_data['workday_aff_status']
-        person.source_code = person_data['source_code']
-        person.source_name = person_data['source_name']
-        person.status_code = person_data['status_code']
-        person.status_name = person_data['status_name']
-        if 'contact_email' in person_data:
-            person.contact_email = person_data['contact_email']
-        if 'workday_home_email' in person_data:
-            person.workday_home_email = person_data['workday_home_email']
-        if 'org_supervisor' in person_data:
-            person.org_supervisor = person_data['org_supervisor']
-
-        if 'pac' in person_data:
-            person.pac = person_data['pac']
-        if 'in_feed' in person_data:
-            person.in_feed = person_data['in_feed']
-
-        if 'wp_name' in person_data:
-            wpn = person_data['wp_name'].split('|')
-            person.wp_name = wpn[0]
-            if len(wpn) > 1:
-                person.wp_lname = wpn[1]
-            if len(wpn) > 2:
-                person.wp_fname = wpn[2]
-        else:
-            person.wp_name = person.fname + ' ' + person.lname
-            person.wp_lname = person.lname
-            person.wp_fname = person.fname
-
-        person.wp_publish = person_data.get('wp_publish', 'N')
-        person.wp_publish_options = person_data.get('wp_publish_options', None)
-        person.wp_phone = person_data.get('wp_phone', [])
-        person.mailstop = person_data.get('mailstop', '')
-        person.wp_address = person_data.get('wp_address', [])
-        person.wp_title = person_data.get('wp_title', [])
-        person.wp_department = person_data.get('wp_department', [])
-        person.wp_email = person_data.get('wp_email', [])
-        return person
 
     def _sdb_person_from_json(self, data):
         """
