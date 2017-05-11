@@ -93,6 +93,7 @@ class UWhrPerson(object):
     wp_facsimile = ()
     wp_pager = ()
     wp_touchdial = ()  # TTY/TDD
+    wp_voicemail = ()
     wp_publish = 'N'  # hepps-only attribute
     wp_publish_options = None
 
