@@ -66,12 +66,9 @@ class Person():
     fname = ''
     identifiers = {}
 
-    # def __init__(self, *args, **kwargs):
-    #     self.identifiers = {}
 
-
-# IRWS UWhr Person
-class UWhrPerson():
+class UWhrPerson(object):
+    """IRWS UWhr Person"""
     validid = ''
     regid = ''
     studentid = ''
@@ -79,20 +76,24 @@ class UWhrPerson():
 
     fname = ''
     lname = ''
-    categories = []
-    contact_email = []
+    categories = ()
+    contact_email = ()
     workday_home_email = ''
     org_supervisor = ''
 
     wp_name = ''
     wp_lname = ''
     wp_fname = ''
-    wp_department = []
-    wp_email = []
-    wp_phone = []
-    wp_title = []
-    wp_address = []
-    wp_publish = None
+    wp_department = ()
+    wp_email = ()
+    wp_phone = ()
+    wp_title = ()
+    wp_address = ()
+    wp_mobile = ()
+    wp_facsimile = ()
+    wp_pager = ()
+    wp_touchdial = ()  # TTY/TDD
+    wp_publish = 'N'  # hepps-only attribute
     wp_publish_options = None
 
     college = ''
@@ -121,6 +122,13 @@ class UWhrPerson():
 
     created = ''
     updated = ''
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+        # uwhr doesn't use these. They can come out when no clients use it.
+        self.wp_fname, self.wp_lname = self.fname, self.wp_lname
+        self.wp_name = ' '.join([self.fname, self.lname])
 
     def __eq__(self, other):
         if other is None:
