@@ -1,10 +1,9 @@
 import json
-import logging
 from nose.tools import *
-
 from resttools.irws import IRWS
 from resttools.exceptions import (InvalidIRWSName, DataFailureException,
                                   BadInput, ResourceNotFound)
+from resttools.models.irws import SdbPerson
 import resttools.test.test_settings as settings
 import logging.config
 logging.config.dictConfig(settings.LOGGING)
@@ -67,12 +66,13 @@ class IRWS_Test():
         eq_(sdb.lname, 'STUDENT')
 
     def test_get_sdb_person_default_wp_publish(self):
-        data = json.dumps({'person': [dict(
+        data = dict(
             validid='123', regid='000', studentid='111', fname='F', lname='L',
             categories=[], source_code='1', source_name='N', status_code='2',
-            status_name='M')]})
-        sdb = self.irws._sdb_person_from_json(data)
-        eq_(sdb.wp_publish, None)
+            status_name='M')
+        sdb = SdbPerson(**data)
+        eq_(sdb.wp_publish_options, None)
+        eq_(sdb.validid, '123')
 
     def test_get_supplemental_person(self):
         s = self.irws.get_supplemental_person('88E13ABD')
