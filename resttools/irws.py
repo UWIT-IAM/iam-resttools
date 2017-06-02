@@ -297,8 +297,8 @@ class IRWS(object):
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
-
-        return self._sdb_person_from_json(response.data)
+        person_data = json.loads(response.data)['person'][0]
+        return SdbPerson(**person_data)
 
     def get_cascadia_person(self, id):
         """
@@ -531,46 +531,6 @@ class IRWS(object):
 
         url = "/%s/v2/person?uwnetid=%s&%s=%s" % (self._service_name, netid, attribute, value)
         return self.dao.getURL(url, {'Accept': 'application/json'}).status == 200
-
-    def _sdb_person_from_json(self, data):
-        """
-        Internal method, for creating the SdbPerson object.
-        """
-        person_data = json.loads(data)['person'][0]
-        person = SdbPerson()
-        person.validid = person_data['validid']
-        person.regid = person_data['regid']
-        person.studentid = person_data['studentid']
-        if 'birthdate' in person_data:
-            person.birthdate = person_data['birthdate']
-
-        person.fname = person_data['fname']
-        person.lname = person_data['lname']
-
-        person.categories = person_data['categories']
-        person.source_code = person_data['source_code']
-        person.source_name = person_data['source_name']
-        person.status_code = person_data['status_code']
-        person.status_name = person_data['status_name']
-
-        if 'pac' in person_data:
-            person.pac = person_data['pac']
-        if 'in_feed' in person_data:
-            person.in_feed = person_data['in_feed']
-        if 'cnet_id' in person_data:
-            person.cnet_id = person_data['cnet_id']
-        if 'cnet_user' in person_data:
-            person.cnet_user = person_data['cnet_user']
-        # student wp_publish values are 'Y' and 'N'. Default to
-        # None so we can know whether it's supplied by IRWS.
-        person.wp_publish = person_data.get('wp_publish', None)
-        person.wp_phone = person_data.get('wp_phone', [])
-        person.wp_title = person_data.get('wp_title', [])
-        person.branch = person_data.get('branch', '')
-        person.college = person_data.get('college', '')
-        person.wp_department = person_data.get('wp_department', [])
-        person.wp_email = person_data.get('wp_email', [])
-        return person
 
     def _cascadia_person_from_json(self, data):
         """

@@ -138,7 +138,7 @@ class UWhrPerson(object):
 
 
 # IRWS Sdb Person
-class SdbPerson():
+class SdbPerson(object):
     validid = ''
     regid = ''
     studentid = ''
@@ -146,7 +146,7 @@ class SdbPerson():
 
     fname = ''
     lname = ''
-    categories = []
+    categories = ()
 
     branch = ''
     college = ''
@@ -162,15 +162,19 @@ class SdbPerson():
     cnet_id = ''
     cnet_user = ''
 
-    wp_publish = None
-    wp_title = []
-    wp_phone = []
-    wp_department = []
-    wp_email = []
+    wp_publish = 'N'
+    wp_publish_options = None
+    wp_title = ()
+    wp_phone = ()
+    wp_department = ()
+    wp_email = ()
 
     in_feed = ''
     created = ''
     updated = ''
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
 
     def __eq__(self, other):
         if other is None:
