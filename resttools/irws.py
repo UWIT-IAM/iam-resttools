@@ -354,7 +354,8 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        return self._supplemental_person_from_json(response.data)
+        data = json.loads(response.data)['person'][0]
+        return SupplementalPerson(**data)
 
     def get_generic_person(self, uri):
         """
@@ -572,36 +573,6 @@ class IRWS(object):
         if 'in_feed' in person_data:
             person.in_feed = person_data['in_feed']
         person.status_code = person_data.get('status_code', person.__class__.status_code)
-        return person
-
-    def _supplemental_person_from_json(self, data):
-        """
-        Internal method, for creating the SupplementalPerson object.
-        """
-        person_data = json.loads(data)['person'][0]
-        person = SupplementalPerson()
-        person.validid = person_data['validid']
-        person.regid = person_data['regid']
-        person.lname = person_data['lname']
-
-        person.categories = person_data['categories']
-        person.source_code = person_data['source_code']
-        person.source_name = person_data['source_name']
-        person.status_code = person_data['status_code']
-        person.status_name = person_data['status_name']
-        if 'comment_code' in person_data:
-            person.comment_code = person_data['comment_code']
-        if 'comment_name' in person_data:
-            person.comment_name = person_data['comment_name']
-        if 'college' in person_data:
-            person.college = person_data['college']
-
-        if 'in_feed' in person_data:
-            person.in_feed = person_data['in_feed']
-
-        person.id_proofing = person_data.get('id_proofing', {})
-        person.contact_email = person_data.get('contact_email', [])
-
         return person
 
     def _person_from_json(self, data):

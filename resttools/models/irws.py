@@ -37,9 +37,6 @@ class Name():
                 "preferred_privacy": self.preferred_privacy,
                 }
 
-    def __eq__(self, other):
-        return self.uwregid == other.uwregid
-
 
 # IRWS Profile (only the recover data for now)
 class Profile():
@@ -54,9 +51,6 @@ class Profile():
                  "recover_block_reasons": self.recover_block_reasons
                  }
             ]}
-
-    def __eq__(self, other):
-        return self.uwregid == other.uwregid
 
 
 # IRWS Person
@@ -131,11 +125,6 @@ class UWhrPerson(object):
         self.wp_fname, self.wp_lname = self.fname, self.wp_lname
         self.wp_name = ' '.join([self.fname, self.lname])
 
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.regid == other.regid
-
 
 # IRWS Sdb Person
 class SdbPerson(object):
@@ -176,17 +165,11 @@ class SdbPerson(object):
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.regid == other.regid
-
 
 # IRWS Supplemental Person
 class SupplementalPerson():
     validid = ''
     regid = ''
-
     lname = ''
     categories = []
     contact_email = []
@@ -200,14 +183,11 @@ class SupplementalPerson():
     status_name = ''
     in_feed = ''
     id_proofing = {}
-
     created = ''
     updated = ''
 
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.regid == other.regid
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
 
 
 # IRWS Cascadia person
@@ -266,15 +246,6 @@ class UWNetId():
     created = ''
     updated = ''
 
-    def json_data(self):
-        return {"",
-                }
-
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.uwnetid == other.uwnetid
-
 
 # IRWS Regid
 class Regid():
@@ -286,11 +257,6 @@ class Regid():
 
     created = ''
     updated = ''
-
-    def __eq__(self, other):
-        if other is None:
-            return False
-        return self.regid == other.regid
 
 
 # IRWS Subscription
@@ -306,22 +272,11 @@ class Subscription():
     created = ''
     updated = ''
 
-    def json_data(self):
-        return {"",
-                }
-
-    def __eq__(self, other):
-        return self.uwnetid == other.uwnetid
-
 
 # IRWS PAC
 class Pac():
     pac = ''
     expiration = ''
-
-    def json_data(self):
-        return {"",
-                }
 
 
 # IRWS QnA
@@ -368,6 +323,3 @@ class PDSEntry():
     uwnetid = ''
     uidnumber = ''
     edupersonaffiliation = []
-
-    def __eq__(self, other):
-        return self.uwnetid == other.uwnetid
