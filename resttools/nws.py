@@ -1,17 +1,11 @@
 """
 This is the interface for interacting with the UW NetID Web Service.
 """
-
 from resttools.dao import NWS_DAO
 from resttools.models.nws import UWNetIdAdmin, UWNetIdPwInfo
 from resttools.exceptions import DataFailureException
-
-from urllib import urlencode
-
+from six.moves.urllib.parse import quote_plus
 import json
-
-import re
-
 import logging
 logger = logging.getLogger(__name__)
 
@@ -27,20 +21,20 @@ logger = logging.getLogger(__name__)
 class NWS(object):
 
     def __init__(self, conf, actas=None):
-        self._service_name = conf['SERVICE_NAME']
-        self._conf = conf
+        service_name = conf['SERVICE_NAME']
+        version = conf.get('VERSION', 'v1')
+        self._base_url = '/{}/{}'.format(service_name, version)
         self._pw_action = 'Set'
         if 'PASSWORD_ACTION' in conf:
             self._pw_action = conf['PASSWORD_ACTION']
+        self.dao = NWS_DAO(conf)
 
     def get_netid_admins(self, netid):
         """
         Returns a list of NetidAdmin objects for the netid
         """
-
-        dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/admin" % (self._service_name, netid)
-        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
+        url = "%s/uwnetid/%s/admin" % (self._base_url, quote_plus(netid))
+        response = self.dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -51,10 +45,8 @@ class NWS(object):
         """
         Returns NetidPwINfo object for the netid
         """
-
-        dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
-        response = dao.getURL(url, self._headers({"Accept": "application/json"}))
+        url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
+        response = self.dao.getURL(url, self._headers({"Accept": "application/json"}))
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
@@ -66,15 +58,12 @@ class NWS(object):
         Sets password for netid
         """
 
-        # in test period, no set passwords
-        action = 'Test'
         if action is None:
             action = self._pw_action
 
-        dao = NWS_DAO(self._conf)
-        url = "/%s/v1/uwnetid/%s/password" % (self._service_name, netid)
+        url = "%s/uwnetid/%s/password" % (self._base_url, quote_plus(netid))
         data = {'action': action, 'newPassword': password, 'uwNetID': netid, 'authMethod': auth}
-        response = dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
+        response = self.dao.postURL(url, {"Content-type": "application/json"}, json.dumps(data))
 
         if response.status >= 500:
             raise DataFailureException(url, response.status, response.data)
@@ -86,17 +75,18 @@ class NWS(object):
 
     def _admins_from_json(self, data):
         adminobj = json.loads(data)
-        admins = []
-        for admin in adminobj['adminList']:
-            name = admin['name']
-            role = admin['role']
-            admins.append(UWNetIdAdmin(name=name, role=role))
+        admins = [UWNetIdAdmin(name=admin.get('name', ''),
+                               role=admin.get('role', ''),
+                               type=admin.get('type', ''))
+                  for admin in adminobj.get('adminList', [])]
         return admins
 
     def _pwinfo_from_json(self, data):
         infoobj = json.loads(data)
         if 'minimumLength' in infoobj:
-            return UWNetIdPwInfo(min_len=infoobj['minimumLength'], last_change=infoobj['lastChange'])
+            return UWNetIdPwInfo(min_len=infoobj.get('minimumLength', None),
+                                 last_change=infoobj.get('lastChange', None),
+                                 kerb_status=infoobj.get('kerbStatus', None))
         else:
             return None
 

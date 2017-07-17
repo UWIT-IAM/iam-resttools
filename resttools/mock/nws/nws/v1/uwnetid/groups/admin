@@ -1,0 +1,27 @@
+
+admins list for id=groups
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "uwNetID" : "groups",
+  "adminList" : [
+    {
+      "name" : "dors",
+      "role" : "administrator",
+      "type" : "netid"
+    },
+    {
+      "name" : "fox",
+      "role" : "owner-admin",
+      "type" : "netid"
+    },
+    {
+      "name" : "u_fox_browser6",
+      "role" : "administrator",
+      "type" : "group"
+    }
+  ],
+  "timeStamp" : "Wed, 02 Sep 2015 09:13:39 -0700"
+}
+
+

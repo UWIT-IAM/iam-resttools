@@ -1,9 +1,8 @@
 """
 Contains IRWS DAO implementations.
 """
-
 from resttools.mock.mock_http import MockHTTP
-import re
+import json
 from resttools.dao_implementation.live import get_con_pool, get_live_url
 from resttools.dao_implementation.mock import get_mockdata_url
 
@@ -28,8 +27,8 @@ class File(object):
     def getURL(self, url, headers):
         logger.debug('file irws get url: ' + url)
         if url in File._cache_db:
-            print'usng cache'
-            response = MockHTTP
+            logger.debug('using cache')
+            response = MockHTTP()
             response.data = File._cache_db[url]
             response.status = 200
             return response
@@ -41,17 +40,37 @@ class File(object):
 
     def putURL(self, url, headers, body):
         logger.debug('file irws put url: ' + url)
-        print('file irws put url: ' + url)
 
         response = get_mockdata_url("irws", self._conf, url, headers)
-        if response.status == 404:
+        if response.status != 404 or url in File._cache_db:
             # try set in cache
-            File._cache_db[url] = body
-            print('not found for put - cache')
-            logger.debug('not found for put - cache')
+            cache_data = json.loads(File._cache_db.get(url, None) or
+                                    response.data)
+            put_data = json.loads(body)
+            key, items = next(iter(put_data.items()))
+            put_section = items[0]
+            if key == 'name':
+                # fake a cname update
+                name_parts = [put_section.get('preferred_{}name'.format(x), '')
+                              for x in ('f', 'm', 's')]
+                put_section['preferred_cname'] = ' '.join(x for x in name_parts if x)
+            # update the put data and leave everything else in place
+            cache_data[key][0].update(put_section)
+            File._cache_db[url] = json.dumps(cache_data)
+            # return an irws-style put response
             response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
             response.status = 200
 
+        return response
+
+    def postURL(self, url, headers, body):
+        return self.putURL(url, headers, body)
+
+    def deleteURL(self, url, headers):
+        logger.debug('file irws delete url: ' + url)
+        response = get_mockdata_url("irws", self._conf, url, headers)
+        # no status for deletes from mock
+        response.status = 200
         return response
 
 
@@ -70,30 +89,35 @@ class Live(object):
     pool = None
 
     def getURL(self, url, headers):
-        if Live.pool is None:
-            Live.pool = self._get_pool()
+        return get_live_url(self._get_pool(), 'GET',
+                            self._conf['HOST'],
+                            url, headers=headers,
+                            service_name='irws')
 
-        return get_live_url(Live.pool, 'GET',
+    def deleteURL(self, url, headers):
+        return get_live_url(self._get_pool(), 'DELETE',
                             self._conf['HOST'],
                             url, headers=headers,
                             service_name='irws')
 
     def putURL(self, url, headers, body):
-        if Live.pool is None:
-            Live.pool = self._get_pool()
+        return get_live_url(self._get_pool(), 'PUT',
+                            self._conf['HOST'],
+                            url, headers=headers, body=body,
+                            service_name='irws')
 
-        return get_live_url(Live.pool, 'PUT',
+    def postURL(self, url, headers, body):
+        return get_live_url(self._get_pool(), 'POST',
                             self._conf['HOST'],
                             url, headers=headers, body=body,
                             service_name='irws')
 
     def _get_pool(self):
-        vfy = True
-        if 'VERIFY_HOST' in self._conf:
-            vfy = self._conf['VERIFY_HOST']
-        return get_con_pool(self._conf['HOST'],
-                            self._conf['KEY_FILE'],
-                            self._conf['CERT_FILE'],
-                            self._conf['CA_FILE'],
-                            max_pool_size=self._max_pool_size,
-                            verify_https=vfy)
+        if not Live.pool:
+            Live.pool = get_con_pool(self._conf['HOST'],
+                                     self._conf['KEY_FILE'],
+                                     self._conf['CERT_FILE'],
+                                     self._conf['CA_FILE'],
+                                     max_pool_size=self._max_pool_size,
+                                     verify_https=self._conf.get('VERIFY_HOST', True))
+        return Live.pool

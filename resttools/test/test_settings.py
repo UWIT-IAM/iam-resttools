@@ -23,7 +23,7 @@ IRWS_CONF = {
 
 NWS_CONF = {
     'HOST':  'https://uwnetid.washington.edu',
-    'SERVICE_NAME': 'newver/nws',
+    'SERVICE_NAME': 'nws',
     'MAX_POOL_SIZE': 5,
     'PASSWORD_ACTION': 'Test',
 }

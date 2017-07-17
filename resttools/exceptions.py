@@ -78,6 +78,16 @@ class InvalidIRWSName(Exception):
     pass
 
 
+class ResourceNotFound(LookupError):
+    """Exception when a resource doesn't exist."""
+    pass
+
+
+class BadInput(ValueError):
+    """Invalid argument or payload."""
+    pass
+
+
 class DataFailureException(Exception):
     """
     This exception means there was an error fetching content

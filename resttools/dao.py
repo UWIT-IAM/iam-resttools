@@ -1,6 +1,4 @@
 # resttools implementation for non-django applications
-
-from resttools.mock.mock_http import MockHTTP
 from resttools.dao_implementation.irws import File as IRWSFile
 from resttools.dao_implementation.irws import Live as IRWSLive
 from resttools.dao_implementation.nws import File as NWSFile
@@ -45,6 +43,12 @@ class IRWS_DAO(DAO_BASE):
     def putURL(self, url, headers, body):
         return self._putURL('irws', url, headers, body)
 
+    def postURL(self, url, headers, body):
+        return self._postURL('irws', url, headers, body)
+
+    def deleteURL(self, url, headers):
+        return self._deleteURL('irws', url, headers)
+
     def _getDAO(self):
         if self._run_mode == 'Live':
             return IRWSLive(self._conf)
@@ -71,8 +75,8 @@ class GWS_DAO(DAO_BASE):
     def putURL(self, url, headers, body):
         return self._putURL('gws', url, headers, body)
 
-    def deleteURL(self, url, headers, body):
-        return self._deleteURL('gws', url, headers, body)
+    def deleteURL(self, url, headers):
+        return self._deleteURL('gws', url, headers)
 
     def _getDAO(self):
         if self._run_mode == 'Live':

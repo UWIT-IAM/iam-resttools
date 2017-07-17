@@ -1,0 +1,9 @@
+
+supplemental record for joeuser
+MOCKDATA-MOCKDATA-MOCKDATA
+{"person": [{"validid": "88E13ABD","regid": "FC8E9A4FD5A940ACAC6306EA7DC7D742","lname": "AVERAGE","fname": "JOE",
+ "categories": [
+ {"category_code": "24","category_name": "Sup no svc"}
+ ],
+"sponsorid": "6BB477326A7C11D5A4AE0004AC494FFE","college": "00","comment_code": "1","comment_name": "Departmental Email","source_code": "4","source_name": "Supplemental","status_code": "1","status_name": "Current","in_feed": "2","logname": "shuksan-prod:adduwnetid:uwnadd/jamalone@daffy3.cac.washington.edu","created": "2007-04-04 11:33:33.194644","updated": "2007-04-04 11:33:57.000141"}],"totalcount": 1}
+
