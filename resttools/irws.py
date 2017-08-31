@@ -1,7 +1,7 @@
 """IRWS service interface"""
 import re
 import copy
-from six.moves.urllib.parse import quote_plus
+from six.moves.urllib.parse import quote
 import json
 from resttools.dao import IRWS_DAO
 from resttools.models.irws import UWNetId
@@ -43,7 +43,7 @@ class IRWS(object):
 
     def _clean(self, arg):
         if arg is not None:
-            arg = quote_plus(arg)
+            arg = quote(arg)
         return arg
 
     # v2 - no change
@@ -363,7 +363,7 @@ class IRWS(object):
         The uris come in from values in irws.Person.identifiers.
         Raises DataFailureExeption on error.
         """
-        uri = quote_plus(uri, '/')
+        uri = quote(uri, '/')
 
         url = '/%s/v2%s' % (self._service_name, uri)
         response = self.dao.getURL(url, {'Accept': 'application/json'})
@@ -470,7 +470,7 @@ class IRWS(object):
             response = self.dao.getURL(url, {"Accept": "application/json"})
             if response.status != 200:
                 # the pin was good.  we return OK, but note the error
-                logging.warn('Delete SC pin failed: %d' % response.status)
+                logger.error('Delete SC pin failed: %d' % response.status)
             return 200
 
         if (response.status == 400 or response.status == 404):
@@ -497,25 +497,20 @@ class IRWS(object):
     def get_verify_qna(self, netid, answers):
         """
         Verifies that all answers are present and that all are correct.
-        answers: dict ('ordinal': 'answer')
+        answers: ordered list of answers
         """
-        netid = self._clean(netid)
-
-        q_list = self.get_qna(netid)
-        for q in q_list:
-            if q.ordinal not in answers:
-                logging.debug('q %s, no answer' % q.ordinal)
-                return False
-            ans = re.sub(r'\W+', '', answers[q.ordinal])
-            url = "/%s/v2/qna/%s/%s/check?ans=%s" % (self._service_name, q.ordinal, netid, quote_plus(ans))
+        questions = self.get_qna(netid)
+        if len(questions) != len(answers):
+            return False
+        for index, answer in enumerate(answers, start=1):
+            answer = re.sub(r'\W+', '', answer)
+            url = "/%s/v2/qna/%s/%s/check?ans=%s" % (self._service_name, index, quote(netid), quote(answer))
             response = self.dao.getURL(url, {"Accept": "application/json"})
-            if response.status == 404:
-                logging.debug('q %s, wrong answer' % q.ordinal)
+            if response.status in (400, 404):
+                logger.debug('qna wrong answer #{}, status = {}'.format(index, response.status))
                 return False
             if response.status != 200:
-                logging.debug('q %s, error return: %d' % (q.ordinal, response.status))
-                return False
-            logging.debug('q %s, correct answer' % q.ordinal)
+                raise DataFailureException(url, response.status, response.data)
         return True
 
     def verify_person_attribute(self, netid, attribute, value):
