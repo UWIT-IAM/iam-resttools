@@ -94,12 +94,11 @@ class IRWS_Test():
         eq_(qna[2].ordinal, '3')
 
     def test_verify_qna(self):
-        correct = {'1': 'skyblue', '2': 'mememe', '3': 'begood'}
-        st = self.irws.get_verify_qna('user1q', correct)
-        eq_(st, True)
-        incorrect = {'1': 'skyblue', '2': 'NOTmememe', '3': 'begood'}
-        st = self.irws.get_verify_qna('user1q', incorrect)
-        eq_(st, False)
+        correct = ['skyblue', 'mememe', 'begood']
+        incorrect = ['skyblue', 'NOTmememe', 'begood']
+        eq_(self.irws.get_verify_qna('user1q', correct), True)
+        eq_(self.irws.get_verify_qna('user1q', incorrect), False)
+        eq_(self.irws.get_verify_qna('user1q', correct[:2]), False)
 
     def test_verify_person_attibute(self):
         st = self.irws.verify_person_attribute('javerage', 'birthdate', '2015-10-04')
