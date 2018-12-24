@@ -1,3 +1,5 @@
-include README.rst
+include README.md
+include resttools/VERSION
 recursive-include resttools/templates *.xml
 recursive-include resttools/mock *
+global-exclude *.pyc __pycache__

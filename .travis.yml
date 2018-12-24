@@ -13,7 +13,6 @@ script:
 after_script:
   - coverage report
 before_deploy:
-  - find resttools/ -name \*.pyc -exec rm {} \;
   - git describe --tags > resttools/VERSION
 deploy:
   provider: pypi
