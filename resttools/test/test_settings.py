@@ -28,13 +28,6 @@ NWS_CONF = {
     'PASSWORD_ACTION': 'Test',
 }
 
-NTFYWS_CONF = {
-    'HOST':  'https://notify-dev.s.uw.edu',
-    # 'HOST':  'https://notify.uw.edu',
-    'SERVICE_NAME': 'notification',
-    'MOCK_ROOT': 'nsspr/mock_data',
-}
-
 
 # augment handlers' configs
 for conf in (GWS_CONF, IRWS_CONF, NWS_CONF):

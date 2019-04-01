@@ -3,12 +3,15 @@ from nose.tools import *
 from mock import patch
 
 from resttools.nws import NWS
+from resttools.dao_implementation.mock import MockHttp
 
 import resttools.test.test_settings as settings
 import logging.config
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
+class NWS(NWS, MockHttp):
+    pass
 
 class NWS_Test():
 

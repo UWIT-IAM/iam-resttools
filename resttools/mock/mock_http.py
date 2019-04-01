@@ -1,6 +1,7 @@
 """
 Contains objects used by the non-HTTP DAO implementations
 """
+import json
 
 
 class MockHTTP(object):
@@ -9,15 +10,18 @@ class MockHTTP(object):
     implementations to use.  Implements the API of HTTPResponse
     as needed.
     """
-    status = 0
-    data = ""
+    status_code = 0
+    content = ""
     headers = {}
 
     def read(self):
         """
         Returns the document body of the request.
         """
-        return self.data
+        return self.content
+
+    def json(self):
+        return json.loads(self.content)
 
     def getheader(self, field, default=''):
         """

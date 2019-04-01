@@ -7,29 +7,28 @@ from os.path import abspath, dirname
 import re
 import json
 import logging
+import requests
 from resttools.mock.mock_http import MockHTTP
-fs_encoding = sys.getfilesystemencoding() or sys.getdefaultencoding()
-app_resource_dirs = []
 
 
-def get_mockdata_url(service_name, conf,
-                     url, headers):
-    """
-    :param service_name:
-        possible "irws", "pws", "gws", etc.
-    """
-    dir_base = dirname(__file__)
-    app_root = abspath(dir_base)
-    response = _load_resource_from_path(app_root, service_name, conf, url, headers)
-    if response:
+class MockHttp(requests.Session):
+    def request(self, method, url, *args, **kwargs):
+        base_url = getattr(self, 'base_url', '')
+        if url.startswith(base_url):
+            url = url.split(base_url)[1]
+        service_name = self.__class__.__name__.lower()
+        dir_base = dirname(__file__)
+        app_root = abspath(dir_base)
+        response = _load_resource_from_path(app_root, service_name, {}, url, self.headers)
+        if response:
+            return response
+
+        # If no response has been found in any installed app, return a 404
+        logger = logging.getLogger(__name__)
+        logger.debug("404 for url %s" % url)
+        response = MockHTTP()
+        response.status_code = 404
         return response
-
-    # If no response has been found in any installed app, return a 404
-    logger = logging.getLogger(__name__)
-    logger.debug("404 for url %s")
-    response = MockHTTP()
-    response.status = 404
-    return response
 
 
 def _load_resource_from_path(app_root, service_name, conf, url, headers):
@@ -66,12 +65,12 @@ def _load_resource_from_path(app_root, service_name, conf, url, headers):
         logger.debug("URL: %s; File: %s" % (url, file_path))
 
         response = MockHTTP()
-        response.status = 200
+        response.status_code = 200
         data = handle.read()
         cut = data.find('MOCKDATA-MOCKDATA-MOCKDATA')
         if cut >= 0:
             data = data[(data.find('\n', cut)+1):]
-        response.data = data
+        response.content = data
         response.headers = {"X-Data-Source": service_name + " file mock data", }
 
         try:
@@ -106,13 +105,13 @@ def post_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(_
     response = MockHTTP()
     if body is not None:
         if "dispatch" in url:
-            response.status = 200
+            response.status_code = 200
         else:
-            response.status = 201
+            response.status_code = 201
         response.headers = {"X-Data-Source": service_name + " file mock data", "Content-Type": headers['Content-Type']}
     else:
-        response.status = 400
-        response.data = "Bad Request: no POST body"
+        response.status_code = 400
+        response.content = "Bad Request: no POST body"
     return response
 
 
@@ -124,11 +123,11 @@ def put_mockdata_url(service_name, conf, url, headers, body, dir_base=dirname(__
     # Currently this put method does not return a response body
     response = MockHTTP()
     if body is not None:
-        response.status = 204
+        response.status_code = 204
         response.headers = {"X-Data-Source": service_name + " file mock data", "Content-Type": headers['Content-Type']}
     else:
-        response.status = 400
-        response.data = "Bad Request: no POST body"
+        response.status_code = 400
+        response.content = "Bad Request: no POST body"
     return response
 
 
@@ -140,7 +139,7 @@ def delete_mockdata_url(service_name, conf, url, headers, dir_base=dirname(__fil
     # Http response code 204 No Content:
     # The server has fulfilled the request but does not need to return an entity-body
     response = MockHTTP()
-    response.status = 204
+    response.status_code = 204
 
     return response
 

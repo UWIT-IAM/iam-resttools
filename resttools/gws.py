@@ -1,7 +1,8 @@
 """
 This is the interface for interacting with the Group Web Service.
 """
-from resttools.dao import GWS_DAO
+from . import rest
+from six.moves.urllib.parse import quote
 from resttools.exceptions import InvalidGroupID
 from resttools.exceptions import DataFailureException
 from resttools.models.gws import Group, CourseGroup, GroupReference
@@ -15,17 +16,18 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class GWS(object):
+class GWS(rest.ConfDict, rest.Client):
     """
     The GWS object has methods for getting group information.
     """
-    def __init__(self, conf, actas=None):
-        self._service_name = 'gws'
-        self._conf = conf
-        self._j2env = Environment(loader=PackageLoader('resttools',
-                                                       'templates/gws'))
-        self._actas = actas
-        self.dao = GWS_DAO(conf)
+    base_url = 'https://groups.uw.edu/group_sws/v2'
+    timeout = 20
+
+    def __init__(self, conf={}):
+        super(GWS, self).__init__()
+        if 'CERT_FILE' in conf and 'KEY_FILE' in conf:
+            self.cert = conf.get('CERT_FILE'), conf.get('KEY_FILE')
+        self.headers.update({'Accept': 'text/xml', 'Content-Type': 'text/xml'})
 
     QTRS = {'win': 'winter', 'spr': 'spring', 'sum': 'summer', 'aut': 'autumn'}
 
@@ -63,11 +65,10 @@ class GWS(object):
         if "instructor" in kwargs or "student" in kwargs:
             kwargs["stem"] = "course"
 
-        url = "/group_sws/v2/search?" + urlencode(kwargs)
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        response = self.get('/search', param=kwargs)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException('/search', response.status_code, response.content)
 
         groups = []
         root = etree.fromstring(response.data)
@@ -87,16 +88,13 @@ class GWS(object):
         Returns a resttools.Group object for the group identified by the
         passed group ID.
         """
-        if not self._is_valid_group_id(group_id):
-            raise InvalidGroupID(group_id)
+        url = "/group/%s" % quote(group_id)
+        response = self.get(url)
 
-        url = "/group_sws/v2/group/%s" % group_id
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
-
-        return self._group_from_xml(response.data)
+        return self._group_from_xml(response.content)
 
     def create_group(self, group):
         """
@@ -104,15 +102,13 @@ class GWS(object):
         """
         body = self._xml_from_group(group)
 
-        url = "/group_sws/v2/group/%s" % group.name
-        response = self.dao.putURL(
-            url, self._headers({"Accept": "text/xml", "Content-Type": "text/xml"}),
-            body)
+        url = "/group/%s" % quote(group.name)
+        response = self.put(url, data=body)
 
-        if response.status != 201:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 201:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._group_from_xml(response.data)
+        return self._group_from_xml(response.content)
 
     def put_group(self, group):
         """
@@ -120,16 +116,15 @@ class GWS(object):
         """
         body = self._xml_from_group(group)
 
-        url = "/group_sws/v2/group/%s" % group.name
-        response = self.dao.putURL(
-            url, self._headers({"Accept": "text/xml",
-                                "Content-Type": "text/xml", "If-Match": "*"}),
-            body)
+        url = "/group/%s" % group.name
+        headers = self.headers.copy()
+        headers.update({'If-Match': '*'})
+        response = self.put(url, headers=headers, data=body)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._group_from_xml(response.data)
+        return self._group_from_xml(response.content)
 
     def delete_group(self, group_id):
         """
@@ -138,11 +133,11 @@ class GWS(object):
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
 
-        url = "/group_sws/v2/group/%s" % group_id
-        response = self.dao.deleteURL(url, self._headers({}))
+        url = "/group/%s" % group_id
+        response = self.delete(url)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
         return True
 
@@ -154,13 +149,13 @@ class GWS(object):
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
 
-        url = "/group_sws/v2/group/%s/member" % group_id
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        url = "/group/%s/member" % group_id
+        response = self.get(url)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._members_from_xml(response.data)
+        return self._members_from_xml(response.content)
 
     def put_membership(self, group_id, members):
         """
@@ -173,15 +168,15 @@ class GWS(object):
 
         body = self._xml_from_members(group_id, members)
 
-        url = "/group_sws/v2/group/%s/member" % group_id
-        response = self.dao.putURL(
-            url, self._headers({"Content-Type": "text/xml", "If-Match": "*"}),
-            body)
+        url = "/group/%s/member" % group_id
+        headers = self.headers.copy()
+        headers.update({'If-Match': '*'})
+        response = self.put(url, headers=headers, data=body)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._notfoundmembers_from_xml(response.data)
+        return self._notfoundmembers_from_xml(response.content)
 
     def put_members(self, group_id, members):
         """
@@ -195,15 +190,15 @@ class GWS(object):
         if len(members) == 0:
             return []
 
-        url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
-        response = self.dao.putURL(
-            url, self._headers({"Content-Type": "text/xml", "If-Match": "*"}),
-            None)
+        url = "/group/%s/member/%s" % (group_id, ','.join(members))
+        headers = self.headers.copy()
+        headers.update({'If-Match': '*'})
+        response = self.put(url, headers=headers)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._notfoundmembers_from_xml(response.data)
+        return self._notfoundmembers_from_xml(response.content)
 
     def delete_members(self, group_id, members):
         """
@@ -218,11 +213,12 @@ class GWS(object):
             return True
 
         url = "/group_sws/v2/group/%s/member/%s" % (group_id, ','.join(members))
-        response = self.dao.deleteURL(url, self._headers(
-            {"Content-Type": "text/xml", "If-Match": "*"}))
+        headers = self.headers.copy()
+        headers.update({'If-Match': '*'})
+        response = self.delete(url, headers=headers)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
         return True
 
@@ -234,13 +230,13 @@ class GWS(object):
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
 
-        url = "/group_sws/v2/group/%s/effective_member" % group_id
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        url = "/group/%s/effective_member" % group_id
+        response = self.get(url)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        return self._members_from_xml(response.data)
+        return self._members_from_xml(response.content)
 
     def get_effective_member_count(self, group_id):
         """
@@ -250,13 +246,13 @@ class GWS(object):
         if not self._is_valid_group_id(group_id):
             raise InvalidGroupID(group_id)
 
-        url = "/group_sws/v2/group/%s/effective_member?view=count" % group_id
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        url = "/group/%s/effective_member?view=count" % group_id
+        response = self.get(url)
 
-        if response.status != 200:
-            raise DataFailureException(url, response.status, response.data)
+        if response.status_code != 200:
+            raise DataFailureException(url, response.status_code, response.content)
 
-        root = etree.fromstring(response.data)
+        root = etree.fromstring(response.content)
         count = root.find('member_count').get("count")
 
         return int(count)
@@ -271,15 +267,15 @@ class GWS(object):
         # GWS doesn't accept EPPNs on effective member checks, for UW users
         netid = re.sub('@washington.edu', '', netid)
 
-        url = "/group_sws/v2/group/%s/effective_member/%s" % (group_id, netid)
-        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+        url = "/group/%s/effective_member/%s" % (group_id, netid)
+        response = self.get(url)
 
-        if response.status == 404:
+        if response.status_code == 404:
             return False
-        elif response.status == 200:
+        elif response.status_code == 200:
             return True
         else:
-            raise DataFailureException(url, response.status, response.data)
+            raise DataFailureException(url, response.status_code, response.content)
 
     def _group_from_xml(self, data):
         root = etree.fromstring(data)
@@ -386,16 +382,3 @@ class GWS(object):
             return False
 
         return True
-
-    def _headers(self, headers):
-        if self._actas:
-            headers = self._add_header(headers, "X-UW-Act-as", self._actas)
-
-        return headers
-
-    def _add_header(self, headers, header, value):
-        if not headers:
-            return {header: value}
-
-        headers[header] = value
-        return headers

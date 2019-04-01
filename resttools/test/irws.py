@@ -1,6 +1,7 @@
 import json
 from nose.tools import *
 from resttools.irws import IRWS
+from resttools.dao_implementation.mock import MockHttp
 from resttools.exceptions import (InvalidIRWSName, DataFailureException,
                                   BadInput, ResourceNotFound)
 from resttools.models.irws import SdbPerson
@@ -8,6 +9,10 @@ import resttools.test.test_settings as settings
 import logging.config
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
+
+
+class IRWS(IRWS, MockHttp):
+    pass
 
 
 class IRWS_Test():
@@ -172,26 +177,26 @@ class IRWS_Test():
         # one less should be good
         assert self.irws._valid_name_part(bad_name[:-1])
 
-    def test_valid_name_json_good(self):
+    def test_valid_name_good(self):
         names = json.loads(
-            self.irws.valid_name_json(first='joe', middle='average', last='user'))
+            self.irws.valid_name(first='joe', middle='average', last='user'))
         name = names['name'][0]
         eq_(name['preferred_fname'], 'joe')
         eq_(name['preferred_mname'], 'average')
         eq_(name['preferred_sname'], 'user')
 
     def test_valid_irws_name_empty_middle_name(self):
-        names = json.loads(self.irws.valid_name_json(first='joe', middle='', last='user'))
+        names = json.loads(self.irws.valid_name(first='joe', middle='', last='user'))
         eq_(names['name'][0]['preferred_mname'], '')
 
-    def test_valid_name_json_required_fields_missing(self):
+    def test_valid_name_required_fields_missing(self):
         bad_data_list = [
             dict(first='', middle='average', last='user'),
             dict(first='joe', middle='average', last='')]
 
         for bad_data in bad_data_list:
             assert_raises(InvalidIRWSName,
-                          self.irws.valid_name_json,
+                          self.irws.valid_name,
                           **bad_data)
 
     def test_valid_irws_name_bad_characters(self):
@@ -204,7 +209,7 @@ class IRWS_Test():
         for bad_data in bad_data_list:
             bad_name = dict(first=bad_data[0], middle=bad_data[1], last=bad_data[2])
             assert_raises(InvalidIRWSName,
-                          self.irws.valid_name_json,
+                          self.irws.valid_name,
                           **bad_name)
 
     def test_valid_irws_name_too_long(self):
@@ -216,9 +221,9 @@ class IRWS_Test():
         for bad_data in bad_data_list:
             # one less character will pass
             good_name = (bad_data[0:2] + (bad_data[2][:-1],))
-            ok_(self.irws.valid_name_json(first=good_name[0],
-                                          middle=good_name[1], last=good_name[2]))
+            ok_(self.irws.valid_name(first=good_name[0],
+                                     middle=good_name[1], last=good_name[2]))
             # failure
             assert_raises(InvalidIRWSName,
-                          self.irws.valid_name_json,
+                          self.irws.valid_name,
                           first=bad_data[0], middle=bad_data[1], last=bad_data[2])
