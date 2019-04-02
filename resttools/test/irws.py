@@ -1,7 +1,7 @@
 import json
 from nose.tools import *
 from resttools.irws import IRWS
-from resttools.dao_implementation.mock import MockHttp
+from resttools.dao_implementation.mock import MockIrws
 from resttools.exceptions import (InvalidIRWSName, DataFailureException,
                                   BadInput, ResourceNotFound)
 from resttools.models.irws import SdbPerson
@@ -11,14 +11,14 @@ logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
 
-class IRWS(IRWS, MockHttp):
+class Irws(IRWS, MockIrws):
     pass
 
 
 class IRWS_Test():
 
     def __init__(self):
-        self.irws = IRWS(settings.IRWS_CONF)
+        self.irws = Irws(settings.IRWS_CONF)
 
     def test_get_name_by_netid(self):
         name = self.irws.get_name_by_netid('javerage')
@@ -42,7 +42,7 @@ class IRWS_Test():
         person = self.irws.get_person(netid='wdspud867')
         eq_(person.lname, 'Daywork')
         eq_(person.fname, 'Spud')
-        eq_(person.identifiers['hepps'], '/person/hepps/867003233')
+        eq_(person.identifiers['uwhr'], '/person/uwhr/867003233')
 
     def test_get_person_by_netid_nonexists(self):
         person = self.irws.get_person(netid='pud867')
@@ -62,8 +62,8 @@ class IRWS_Test():
                       self.irws.post_hr_person_by_netid,
                       'notaperson', wp_publish='Y')
 
-    def test_get_uwhr_person_hepps(self):
-        uwhr = self.irws.get_uwhr_person('123456789', source='hepps')
+    def test_get_uwhr_person(self):
+        uwhr = self.irws.get_uwhr_person('123456789')
         eq_(uwhr.lname, 'STUDENT')
 
     def test_get_sdb_person(self):
@@ -178,15 +178,14 @@ class IRWS_Test():
         assert self.irws._valid_name_part(bad_name[:-1])
 
     def test_valid_name_good(self):
-        names = json.loads(
-            self.irws.valid_name(first='joe', middle='average', last='user'))
+        names = self.irws.valid_name(first='joe', middle='average', last='user')
         name = names['name'][0]
         eq_(name['preferred_fname'], 'joe')
         eq_(name['preferred_mname'], 'average')
         eq_(name['preferred_sname'], 'user')
 
     def test_valid_irws_name_empty_middle_name(self):
-        names = json.loads(self.irws.valid_name(first='joe', middle='', last='user'))
+        names = self.irws.valid_name(first='joe', middle='', last='user')
         eq_(names['name'][0]['preferred_mname'], '')
 
     def test_valid_name_required_fields_missing(self):

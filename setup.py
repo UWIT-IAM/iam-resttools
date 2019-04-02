@@ -20,5 +20,5 @@ setup(name='uw-iam-resttools',
       license='Apache License, Version 2.0',
       packages=find_packages(),
       include_package_data=True,
-      install_requires=['requests']
+      install_requires=['requests', 'lxml', 'python-dateutil', 'urllib3', 'jinja2', 'six']
       )

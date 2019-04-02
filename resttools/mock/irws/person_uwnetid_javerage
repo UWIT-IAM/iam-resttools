@@ -6,7 +6,7 @@
         "lname": "STUDENT",
         "fname": "JAMES AVERAGE",
         "identifiers": {
-          "hepps": "/person/hepps/123456789",
+          "uwhr": "/person/uwhr/123456789",
           "sdb": "/person/sdb/000083856",
           "advance": "/person/advance/0000773877"
         }

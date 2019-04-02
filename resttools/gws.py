@@ -65,13 +65,13 @@ class GWS(rest.ConfDict, rest.Client):
         if "instructor" in kwargs or "student" in kwargs:
             kwargs["stem"] = "course"
 
-        response = self.get('/search', param=kwargs)
+        response = self.get('/search', params=kwargs)
 
         if response.status_code != 200:
             raise DataFailureException('/search', response.status_code, response.content)
 
         groups = []
-        root = etree.fromstring(response.data)
+        root = etree.fromstring(response.content)
         e_grs_list = root.find('groupreferences').findall('groupreference')
         for e in e_grs_list:
             group = GroupReference()

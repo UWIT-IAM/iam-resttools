@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 class IRWS(rest.ConfDict, rest.Client):
     base_url = 'https://mango.u.washington.edu:646/registry/v2'
 
-    def _basic_get(self, url):
+    def _basic_get(self, url, convert=None):
         response = self.get(url)
 
         if response.status_code == 404:
@@ -38,6 +38,9 @@ class IRWS(rest.ConfDict, rest.Client):
     
         if response.status_code != 200:
             raise DataFailureException(url, response.status_code, response.content)
+        
+        if convert:
+            response = convert(response.json())
     
         return response
 
@@ -91,8 +94,7 @@ class IRWS(rest.ConfDict, rest.Client):
         else:
             return None
         
-        response = self._basic_get(url)
-        return self._person_from_json(response.json())
+        return self._basic_get(url, convert=self._person_from_json)
 
     def post_hr_person_by_netid(self, netid, wp_publish=None):
         """
@@ -102,6 +104,8 @@ class IRWS(rest.ConfDict, rest.Client):
             raise BadInput('Invalid publish option')
 
         person = self.get_person(netid=netid)
+        if not person:
+            raise ResourceNotFound(netid)
         url = person.identifiers.get('uwhr')
         if url:
             hr_data = {'person': [{'wp_publish': wp_publish}]}
@@ -126,8 +130,7 @@ class IRWS(rest.ConfDict, rest.Client):
             url = "/regid?validid=regid=%s" % quote(regid)
         else:
             return None
-        response = self._basic_get(url)
-        return self._regid_from_json(response.json())
+        return self._basic_get(url, convert=self._regid_from_json)
 
     # v2 - changes
     def get_pw_recover_info(self, netid):
@@ -138,8 +141,7 @@ class IRWS(rest.ConfDict, rest.Client):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         url = "/profile/validid=uwnetid=%s" % quote(netid.lower())
-        response = self._basic_get(url)
-        return self._pw_recover_from_json(response.json())
+        return self._basic_get(url, convert=self._pw_recover_from_json)
 
     def put_pw_recover_info(self, netid, profile):
         """
@@ -160,8 +162,7 @@ class IRWS(rest.ConfDict, rest.Client):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         url = "/name/uwnetid=%s" % quote(netid.lower())
-        response = self._basic_get(url)
-        return self._name_from_json(response.json())
+        return self._basic_get(url, convert=self._name_from_json)
 
     def put_name_by_netid(self, netid, first=None, middle=None, last=None):
         name = self.valid_name(first=first, middle=middle, last=last)
@@ -199,9 +200,7 @@ class IRWS(rest.ConfDict, rest.Client):
         """
 
         url = "/person/uwhr/%s" % quote(eid)
-        response = self._basic_get(url)
-        person_data = response.json()['person'][0]
-        return UWhrPerson(**person_data)
+        return self._basic_get(url, convert=response_to_object(UWhrPerson))
 
     def get_sdb_person(self, sid):
         """
@@ -211,9 +210,7 @@ class IRWS(rest.ConfDict, rest.Client):
         If there is an error contacting IRWS, throws DataFailureException.
         """
         url = "/person/sdb/%s" % quote(sid)
-        response = self._basic_get(url)
-        person_data = response.json()['person'][0]
-        return SdbPerson(**person_data)
+        response = self._basic_get(url, convert=response_to_object(SdbPerson))
 
     def get_cascadia_person(self, id):
         """
@@ -222,8 +219,7 @@ class IRWS(rest.ConfDict, rest.Client):
         If there is an error contacting IRWS, throws DataFailureException.
         """
         url = "/person/cascadia/%s" % quote(id)
-        response = self._basic_get()
-        return self._cascadia_person_from_json(response.json())
+        return self._basic_get(url, convert=self._cascadia_person_from_json)
 
     def get_scca_person(self, id):
         """
@@ -232,8 +228,7 @@ class IRWS(rest.ConfDict, rest.Client):
         If there is an error contacting IRWS, throws DataFailureException.
         """
         url = "/person/scca/%s" % quote(id)
-        response = self._basic_get(url)
-        return self._scca_person_from_json(response.json())
+        return self._basic_get(url, convert=self._scca_person_from_json)
 
     def get_supplemental_person(self, id):
         """
@@ -241,10 +236,8 @@ class IRWS(rest.ConfDict, rest.Client):
         If the netid isn't found, throws IRWSNotFound.
         If there is an error contacting IRWS, throws DataFailureException.
         """
-        url = "/%s/v2/person/supplemental/%s" % quote(id)
-        response = self._basic_get(url)
-        data = response.json()['person'][0]
-        return SupplementalPerson(**data)
+        url = "/person/supplemental/%s" % quote(id)
+        return self._basic_get(url, convert=response_to_object(SupplementalPerson))
 
     def get_generic_person(self, uri):
         """
@@ -253,8 +246,7 @@ class IRWS(rest.ConfDict, rest.Client):
         Raises DataFailureExeption on error.
         """
         url = quote(uri, '/')
-        response = self._basic_get(url)
-        return self._generic_person_from_json(response.json())
+        return self._basic_get(url, convert=self._generic_person_from_json)
 
     def get_subscription(self, netid, subscription):
         """
@@ -263,8 +255,7 @@ class IRWS(rest.ConfDict, rest.Client):
         communicating with the IRWS, a DataFailureException will be thrown.
         """
         url = "/subscription?uwnetid=%s&subscription=%d" % (quote(netid.lower()), subscription)
-        response = self._basic_get(url)
-        return self._subscription_from_json(response.json())
+        return self._basic_get(url, convert=self._subscription_from_json)
 
     def get_pdsentry_by_netid(self, netid):
         """
@@ -274,8 +265,7 @@ class IRWS(rest.ConfDict, rest.Client):
             If there is an error contacting IRWS, throws DataFailureException.
             """
         url = "/pdsentry/validid=uwnetid=%s" % quote(netid)
-        response = self._basic_get(url)
-        return self._pdsentry_from_json(response.json())
+        return self._basic_get(url, convert=self._pdsentry_from_json)
 
     def put_pac(self, eid):
         """
@@ -335,8 +325,7 @@ class IRWS(rest.ConfDict, rest.Client):
         Returns a list irws.QnA for the given netid.
         """
         url = "/qna?uwnetid=%s" % quote(netid)
-        response = self._basic_get(url)
-        return self._qna_from_json(response.json())
+        return self._basic_get(url, convert=self._qna_from_json)
 
     def get_verify_qna(self, netid, answers):
         """
@@ -568,3 +557,13 @@ class IRWS(rest.ConfDict, rest.Client):
             # the default attribute value
             setattr(person, attribute, person_data.get(attribute, getattr(GenericPerson, attribute)))
         return person
+
+
+def response_to_object(clss):
+    def func(data):
+        for key in data:
+            if key != 'totalcount':
+                break
+        data = data[key][0]
+        return clss(**data)
+    return func

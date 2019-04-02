@@ -10,13 +10,13 @@ import logging.config
 logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
-class NWS(NWS, MockHttp):
+class Nws(NWS, MockHttp):
     pass
 
 class NWS_Test():
 
     def __init__(self):
-        self.nws = NWS(settings.NWS_CONF)
+        self.nws = Nws(settings.NWS_CONF)
 
     def test_get_netid_admins(self):
         admins = self.nws.get_netid_admins('groups')
@@ -27,10 +27,10 @@ class NWS_Test():
                 (a.name == 'u_fox_browser6' and a.type == 'group'))
 
     def test_get_netid_admins_no_list(self):
-        with patch('resttools.nws.NWS_DAO') as nws_dao:
-            mock_response = nws_dao.return_value.getURL.return_value
-            mock_response.status = 200
-            mock_response.data = json.dumps({"timeStamp": "now", "uwNetID": "joe"})
+        with patch('resttools.nws.NWS.get') as nws_dao:
+            mock_response = nws_dao.return_value
+            mock_response.status_code = 200
+            mock_response.content = json.dumps({"timeStamp": "now", "uwNetID": "joe"})
             nws = NWS(settings.NWS_CONF)
             eq_(nws.get_netid_admins('joe'), [])
 
@@ -40,12 +40,11 @@ class NWS_Test():
         eq_(pw.kerb_status, 'Active')
 
     def test_pwinfo_from_json(self):
-        pw = self.nws._pwinfo_from_json(json.dumps({'minimumLength': 50000}))
+        pw = self.nws._pwinfo_from_json({'minimumLength': 50000})
         eq_(pw.__dict__, {'min_len': 50000, 'kerb_status': 'Active', 'last_change': ''})
 
-        pw = self.nws._pwinfo_from_json(json.dumps(
-                                        {'minimumLength': 4000, 'lastChange': 'tomorrow', 'kerbStatus': 'dissed'}))
+        pw = self.nws._pwinfo_from_json({'minimumLength': 4000, 'lastChange': 'tomorrow', 'kerbStatus': 'dissed'})
         eq_(pw.__dict__, {'min_len': 4000, 'kerb_status': 'dissed', 'last_change': 'tomorrow'})
 
-        pw = self.nws._pwinfo_from_json(json.dumps({}))
+        pw = self.nws._pwinfo_from_json({})
         eq_(pw, None)

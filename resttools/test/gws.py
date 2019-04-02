@@ -1,7 +1,7 @@
 import json
 import logging
 from nose.tools import *
-
+from resttools.dao_implementation.mock import MockHttp
 from resttools.gws import GWS
 from resttools.exceptions import DataFailureException
 
@@ -11,10 +11,14 @@ logging.config.dictConfig(settings.LOGGING)
 logger = logging.getLogger(__name__)
 
 
+class Gws(GWS, MockHttp):
+    pass
+
+
 class GWS_Test():
 
     def __init__(self):
-        self.gws = GWS(settings.GWS_CONF)
+        self.gws = Gws(settings.GWS_CONF)
 
     def test_search_groups(self):
         groups = self.gws.search_groups(name='2015spr-phys*1', stem='course')
