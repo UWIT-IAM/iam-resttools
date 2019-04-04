@@ -7,6 +7,7 @@ logger = getLogger(__name__)
 class Client(requests.Session):
     base_url = ''
     timeout = 15
+    raise_for_status = False  # raise requests HTTPError for status >= 400
 
     def __init__(self, base_url='', cert=()):
         super(Client, self).__init__()
@@ -24,6 +25,8 @@ class Client(requests.Session):
         try:
             response = self._request_retry_loop(method, url, *args, **kwargs)
             status = response.status_code
+            if self.raise_for_status:
+                response.raise_for_status()
         finally:
             elapsed = time.time() - start_time
             self.log_result(method, url, status, elapsed)
