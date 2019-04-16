@@ -1,15 +1,3 @@
-# NWS representations
-class UWNetIdAdmin():
-    name = ''
-    role = ''
-    type = 'netid'
-
-    def __init__(self, name='', role='', type='netid'):
-        self.name = name
-        self.role = role
-        self.type = type
-
-
 class UWNetIdPwInfo():
     min_len = 0
     last_change = ''

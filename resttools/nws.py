@@ -1,38 +1,58 @@
 """
 This is the interface for interacting with the UW NetID Web Service.
 """
-from . import rest
+from . import rest, gws
 from resttools.models.nws import UWNetIdAdmin, UWNetIdPwInfo
 from resttools.exceptions import DataFailureException
-from six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus, quote
+import requests
 import json
 import logging
 logger = logging.getLogger(__name__)
 
-# note.  Some messages from nws set pw
-# 409, "That's not a good password because you used that password in the not too distant past."
-# 409, "That's not a good password because it is your username."
-# 409, "That's not a good password because it does not contain enough different character classes
-#       (uppercase, lowercase, digits, punctuation)."
-# 409, "That's not a good password because it needs more complex capitalization."
-#
 
+CLIENT = rest.Client()
+CLIENT.base_url = 'https://uwnetid.washington.edu/nws/v1'
+CLIENT.raise_for_status = True
+
+
+def get_admins(netid):
+    response = CLIENT.get(f'/uwnetid/{quote(netid)}/admin')
+    groups = []
+    for admin in response.json().get('adminList', []):
+        if admin.get('type') == 'netid':
+            yield admin.get('name')
+        elif admin.get('type') == 'group':
+            groups.append(admin.get('name'))
+        else:
+            value = '='.join([admin.get('type'), admin.get('name')])
+            logger.warning(f'unrecognized admin type/value discarded ({value})')
+    for group in groups:
+        yield from gws.get_members(group, effective=True)
+
+
+def get_password_info(netid):
+    response = CLIENT.get(f'/uwnetid/{quote(netid)}/password')
+
+
+def reset_password(netid, password, is_test=False, auth_method='unspecified'):
+    if not netid or not password:
+        raise ValueError('no netid/password')
+    data = dict(newPassword=password, authMethod=auth_method, uwNetID=netid)
+    if is_test:
+        data['action'] = 'Test'
+    try:
+        response = client.post(f'/uwnetid/{quote(netid)}/password', json=data)
+    except requests.HTTPError as e:
+        if e.response.status_code == 409:
+            msg = e.response.json().get('message')
+            mode = 'Test' if is_test else 'Set'
+            logger.info(f'Bad password for {mode}: netid={netid}, msg={msg}')
+            raise ValueError(message)
+        raise
+    return response.json()
 
 class NWS(rest.ConfDict, rest.Client):
-    base_url = 'https://uwnetid.washington.edu/nws/v1'
-
-    def get_netid_admins(self, netid):
-        """
-        Returns a list of NetidAdmin objects for the netid
-        """
-        url = "/uwnetid/%s/admin" % quote_plus(netid)
-        response = self.get(url)
-
-        if response.status_code != 200:
-            raise DataFailureException(url, response.status_code, response.content)
-
-        return self._admins_from_json(response.json())
-
     def get_netid_pwinfo(self, netid):
         """
         Returns NetidPwINfo object for the netid
