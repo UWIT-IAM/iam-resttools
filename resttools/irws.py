@@ -618,6 +618,8 @@ class IRWS(object):
         subscription.subscription_code = sub_data['subscription_code']
         subscription.subscription_name = sub_data['subscription_name']
         subscription.subscription_data = sub_data.get('subscription_data', None)
+        subscription.status_code = sub_data.get('status_code', None) 
+        subscription.status_name = sub_data.get('status_name', None)
         return subscription
 
     def _pdsentry_from_json(self, data):
