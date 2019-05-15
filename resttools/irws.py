@@ -609,6 +609,7 @@ class IRWS(object):
         uwnetid.uwnetid = id_data['uwnetid']
         uwnetid.validid = id_data['validid']
         uwnetid.uid = id_data['uid']
+        uwnetid.disenfran = id_data['disenfran']
         return uwnetid
 
     def _subscription_from_json(self, data):
