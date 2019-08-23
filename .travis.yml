@@ -15,11 +15,9 @@ after_script:
 before_deploy:
   - git describe --tags > resttools/VERSION
 deploy:
-  provider: pypi
+  provider: script
   skip_cleanup: true
-  user: jeffrouw
-  password:
-    secure: Hk16fdmiYvODsFjQl6hVF8LwphRUzIXOO7KA8bD3m2xM6hw9a01Tf0sv37wSUEJSJOURv1K8MBSOdE7yFGaYB5it7DvGI3ozGX2RMcCdkKWD6wtRHxTy1r8iOpQXEaOkYo32ZbVYQGAjVoJHlIf5U/IkyJAV2khJwiWd66PTX/8=
+  script: pip install twine && python setup.py sdist && twine upload dist/*
   on:
     tags: true
     python: '3.6'
