@@ -53,6 +53,18 @@ class NWS(object):
 
         return self._pwinfo_from_json(response.data)
 
+    def get_netid_supported(self, netid):
+        """
+        Returns a list of Supportees for the netid
+        """
+        url = "%s/uwnetid/%s/supported" % (self._base_url, quote_plus(netid))
+        response = self.dao.getURL(url, self._headers({"Accept": "application/json"}))
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._supportees_from_json(response.data)
+
     def set_netid_pw(self, netid, password, auth, action=None):
         """
         Sets password for netid
@@ -89,6 +101,11 @@ class NWS(object):
                                  kerb_status=infoobj.get('kerbStatus', None))
         else:
             return None
+
+    def _supportees_from_json(self, data):
+        supportobj = json.loads(data)
+        supportees = supportobj.get('supportedList', [])
+        return supportees
 
     def _headers(self, headers):
         # could auto-add headers here
