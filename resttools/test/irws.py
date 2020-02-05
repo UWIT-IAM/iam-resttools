@@ -15,6 +15,33 @@ class IRWS_Test():
     def __init__(self):
         self.irws = IRWS(settings.IRWS_CONF)
 
+    def test_get_entity_profile(self):
+        profile = self.irws.get_entity_profile(netid='bart196')
+        eq_(profile['preferred_fname'], 'Mel')
+        eq_(profile['pronoun'], 'she/her/hers')
+
+    def test_put_entity_profile(self):
+        profile = {
+            'preferred_fname': 'Mack',
+            'pronoun': 'attribute=103'
+        }
+        profile = self.irws.put_entity_profile(netid='bart196', profile=profile)
+        eq_(profile['preferred_fname'], 'Mack')
+        eq_(profile['preferred_lname'], 'Eastwood')
+        eq_(profile['pronoun'], 'they/them/theirs')
+
+    def test_get_verify_attributes(self):
+        attributes = self.irws.get_verify_attributes()
+        got103 = False
+        got601 = False
+        for element in attributes:
+            if element['attribute_code'] == '103':
+                got103 = True
+            if element['attribute_code'] == '601':
+                got601 = True
+        eq_(got103, True, msg='Missing attribute 103')
+        eq_(got601, False, msg='Unexpected attribute 601')
+
     def test_get_name_by_netid(self):
         name = self.irws.get_name_by_netid('javerage')
         eq_(name.preferred_cname, 'JAMES AVERAGE STUDENT-P')

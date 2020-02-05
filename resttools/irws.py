@@ -46,6 +46,90 @@ class IRWS(object):
             arg = quote(arg)
         return arg
 
+    # v3 - different concept
+    # This whole module is a thorn in our side (imho).  Rather than converting
+    # the IRWS responses into an arbitrary middle-man structure, we should
+    # simply pass them on to our client as opaque blobs.  To wit...
+
+    def get_entity_profile(self, netid=None):
+        """
+        Returns the entire entity profile as an opaque JSON dict blob.
+        """
+        if netid is not None:
+            url = "/%s/v3/entity.profile/uwnetid=%s" % (self._service_name, netid)
+        else:
+            return None
+
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        try:
+            profile = json.loads(response.data)['entity.profile'][0]
+        except ValueError as e:
+            raise DataFailureException(url, 500, "Bad json: " + str(e) + " in " + response.data)
+        except (KeyError, IndexError) as e:
+            raise DataFailureException(url, 500, "Missing key: " + str(e) + " in " + response.data)
+        except Exception as e:
+            raise DataFailureException(url, 500, repl(e) + " in " + response.data)
+        return profile
+
+    def put_entity_profile(self, netid=None, profile=None):
+        """
+        Update an entity profile with just the updated hunk of the profile
+
+        NB: The pronoun, if not other fields, cannot be stuffed back into the profile w/o adjustment
+        so you cannot simply update the response from our 'get' counterpart.
+        """
+        if profile is not None:
+            body = '{"entity.profile": [%s]}' % json.dumps(profile)
+        else:
+            return self.get_entity_profile(self, netid=netid)
+
+        if netid is not None:
+            url = "/%s/v3/entity.profile/uwnetid=%s?-reflect" % (self._service_name, netid)
+        else:
+            raise BadInput('Missing netid for entity profile')
+
+        response = self.dao.putURL(url, {"Content-type": "application/json", "Accept": "application/json"}, body)
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        try:
+            profile = json.loads(response.data)['entity.profile'][0]
+        except ValueError as e:
+            raise DataFailureException(url, 500, "Bad json: " + str(e) + " in " + response.data)
+        except (KeyError, IndexError) as e:
+            raise DataFailureException(url, 500, "Missing key: " + str(e) + " in " + response.data)
+        except Exception as e:
+            raise DataFailureException(url, 500, repl(e) + " in " + response.data)
+        return profile
+
+    def get_verify_attributes(self):
+        """
+        Fetch the verify attributes because they might change some day
+        """
+        url = "/%s/v3/reference.verify.attribute" % self._service_name
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        try:
+            attributes = json.loads(response.data)['reference.verify.attribute']
+        except ValueError as e:
+            raise DataFailureException(url, 500, "Bad json: " + str(e) + " in " + response.data)
+        except (KeyError, IndexError) as e:
+            raise DataFailureException(url, 500, "Missing key: " + str(e) + " in " + response.data)
+        except Exception as e:
+            raise DataFailureException(url, 500, repl(e) + " in " + response.data)
+        return attributes
+
     # v2 - no change
     def get_uwnetid(self, eid=None, regid=None, netid=None, source=None, status=None, ret_array=False):
         """

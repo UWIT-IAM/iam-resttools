@@ -1,0 +1,31 @@
+mock data for entity.profile/uwnetid=bart198
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "entity.profile": [
+    {
+      "regid": "EF89E7D06A7C11D5A4AE0004AC494FFE",
+      "type": {
+        "entity": "Person",
+        "is_test": "0"
+      },
+      "identifiers": {
+        "uwhr": "999008804",
+        "advance": "9900123733"
+      },
+      "preferred_name": "Millard P. Truman",
+      "preferred_fname": "Millard",
+      "preferred_mname": "P.",
+      "preferred_lname": "Truman",
+      "recover_contacts": [
+        {
+          "type": "tnc_version",
+          "value": "20151019",
+          "validation_date": "2015-11-30T11:01:01-08:00"
+        }
+      ],
+      "post_url": "/registry-eval/v3/entity.profile/EF89E7D06A7C11D5A4AE0004AC494FFE"
+    }
+  ],
+  "totalcount": 1
+}
