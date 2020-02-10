@@ -1,0 +1,19 @@
+mock data for entity.profile/uwnetid=bart197
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "entity.profile": [
+    {
+      "regid": "4ABBB947D05B68AB687BE860BE98AB56",
+      "type": {
+        "entity": "Person",
+        "is_test": "1"
+      },
+      "identifiers": {
+        "uwhr": "000211197"
+      },
+      "post_url": "/registry-dev/v3/entity.profile/4ABBB947D05B68AB687BE860BE98AB56"
+    }
+  ],
+  "totalcount": 1
+}

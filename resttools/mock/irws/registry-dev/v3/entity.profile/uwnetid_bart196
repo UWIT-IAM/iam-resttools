@@ -1,0 +1,39 @@
+mock data for entity.profile/uwnetid=bart196
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "entity.profile": [
+    {
+      "regid": "67CFDB1ED63A4F9A79C62580068A8FB5",
+      "type": {
+        "entity": "Person",
+        "is_test": "1"
+      },
+      "identifiers": {
+        "uwhr": "000211196"
+      },
+      "preferred_name": "Mel 'The Knife' Eastwood",
+      "preferred_fname": "Mel",
+      "preferred_mname": "'The Knife'",
+      "preferred_lname": "Eastwood",
+      "pronoun": "she/her/hers",
+      "recover_contacts": [
+        {
+          "type": "tnc_version",
+          "value": "20151019",
+          "validation_date": "2020-01-30T14:19:12-08:00"
+        },
+        {
+          "type": "email",
+          "value": "kl000001@thoselowes.net",
+          "validation_date": "2020-01-30T14:22:39-08:00"
+        }
+      ],
+      "logname": "registry1:setname:identity.uw@proxy-uw-1.uwit-mci-svcs.gcp.s.uw.edu",
+      "created": "2020-01-29 09:13:53.782867",
+      "updated": "2020-01-30 15:27:12.722930",
+      "post_url": "/registry-dev/v3/entity.profile/67CFDB1ED63A4F9A79C62580068A8FB5"
+    }
+  ],
+  "totalcount": 1
+}

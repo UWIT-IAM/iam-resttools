@@ -2,6 +2,8 @@
 *.egg-info
 *.o
 *~
+.*.swp
+
 .coverage
 .idea
 tests.log

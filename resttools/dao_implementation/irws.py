@@ -3,6 +3,7 @@ Contains IRWS DAO implementations.
 """
 from resttools.mock.mock_http import MockHTTP
 import json
+import re
 from resttools.dao_implementation.live import get_con_pool, get_live_url
 from resttools.dao_implementation.mock import get_mockdata_url
 
@@ -41,6 +42,14 @@ class File(object):
     def putURL(self, url, headers, body):
         logger.debug('file irws put url: ' + url)
 
+        # eat an optional "?-reflect", it will affect our response
+        reflect = re.search(r'([?&])(-reflect)([&]*)', url)
+        if reflect:
+            if reflect.end(3) == reflect.start(3):
+                url = url[:reflect.start(1)]
+            else:
+                url = url[:reflect.start(1) + 1] + url[reflect.start(3) + 1:]
+
         response = get_mockdata_url("irws", self._conf, url, headers)
         if response.status != 404 or url in File._cache_db:
             # try set in cache
@@ -56,9 +65,23 @@ class File(object):
                 put_section['preferred_cname'] = ' '.join(x for x in name_parts if x)
             # update the put data and leave everything else in place
             cache_data[key][0].update(put_section)
+            if 'entity.profile' in cache_data and 'pronoun' in cache_data['entity.profile'][0]:
+                if cache_data['entity.profile'][0]['pronoun'] == 'attribute=101':
+                    cache_data['entity.profile'][0]['pronoun'] = 'she/her/hers'
+                elif cache_data['entity.profile'][0]['pronoun'] == 'attribute=102':
+                    cache_data['entity.profile'][0]['pronoun'] = 'he/him/his'
+                elif cache_data['entity.profile'][0]['pronoun'] == 'attribute=103':
+                    cache_data['entity.profile'][0]['pronoun'] = 'they/them/theirs'
+                elif cache_data['entity.profile'][0]['pronoun'] == 'attribute=104':
+                    cache_data['entity.profile'][0]['pronoun'] = 'use my name'
+                elif cache_data['entity.profile'][0]['pronoun'] == '':
+                    del cache_data['entity.profile'][0]['pronoun']
             File._cache_db[url] = json.dumps(cache_data)
             # return an irws-style put response
-            response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
+            if reflect:
+                response.data = File._cache_db[url]
+            else:
+                response.data = '{"cached": {"code": "0000","message": "put cached in mock data"}}'
             response.status = 200
 
         return response

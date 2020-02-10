@@ -1,0 +1,42 @@
+mock data for reference.verify.attribute
+
+MOCKDATA-MOCKDATA-MOCKDATA
+{
+  "reference.verify.attribute": [
+    {
+      "attribute_code": "0",
+      "attribute_name": "No Attribute",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/0"
+    },
+    {
+      "attribute_code": "1",
+      "attribute_name": "Budget Data",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/1"
+    },
+    {
+      "attribute_code": "101",
+      "attribute_name": "she/her/hers",
+      "attribute_data": "she/her/hers",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/101"
+    },
+    {
+      "attribute_code": "102",
+      "attribute_name": "he/him/his",
+      "attribute_data": "he/him/his",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/102"
+    },
+    {
+      "attribute_code": "103",
+      "attribute_name": "they/them/theirs",
+      "attribute_data": "they/them/theirs",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/103"
+    },
+    {
+      "attribute_code": "104",
+      "attribute_name": "usemyname",
+      "attribute_data": "use my name",
+      "post_url": "/registry-eval/v3/reference.verify.attribute/104"
+    }
+  ],
+  "totalcount": 6
+}
