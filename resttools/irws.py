@@ -77,7 +77,7 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        id_data = json.loads(response.data)['uwnetid']
+        id_data = json.loads(response.data.decode())['uwnetid']
         if ret_array:
             ret = []
             for n in range(0, len(id_data)):
@@ -277,7 +277,7 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        person_data = json.loads(response.data)['person'][0]
+        person_data = json.loads(response.data.decode())['person'][0]
         return UWhrPerson(**person_data)
 
     def get_sdb_person(self, sid):
@@ -297,7 +297,7 @@ class IRWS(object):
 
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
-        person_data = json.loads(response.data)['person'][0]
+        person_data = json.loads(response.data.decode())['person'][0]
         return SdbPerson(**person_data)
 
     def get_cascadia_person(self, id):
@@ -354,7 +354,7 @@ class IRWS(object):
         if response.status != 200:
             raise DataFailureException(url, response.status, response.data)
 
-        data = json.loads(response.data)['person'][0]
+        data = json.loads(response.data.decode())['person'][0]
         return SupplementalPerson(**data)
 
     def get_generic_person(self, uri):
@@ -455,7 +455,7 @@ class IRWS(object):
         url = "/%s/v2/subscription/63/%s" % (self._service_name, netid)
         response = self.dao.getURL(url, {"Accept": "application/json"})
         if response.status == 200:
-            sub = json.loads(response.data)['subscription'][0]
+            sub = json.loads(response.data.decode())['subscription'][0]
             # verify pending subscription and unexpired, unused pac
             if sub['status_code'] != '23' or sub['pac'] != 'Y':
                 return 404
@@ -532,7 +532,7 @@ class IRWS(object):
         """
         Internal method, for creating the CascadiaPerson object.
         """
-        person_data = json.loads(data)['person'][0]
+        person_data = json.loads(data.decode())['person'][0]
         person = CascadiaPerson()
         person.validid = person_data['validid']
         person.regid = person_data['regid']
@@ -551,7 +551,7 @@ class IRWS(object):
         """
         Internal method, for creating the SccaPerson object.
         """
-        person_data = json.loads(data)['person'][0]
+        person_data = json.loads(data.decode())['person'][0]
         person = SccaPerson()
         person.validid = person_data['validid']
         person.regid = person_data['regid']
@@ -571,7 +571,7 @@ class IRWS(object):
         return person
 
     def _person_from_json(self, data):
-        persj = json.loads(data)['person'][0]
+        persj = json.loads(data.decode())['person'][0]
         idj = persj['identity']
         person = Person()
         person.regid = idj['regid']
@@ -584,7 +584,7 @@ class IRWS(object):
         return person
 
     def _regid_from_json(self, data):
-        rj = json.loads(data)['regid'][0]
+        rj = json.loads(data.decode())['regid'][0]
         regid = Regid()
         regid.regid = rj['regid']
         regid.entity_code = rj['entity_code']
@@ -594,7 +594,7 @@ class IRWS(object):
         return regid
 
     def _pw_recover_from_json(self, data):
-        info = json.loads(data)['profile'][0]
+        info = json.loads(data.decode())['profile'][0]
         ret = Profile()
         if 'validid' in info:
             ret.validid = info['validid']
@@ -613,7 +613,7 @@ class IRWS(object):
         return uwnetid
 
     def _subscription_from_json(self, data):
-        sub_data = json.loads(data)['subscription'][0]
+        sub_data = json.loads(data.decode())['subscription'][0]
         subscription = Subscription()
         subscription.uwnetid = sub_data['uwnetid']
         subscription.subscription_code = sub_data['subscription_code']
@@ -627,7 +627,7 @@ class IRWS(object):
         """
             Internal method, for creating the PDSEntry object.
             """
-        person_data = json.loads(data)['pdsentry'][0]['entry']
+        person_data = json.loads(data.decode())['pdsentry'][0]['entry']
         person = PDSEntry()
         person.regid = person_data.get('uwRegID', '')
         person.objectclass = person_data.get('objectClass', [])
@@ -666,14 +666,14 @@ class IRWS(object):
         return person
 
     def _pac_from_json(self, data):
-        pac_data = json.loads(data)['person'][0]
+        pac_data = json.loads(data.decode())['person'][0]
         pac = Pac()
         pac.pac = pac_data['pac']
         pac.expiration = pac_data['expiration']
         return pac
 
     def _name_from_json(self, data):
-        nd = json.loads(data)['name'][0]
+        nd = json.loads(data.decode())['name'][0]
         name = Name()
         name.validid = nd['validid']
         if 'formal_cname' in nd:
@@ -707,7 +707,7 @@ class IRWS(object):
         return name
 
     def _qna_from_json(self, data):
-        q_list = json.loads(data)['qna']
+        q_list = json.loads(data.decode())['qna']
         ret = []
         for q in q_list:
             qna = QnA()
@@ -722,7 +722,7 @@ class IRWS(object):
         """
         Internal method to create a GenericPerson object.
         """
-        person_data = json.loads(data)['person'][0]
+        person_data = json.loads(data.decode())['person'][0]
         person = GenericPerson()
         attributes = [attribute for attribute in dir(GenericPerson) if not attribute.startswith('_')]
         for attribute in attributes:
