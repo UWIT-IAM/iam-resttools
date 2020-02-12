@@ -357,4 +357,3 @@ class PDSEntry():
 class Categories(object):
     """IRWS categories"""
     categories = []
-
