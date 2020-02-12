@@ -137,6 +137,7 @@ class SdbPerson(object):
     lname = ''
     categories = ()
 
+    sdb_class = ''
     branch = ''
     college = ''
     department = ''
@@ -157,6 +158,34 @@ class SdbPerson(object):
     wp_phone = ()
     wp_department = ()
     wp_email = ()
+
+    in_feed = ''
+    created = ''
+    updated = ''
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+
+# IRWS Advance Person
+class AdvancePerson(object):
+    validid = ''
+    regid = ''
+    studentid = ''
+    birthdate = ''
+
+    fname = ''
+    lname = ''
+    categories = ()
+
+    alumni_member = ''
+    alumni_type = ''
+
+    source_code = ''
+    source_name = ''
+    # status: 1=active, 3=former
+    status_code = ''
+    status_name = ''
 
     in_feed = ''
     created = ''
@@ -323,3 +352,9 @@ class PDSEntry():
     uwnetid = ''
     uidnumber = ''
     edupersonaffiliation = []
+
+
+class Categories(object):
+    """IRWS categories"""
+    categories = []
+

@@ -4,6 +4,7 @@ import copy
 from six.moves.urllib.parse import quote
 import json
 from resttools.dao import IRWS_DAO
+from resttools.models.irws import Categories
 from resttools.models.irws import UWNetId
 from resttools.models.irws import Regid
 from resttools.models.irws import Subscription
@@ -11,6 +12,7 @@ from resttools.models.irws import Person
 from resttools.models.irws import Profile
 from resttools.models.irws import UWhrPerson
 from resttools.models.irws import SdbPerson
+from resttools.models.irws import AdvancePerson
 from resttools.models.irws import CascadiaPerson
 from resttools.models.irws import SccaPerson
 from resttools.models.irws import SupplementalPerson
@@ -45,6 +47,31 @@ class IRWS(object):
         if arg is not None:
             arg = quote(arg)
         return arg
+
+    def get_categories(self, netid=None, regid=None):
+        """
+        Returns an irws.Categories object for the given netid or regid.  If the
+        netid isn't found, nothing will be returned.  If there is an error
+        communicating with the IRWS, a DataFailureException will be thrown.
+        """
+        netid = self._clean(netid)
+        regid = self._clean(regid)
+
+        if netid is not None:
+            url = "/%s/v2/category?uwnetid=%s" % (self._service_name, netid.lower())
+        elif regid is not None:
+            url = "/%s/v2/category?validid=regid=%s" % (self._service_name, regid)
+        else:
+            return None
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._categories_from_json(response.data)
 
     # v2 - no change
     def get_uwnetid(self, eid=None, regid=None, netid=None, source=None, status=None, ret_array=False):
@@ -299,6 +326,26 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
         person_data = json.loads(response.data.decode())['person'][0]
         return SdbPerson(**person_data)
+
+    def get_advance_person(self, vid):
+        """
+        Returns an irws.AdvancePerson object for the given eid.
+        If the person is not a student, returns None.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error contacting IRWS, throws DataFailureException.
+        """
+        sid = self._clean(vid)
+
+        url = "/%s/v2/person/advance/%s" % (self._service_name, vid)
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+        person_data = json.loads(response.data.decode())['person'][0]
+        return AdvancePerson(**person_data)
 
     def get_cascadia_person(self, id):
         """
@@ -730,3 +777,13 @@ class IRWS(object):
             # the default attribute value
             setattr(person, attribute, person_data.get(attribute, getattr(GenericPerson, attribute)))
         return person
+
+    def _categories_from_json(self, data):
+        """
+        Internal method to create a GenericPerson object.
+        """
+        cat_array = json.loads(data.decode())['category']
+        cats = Categories()
+        for cat in cat_array:
+            cats.categories.append({'category_code': cat['category_code'], 'status_code': cat['status_code']})
+        return cats
