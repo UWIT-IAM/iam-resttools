@@ -789,6 +789,7 @@ class IRWS(object):
         """
         cat_array = json.loads(self._decode(data))['category']
         cats = Categories()
+        cats.categories = []
         for cat in cat_array:
             cats.categories.append({'category_code': cat['category_code'], 'status_code': cat['status_code']})
         return cats
