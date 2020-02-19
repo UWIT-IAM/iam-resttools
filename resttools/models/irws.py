@@ -219,6 +219,31 @@ class SupplementalPerson():
         self.__dict__.update(kwargs)
 
 
+# IRWS Sponsored Person
+class SponsoredPerson():
+    validid = ''
+    regid = ''
+    lname = ''
+    fname = ''
+    categories = []
+    contact_email = []
+    comment_code = ''
+    comment_name = ''
+    sponsor_org = ''
+    pac = ''
+    source_code = ''
+    source_name = ''
+    status_code = ''
+    status_name = ''
+    in_feed = ''
+    id_proofing = {}
+    created = ''
+    updated = ''
+
+    def __init__(self, **kwargs):
+        self.__dict__.update(kwargs)
+
+
 # IRWS Cascadia person
 class CascadiaPerson():
     validid = ''
@@ -354,6 +379,6 @@ class PDSEntry():
     edupersonaffiliation = []
 
 
-class Categories(object):
+class Categories():
     """IRWS categories"""
     categories = []

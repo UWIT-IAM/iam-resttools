@@ -281,6 +281,26 @@ class GWS(object):
         else:
             raise DataFailureException(url, response.status, response.data)
 
+    def is_direct_member(self, group_id, netid):
+        """
+        Returns True if the netid is directly in the group, False otherwise.
+        """
+        if not self._is_valid_group_id(group_id):
+            raise InvalidGroupID(group_id)
+
+        # GWS doesn't accept EPPNs on member checks, for UW users
+        netid = re.sub('@washington.edu', '', netid)
+
+        url = "/group_sws/v2/group/%s/member/%s" % (group_id, netid)
+        response = self.dao.getURL(url, self._headers({"Accept": "text/xml"}))
+
+        if response.status == 404:
+            return False
+        elif response.status == 200:
+            return True
+        else:
+            raise DataFailureException(url, response.status, response.data)
+
     def _group_from_xml(self, data):
         root = etree.fromstring(data)
         gr = root.find('group')

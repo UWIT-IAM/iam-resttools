@@ -16,6 +16,7 @@ from resttools.models.irws import AdvancePerson
 from resttools.models.irws import CascadiaPerson
 from resttools.models.irws import SccaPerson
 from resttools.models.irws import SupplementalPerson
+from resttools.models.irws import SponsoredPerson
 from resttools.models.irws import Pac
 from resttools.models.irws import Name
 from resttools.models.irws import QnA
@@ -398,6 +399,25 @@ class IRWS(object):
         """
         id = self._clean(id)
         url = "/%s/v2/person/supplemental/%s" % (self._service_name, id)
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        data = json.loads(self._decode(response.data))['person'][0]
+        return SupplementalPerson(**data)
+
+    def get_sponsored_person(self, source, vid):
+        """
+        Returns an irws.SponsoredPerson object for the given id.
+        If the netid isn't found, throws IRWSNotFound.
+        If there is an error contacting IRWS, throws DataFailureException.
+        """
+        id = self._clean(id)
+        url = "/%s/v2/person/%s/%s" % (self._service_name, source, vid)
         response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
