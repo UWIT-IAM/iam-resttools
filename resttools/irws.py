@@ -410,14 +410,14 @@ class IRWS(object):
         data = json.loads(self._decode(response.data))['person'][0]
         return SupplementalPerson(**data)
 
-    def get_sponsored_person(self, source, vid):
+    def get_sponsored_person(self, source, id):
         """
         Returns an irws.SponsoredPerson object for the given id.
         If the netid isn't found, throws IRWSNotFound.
         If there is an error contacting IRWS, throws DataFailureException.
         """
         id = self._clean(id)
-        url = "/%s/v2/person/%s/%s" % (self._service_name, source, vid)
+        url = "/%s/v2/person/%s/%s" % (self._service_name, source, id)
         response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
@@ -427,7 +427,7 @@ class IRWS(object):
             raise DataFailureException(url, response.status, response.data)
 
         data = json.loads(self._decode(response.data))['person'][0]
-        return SupplementalPerson(**data)
+        return SponsoredPerson(**data)
 
     def get_generic_person(self, uri):
         """
