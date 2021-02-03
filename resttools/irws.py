@@ -22,6 +22,7 @@ from resttools.models.irws import Name
 from resttools.models.irws import QnA
 from resttools.models.irws import GenericPerson
 from resttools.models.irws import PDSEntry
+from resttools.models.irws import AccountUWNetId
 
 from resttools.exceptions import DataFailureException, InvalidIRWSName
 from resttools.exceptions import ResourceNotFound, BadInput
@@ -685,6 +686,25 @@ class IRWS(object):
         url = "/%s/v2/person?uwnetid=%s&%s=%s" % (self._service_name, netid, attribute, value)
         return self.dao.getURL(url, {'Accept': 'application/json'}).status == 200
 
+    def get_account_uwnetid(self, netid):
+        """
+        Returns an irws.AccountUWNetID object for the given netid.  If the
+        netid isn't found, nothing will be returned.  If there is an error
+        communicating with the IRWS, a DataFailureException will be thrown.
+        """
+        netid = self._clean(netid)
+
+        url = "/%s/v3/account.uwnetid/%s" % (self._service_name, netid.lower())
+        response = self.dao.getURL(url, {"Accept": "application/json"})
+
+        if response.status == 404:
+            return None
+
+        if response.status != 200:
+            raise DataFailureException(url, response.status, response.data)
+
+        return self._account_uwnetid_from_json(response.data)
+
     def _cascadia_person_from_json(self, data):
         """
         Internal method, for creating the CascadiaPerson object.
@@ -898,3 +918,10 @@ class IRWS(object):
         for cat in cat_array:
             cats.categories.append({'category_code': cat['category_code'], 'status_code': cat['status_code']})
         return cats
+
+    def _account_uwnetid_from_json(self, data):
+        sub_data = json.loads(self._decode(data))['account.uwnetid'][0]
+        au = AccountUWNetId()
+        au.uwnetid = sub_data['uwnetid']
+        au.status_code = sub_data['status_code']
+        return au

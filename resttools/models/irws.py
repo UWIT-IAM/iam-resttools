@@ -382,3 +382,8 @@ class PDSEntry():
 class Categories():
     """IRWS categories"""
     categories = []
+
+# bare minimum account.uwnetid resource
+class AccountUWNetId():
+    uwnetid = ''
+    status_code = ''
