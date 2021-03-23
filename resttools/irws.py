@@ -694,7 +694,7 @@ class IRWS(object):
         """
         netid = self._clean(netid)
 
-        url = "/%s/v3/account.uwnetid/%s" % (self._service_name, netid.lower())
+        url = "/%s/v3/account/%s" % (self._service_name, netid.lower())
         response = self.dao.getURL(url, {"Accept": "application/json"})
 
         if response.status == 404:
