@@ -920,7 +920,7 @@ class IRWS(object):
         return cats
 
     def _account_uwnetid_from_json(self, data):
-        sub_data = json.loads(self._decode(data))['account.uwnetid'][0]
+        sub_data = json.loads(self._decode(data))['account'][0]
         au = AccountUWNetId()
         au.uwnetid = sub_data['uwnetid']
         au.status_code = sub_data['status_code']
