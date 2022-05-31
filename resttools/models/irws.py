@@ -136,6 +136,7 @@ class SdbPerson(object):
     fname = ''
     lname = ''
     categories = ()
+    contact_email = ()
 
     branch = ''
     college = ''
@@ -148,6 +149,7 @@ class SdbPerson(object):
     status_name = ''
     pac = ''
 
+    cnet_account = ''
     cnet_id = ''
     cnet_user = ''
 
